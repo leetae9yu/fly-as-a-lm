@@ -1,0 +1,75 @@
+{
+  "corpus_fingerprint": "fa335aca6e5faf2fa9abe9dd990971f751ec995d23a596d0ca932c89c46546d6",
+  "context": 16,
+  "evaluation_windows": 2048,
+  "theoretical_uniform_accuracy": 0.020833333333333332,
+  "train": [
+    {
+      "name": "unigram",
+      "greedy_accuracy": 0.189453125,
+      "expected_reward": 0.07305645142441326,
+      "bits_per_character": 4.365592066033192,
+      "trials": 2048
+    },
+    {
+      "name": "bigram",
+      "greedy_accuracy": 0.306640625,
+      "expected_reward": 0.17734447834191797,
+      "bits_per_character": 3.366064721377734,
+      "trials": 2048
+    },
+    {
+      "name": "trigram",
+      "greedy_accuracy": 0.41015625,
+      "expected_reward": 0.28027028094685147,
+      "bits_per_character": 2.7415035936155423,
+      "trials": 2048
+    }
+  ],
+  "valid": [
+    {
+      "name": "unigram",
+      "greedy_accuracy": 0.18359375,
+      "expected_reward": 0.07031516380677455,
+      "bits_per_character": 4.512715601708086,
+      "trials": 2048
+    },
+    {
+      "name": "bigram",
+      "greedy_accuracy": 0.30517578125,
+      "expected_reward": 0.18280832154377635,
+      "bits_per_character": 3.350228458891674,
+      "trials": 2048
+    },
+    {
+      "name": "trigram",
+      "greedy_accuracy": 0.41064453125,
+      "expected_reward": 0.28008888985948943,
+      "bits_per_character": 2.804488916287598,
+      "trials": 2048
+    }
+  ],
+  "test": [
+    {
+      "name": "unigram",
+      "greedy_accuracy": 0.18505859375,
+      "expected_reward": 0.0704594077718539,
+      "bits_per_character": 4.523553516902998,
+      "trials": 2048
+    },
+    {
+      "name": "bigram",
+      "greedy_accuracy": 0.29345703125,
+      "expected_reward": 0.17692331199537298,
+      "bits_per_character": 3.4566621488285927,
+      "trials": 2048
+    },
+    {
+      "name": "trigram",
+      "greedy_accuracy": 0.39697265625,
+      "expected_reward": 0.27477004517741904,
+      "bits_per_character": 2.9203091444152633,
+      "trials": 2048
+    }
+  ]
+}

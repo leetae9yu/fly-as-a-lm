@@ -1,0 +1,17 @@
+.omo/
+.venv/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+artifacts/
+results/
+*.partial
+.env
+.env.*
+!.env.example
+data/large_connectome/raw/
+data/large_connectome/malecns_v1_full.npz

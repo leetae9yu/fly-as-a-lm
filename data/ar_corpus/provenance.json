@@ -1,0 +1,9 @@
+{
+  "base_fingerprint": "fa335aca6e5faf2fa9abe9dd990971f751ec995d23a596d0ca932c89c46546d6",
+  "fingerprint": "43404b2869c84abf719bff18600c2d463d73c1b41ba41190e6f35692d80d3a4e",
+  "raw_test_sha256": "d790b833ef8cf03a90db7bf1271b7520b83c45ce07ba3c1a9699df81e239eca0",
+  "raw_test_url": "https://raw.githubusercontent.com/pytorch/examples/acc295dc7b90714f1bf47f06004fc19a7fe235c4/word_language_model/data/wikitext-2/test.txt",
+  "normalized_test_start": 65536,
+  "normalized_test_end_exclusive": 131072,
+  "selection": "next equal-length region after the previously evaluated prefix"
+}

@@ -1,0 +1,26 @@
+{
+  "dataset": "Left Drosophila larval mushroom body, Eichler et al. (2017)",
+  "paper": "https://doi.org/10.1038/nature23455",
+  "source": "https://raw.githubusercontent.com/graspologic-org/graspologic/ccf1458bd73b25cb1e7a779c098a54943647bfa1/graspologic/datasets/drosophila",
+  "commit": "ccf1458bd73b25cb1e7a779c098a54943647bfa1",
+  "checksums": {
+    "left_adjacency.csv": "f23ba630f10dff95164ddbbdccf7d4fe1ac01a9a8ed77db26069af4a6248a1cf",
+    "left_cell_labels.csv": "a733652a33d5dde5c7cbdc9d8c0e679680cd000dc11edf3ea762a4da43b764c9"
+  },
+  "neurons": 209,
+  "directed_edges": 7425,
+  "cell_classes": {
+    "K": 101,
+    "I": 21,
+    "O": 29,
+    "P": 58
+  },
+  "assumptions": [
+    "Rows are presynaptic and columns postsynaptic.",
+    "All nonzero entries, including observed self-connections, are retained.",
+    "Weights are log1p(synapse count), not measured synaptic efficacy.",
+    "No transmitter annotations: all positive signs are a modeling assumption.",
+    "Node IDs identify source matrix rows, not original anatomical skeleton IDs.",
+    "This is a larval subcircuit, not an adult or whole-brain simulation."
+  ]
+}

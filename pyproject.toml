@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/flyrl",
+    "/scripts",
+    "/tests",
+    "/data",
+    "/README.md",
+    "/RESULTS.md",
+    "/LANGUAGE.md",
+    "/LANGUAGE_RESULTS.md",
+    "/AUTOREGRESSIVE.md",
+    "/AR_RESULTS.md",
+    "/run_colab.sh",
+    "/run_language_colab.sh",
+    "/run_ar_colab.sh",
+    "/pyproject.toml",
+    "/uv.lock",
+]
+exclude = [
+    "/data/large_connectome/raw",
+    "/data/large_connectome/*.npz",
+    "/data/large_connectome/*.npy",
+]
+
+[project]
+name = "flyrl"
+version = "0.1.0"
+description = "Connectome-constrained recurrent language experiments"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.0,<3", "pydantic>=2.10,<3", "typer>=0.15,<1", "typing-extensions>=4.12"]
+
+[project.optional-dependencies]
+language = ["torch>=2.6,<3"]
+connectome = ["pyarrow==21.0.0"]
+
+[project.scripts]
+flyrl = "flyrl.cli:app"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.11", "basedpyright>=1.28"]
+
+[tool.basedpyright]
+typeCheckingMode = "all"
+pythonVersion = "3.11"
+include = ["flyrl", "tests"]
+exclude = ["**/__pycache__", ".venv", "build", "dist"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["COM812", "ISC001", "D203", "D213", "CPY001", "FBT001", "FBT002", "TD002", "TD003", "FIX002"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101", "ARG", "PLR2004", "SLF001", "D", "INP001"]
+# Typer intentionally exposes independent, keyword-only user options.
+"flyrl/cli.py" = ["PLR0913"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+filterwarnings = ["error"]

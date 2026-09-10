@@ -1,0 +1,115 @@
+{
+  "dataset_id": "malecns_v1",
+  "sex": "male",
+  "release": "MaleCNS v1.0",
+  "coverage": "brain_and_ventral_nerve_cord",
+  "source_annotation_rows": 211577,
+  "retained_neuron_candidates": 166700,
+  "excluded_object_counts": {
+    "unresolved_object": 33013,
+    "non_neuronal": 11864
+  },
+  "quality_counts": {
+    "Roughly traced": 71978,
+    "Reviewed": 54062,
+    "Prelim Roughly traced": 36370,
+    "RT Hard to trace": 2017,
+    "Out of scope": 1991,
+    "Leaves": 112,
+    "PRT Orphan": 64,
+    "Orphan-artifact": 26,
+    "Sensory Anchor": 23,
+    "Partially traced": 17,
+    "Anchor": 12,
+    "unknown": 11,
+    "Soma Anchor": 8,
+    "Orphan": 4,
+    "RT Orphan": 3,
+    "Orphan hotknife": 1,
+    "Hard to trace": 1
+  },
+  "superclass_counts": {
+    "ol_intrinsic": 89403,
+    "cb_intrinsic": 32164,
+    "vnc_intrinsic": 13161,
+    "visual_projection": 9201,
+    "vnc_sensory": 6370,
+    "ol_sensory": 6098,
+    "cb_sensory": 4868,
+    "ascending_neuron": 1846,
+    "descending_neuron": 1314,
+    "vnc_motor": 708,
+    "visual_centrifugal": 563,
+    "sensory_ascending": 537,
+    "cb_motor": 107,
+    "vnc_efferent": 94,
+    "cb_endocrine": 72,
+    "ENS": 50,
+    "vnc_tbc": 38,
+    "vnc_sensory_tbc": 36,
+    "vnc_endocrine": 22,
+    "cb_sensory_tbc": 14,
+    "sensory_descending": 12,
+    "efferent_ascending": 8,
+    "efferent_descending": 4,
+    "cb_efferent": 4,
+    "visual_projection_tbc": 2,
+    "sensory_ascending_tbc": 2,
+    "descending_neuron_tbc": 2
+  },
+  "neurotransmitter_counts": {
+    "acetylcholine": 103720,
+    "glutamate": 29302,
+    "gaba": 22069,
+    "histamine": 7891,
+    "unclear": 2999,
+    "dopamine": 392,
+    "missing": 178,
+    "octopamine": 101,
+    "serotonin": 48
+  },
+  "isolated_neurons": 217,
+  "node_policy": "Every entry with an assigned superclass, including uncertain tbc classes; no restriction to Traced status or typed cells.",
+  "edge_policy": "All released edges between retained entries; no additional weight threshold or removal of self-connections.",
+  "upstream_filters": [
+    "Published pre/post synapse confidence threshold 0.5",
+    "Only annotated neuronal entries become simulation nodes; other segmentation objects remain in raw data"
+  ],
+  "upstream_autapses_excluded": false,
+  "additional_edge_strength_threshold": null,
+  "synaptic_weights_are_contact_counts": true,
+  "source_hashes": {
+    "annotations.feather": {
+      "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/body-annotations-male-cns-v1.0-minconf-0.5.feather",
+      "bytes": 14483314,
+      "sha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2"
+    },
+    "neurotransmitters.feather": {
+      "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/body-neurotransmitters-male-cns-v1.0.feather",
+      "bytes": 43282834,
+      "sha256": "95c9289220663abeb3409f3ad9e5a7f8a53f8093f5139d15502cd08da8879621"
+    },
+    "edges.feather": {
+      "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/connectome-weights-male-cns-v1.0-minconf-0.5.feather",
+      "bytes": 1051241946,
+      "sha256": "e35da783d1c686b2b58b3b87cd6a403ae43bfcfba8bff28e08ef752c1a56afc1"
+    }
+  },
+  "graph": {
+    "source_edge_rows": 151856684,
+    "retained_edge_rows": 25582938,
+    "excluded_edge_rows": 126273746,
+    "source_synaptic_contacts": 311833243,
+    "retained_synaptic_contacts": 124177617,
+    "excluded_synaptic_contacts": 187655626,
+    "retained_weight_one_edges": 10299701,
+    "retained_self_edges": 101
+  },
+  "neural_dynamics_validated": false,
+  "embodied_behavior_implemented": false,
+  "remaining_gaps": [
+    "Receptor-dependent synapse dynamics and neuromodulation",
+    "Dataset-specific sensory and muscle mappings",
+    "Body/gut physiology and validation"
+  ]
+}
