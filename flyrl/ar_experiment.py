@@ -11,6 +11,7 @@ from pydantic import TypeAdapter
 from flyrl.ar_benchmark import synchronize
 from flyrl.ar_checkpoint import load_checkpoint, save_checkpoint
 from flyrl.ar_config import ARConfig, ARMetrics, TraceEntry
+from flyrl.ar_corpus import ARCorpus, tokenization, vocabulary
 from flyrl.ar_learning import ARLearner
 from flyrl.ar_reporting import (
     RunReport,
@@ -24,7 +25,7 @@ from flyrl.ar_reporting import (
 from flyrl.connectome import Graph
 from flyrl.language_baselines import MIN_CONTEXT
 from flyrl.language_checkpoint import atomic_text
-from flyrl.language_data import Corpus
+from flyrl.language_data import CorpusError
 from flyrl.language_models import Settings
 
 
@@ -40,11 +41,20 @@ class RunBudget(Settings):
     progress: bool = False
 
 
-def run(graph: Graph, corpus: Corpus, config: ARConfig, budget: RunBudget) -> RunReport:
+def run(
+    graph: Graph, corpus: ARCorpus, config: ARConfig, budget: RunBudget
+) -> RunReport:
     """Train to the total update target, preserving original initial scores."""
     if config.context < MIN_CONTEXT:
-        message = "CLI comparison requires context >=2 for matched trigram targets"
-        raise ValueError(message)
+        raise CorpusError(
+            reason="CLI comparison requires context >=2 for matched trigram targets"
+        )
+    if config.tokenization != tokenization(corpus) or config.alphabet_size != len(
+        vocabulary(corpus)
+    ):
+        raise CorpusError(
+            reason="Model vocabulary and prediction units differ from corpus"
+        )
     if budget.updates < 0 or budget.checkpoint_steps < 1:
         message = "Need nonnegative updates and positive checkpoint steps"
         raise ValueError(message)
@@ -112,7 +122,9 @@ def run(graph: Graph, corpus: Corpus, config: ARConfig, budget: RunBudget) -> Ru
         device=device_evidence(learner),
         session_seconds=perf_counter() - start,
         training_seconds_this_session=training_seconds,
-        generated=generated,
+        generated=generated.text,
+        generated_token_ids=generated.token_ids,
+        generated_with_prompt=generated.complete_text,
         trace=tuple(learner.trace),
     )
     atomic_text(path / "report.json", report.model_dump_json(indent=2))

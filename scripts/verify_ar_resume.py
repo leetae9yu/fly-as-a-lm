@@ -13,12 +13,12 @@ import torch
 import typer
 
 from flyrl.ar_checkpoint import load_checkpoint, save_checkpoint
+from flyrl.ar_corpus import load_ar_corpus
 from flyrl.ar_framework import optimizer_tensors
 from flyrl.ar_learning import ARLearner
 from flyrl.ar_reporting import RunReport, continuations, file_identity
 from flyrl.connectome import load_graph
 from flyrl.language_checkpoint import atomic_text
-from flyrl.language_data import load_corpus
 from flyrl.language_models import Settings
 
 
@@ -81,7 +81,7 @@ class Command:
         """Verify exact restoration, then measure two additional continuation steps."""
         report = RunReport.model_validate_json((self.run / "report.json").read_bytes())
         torch.set_num_threads(1)
-        graph, corpus = load_graph(self.graph), load_corpus(self.corpus)
+        graph, corpus = load_graph(self.graph), load_ar_corpus(self.corpus)
         source = self.run / "checkpoint.npz"
         source_hash = file_identity(source)
         first = ARLearner(graph, report.config)
@@ -115,7 +115,13 @@ class Command:
             source_sha256=source_hash,
             source_updates=report.updates,
             continued_updates=second.updates,
-            stored_generation_reproduced=generated == report.generated,
+            stored_generation_reproduced=(
+                generated.text == report.generated
+                and (
+                    not report.generated_token_ids
+                    or generated.token_ids == report.generated_token_ids
+                )
+            ),
             restoration=restored,
             continuation=continued,
             continuation_loss_difference=abs(

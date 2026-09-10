@@ -3,11 +3,16 @@
 import hashlib
 from math import log
 from pathlib import Path
+from typing import assert_never
 
 import torch
+from pydantic import Field
 
 from flyrl.ar_config import ARConfig, ARMetrics, TraceEntry
+from flyrl.ar_corpus import ARCorpus, decode
 from flyrl.ar_learning import ARLearner
+from flyrl.ar_ngrams import fit_ngrams
+from flyrl.bpe_data import BPECorpus
 from flyrl.language_baselines import fit_baselines, score_baselines
 from flyrl.language_data import Corpus, evaluation_starts
 from flyrl.language_models import Settings
@@ -30,6 +35,8 @@ class RunReport(Settings):
     training_seconds_this_session: float
     generated: dict[str, str]
     trace: tuple[TraceEntry, ...]
+    generated_token_ids: dict[str, tuple[int, ...]] = Field(default_factory=dict)
+    generated_with_prompt: dict[str, str] = Field(default_factory=dict)
     selection: str = "fixed final update; no test or validation selection"
     shuffle: str = (
         "target-stub permutation; degrees preserved; multiedges/self-loops allowed"
@@ -46,7 +53,7 @@ def file_identity(path: Path) -> str:
 
 
 def evaluate_splits(
-    learner: ARLearner, corpus: Corpus, *, zero_recurrent: bool = False
+    learner: ARLearner, corpus: ARCorpus, *, zero_recurrent: bool = False
 ) -> dict[str, ARMetrics]:
     """Evaluate immutable splits without sharing a hidden state across them."""
     return {
@@ -59,8 +66,32 @@ def evaluate_splits(
     }
 
 
-def baselines(corpus: Corpus, config: ARConfig) -> dict[str, dict[str, ARMetrics]]:
+def baselines(corpus: ARCorpus, config: ARConfig) -> dict[str, dict[str, ARMetrics]]:
     """Fit only train and score at identical final targets; context must be >=2."""
+    match corpus:
+        case BPECorpus():
+            models = fit_ngrams(corpus.train, len(corpus.vocabulary))
+            return {
+                name: {
+                    label: model.score(
+                        tokens,
+                        evaluation_starts(tokens, config.context, config.eval_windows)
+                        + config.context,
+                    )
+                    for label, model in zip(
+                        ("unigram", "bigram", "trigram"), models, strict=True
+                    )
+                }
+                for name, tokens in (
+                    ("train", corpus.train),
+                    ("valid", corpus.valid),
+                    ("test", corpus.test),
+                )
+            }
+        case Corpus():
+            pass
+        case _:
+            assert_never(corpus)
     fitted = fit_baselines(corpus)
     result: dict[str, dict[str, ARMetrics]] = {}
     for name, tokens in (
@@ -98,19 +129,35 @@ def counts(learner: ARLearner) -> dict[str, int]:
         "sensory_neurons": model.sensory.numel(),
         "readout_neurons": model.ports.numel(),
         "fixed_code_values": model.codes.numel(),
+        "vocabulary_tokens": learner.config.alphabet_size,
     }
 
 
-def identities(learner: ARLearner, corpus: Corpus) -> dict[str, str]:
+def identities(learner: ARLearner, corpus: ARCorpus) -> dict[str, str]:
     """Identify the source graph and exact control's ordered recurrent edges."""
     edges = learner.model.edges.detach().cpu().numpy()
+    match corpus:
+        case Corpus():
+            text_identity = {
+                "tokenization": "character",
+                "alphabet": "".join(corpus.alphabet),
+            }
+        case BPECorpus():
+            text_identity = {
+                "tokenization": "bpe",
+                "tokenizer_sha256": hashlib.sha256(
+                    corpus.tokenizer_json.encode()
+                ).hexdigest(),
+            }
+        case _:
+            assert_never(corpus)
     return {
         "graph_fingerprint": graph_fingerprint(learner.graph),
         "graph_provenance": learner.graph.provenance,
         "control_edge_sha256": hashlib.sha256(edges.tobytes()).hexdigest(),
         "corpus_fingerprint": corpus.fingerprint,
         "corpus_provenance": corpus.provenance,
-        "alphabet": "".join(corpus.alphabet),
+        **text_identity,
     }
 
 
@@ -134,18 +181,31 @@ def device_evidence(learner: ARLearner) -> dict[str, str | int | bool | None]:
     }
 
 
-def continuations(learner: ARLearner, corpus: Corpus) -> dict[str, str]:
+class Continuations(Settings):
+    """Decoded strings and exact IDs, including undecodable byte pieces."""
+
+    text: dict[str, str]
+    token_ids: dict[str, tuple[int, ...]]
+    complete_text: dict[str, str]
+
+
+def continuations(learner: ARLearner, corpus: ARCorpus) -> Continuations:
     """Generate freely from a training-only prefix; no test continuation is fed back."""
     prompt = [int(corpus.train.item(i)) for i in range(learner.config.context)]
-    return {
-        "prompt": "".join(corpus.alphabet[token] for token in prompt),
+    ids = {
+        "prompt": tuple(prompt),
         **{
-            name: "".join(
-                corpus.alphabet[token]
-                for token in learner.generate(
-                    prompt, learner.config.sample_length, greedy=greedy
-                )
+            name: tuple(
+                learner.generate(prompt, learner.config.sample_length, greedy=greedy)
             )
             for name, greedy in (("sampled", False), ("greedy", True))
         },
     }
+    return Continuations(
+        text={name: decode(corpus, tokens) for name, tokens in ids.items()},
+        token_ids=ids,
+        complete_text={
+            name: decode(corpus, ids["prompt"] + ids[name])
+            for name in ("sampled", "greedy")
+        },
+    )

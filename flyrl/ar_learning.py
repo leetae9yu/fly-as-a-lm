@@ -1,6 +1,8 @@
 """Teacher-forced maximum likelihood, immutable evaluation and free generation."""
 
-from math import log
+from math import exp, log
+from sys import float_info
+from typing import assert_never
 
 import numpy as np
 import torch
@@ -48,7 +50,7 @@ class ARLearner:
         self.updates, self.trace = 0, []
 
     def loss(self, windows: torch.Tensor) -> torch.Tensor:
-        """Score every strict next-character pair, including the final position."""
+        """Score every strict next-token pair, including the final position."""
         logits = self.model.forward(windows[:, :-1])
         return torch.nn.functional.cross_entropy(
             logits.reshape(-1, self.config.alphabet_size), windows[:, 1:].reshape(-1)
@@ -111,11 +113,21 @@ class ARLearner:
             )
             correct += int((logits.argmax(dim=1) == target).sum().item())
         nll = total_nll / starts.size
+        match self.config.tokenization:
+            case "character":
+                bpc, bpt, perplexity = nll / log(2), None, None
+            case "bpe":
+                bpc, bpt = None, nll / log(2)
+                perplexity = exp(nll) if nll <= log(float_info.max) else None
+            case _:
+                assert_never(self.config.tokenization)
         return ARMetrics(
             windows=int(starts.size),
             greedy_accuracy=correct / starts.size,
             nll=nll,
-            bits_per_character=nll / log(2),
+            bits_per_character=bpc,
+            bits_per_token=bpt,
+            perplexity=perplexity,
         )
 
     @torch.no_grad()

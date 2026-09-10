@@ -1,0 +1,479 @@
+{
+  "config": {
+    "alphabet_size": 4096,
+    "tokenization": "bpe",
+    "seed": 0,
+    "device": "cpu",
+    "control": "real",
+    "context": 8,
+    "batch_size": 2,
+    "learning_rate": 0.003,
+    "weight_decay": 0.0,
+    "gradient_clip": 1.0,
+    "leak": 0.5,
+    "initial_gain": 0.9,
+    "readout_neurons": 256,
+    "edge_chunk": 65536,
+    "eval_windows": 16,
+    "sample_length": 32
+  },
+  "updates": 34,
+  "initial": {
+    "train": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 8.318022966384888,
+      "bits_per_character": null,
+      "bits_per_token": 12.000370483603982,
+      "perplexity": 4097.0519864991775
+    },
+    "valid": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 8.3179532289505,
+      "bits_per_character": null,
+      "bits_per_token": 12.000269873753227,
+      "perplexity": 4096.766278567473
+    },
+    "test": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 8.317517638206482,
+      "bits_per_character": null,
+      "bits_per_token": 11.999641449146976,
+      "perplexity": 4094.982153698471
+    }
+  },
+  "final": {
+    "train": {
+      "windows": 16,
+      "greedy_accuracy": 0.0625,
+      "nll": 6.899909228086472,
+      "bits_per_character": null,
+      "bits_per_token": 9.95446482594435,
+      "perplexity": 992.1846490181646
+    },
+    "valid": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.725236535072327,
+      "bits_per_character": null,
+      "bits_per_token": 11.145160438843085,
+      "perplexity": 2264.7882259574026
+    },
+    "test": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.6808483600616455,
+      "bits_per_character": null,
+      "bits_per_token": 11.081121838881064,
+      "perplexity": 2166.456927985324
+    }
+  },
+  "zero_recurrent": {
+    "train": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.556053459644318,
+      "bits_per_character": null,
+      "bits_per_token": 10.901080854920753,
+      "perplexity": 1912.283696900012
+    },
+    "valid": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.871617674827576,
+      "bits_per_character": null,
+      "bits_per_token": 11.356343783247656,
+      "perplexity": 2621.8033849134313
+    },
+    "test": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.848751127719879,
+      "bits_per_character": null,
+      "bits_per_token": 11.32335432913313,
+      "perplexity": 2562.532042400448
+    }
+  },
+  "baselines": {
+    "train": {
+      "unigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0625,
+        "nll": 6.3736554952065125,
+        "bits_per_character": null,
+        "bits_per_token": 9.195241175269127,
+        "perplexity": 586.1967565231754
+      },
+      "bigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.1875,
+        "nll": 6.081371045548103,
+        "bits_per_character": null,
+        "bits_per_token": 8.773563849217979,
+        "perplexity": 437.62879259427496
+      },
+      "trigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.6875,
+        "nll": 6.65019942460808,
+        "bits_per_character": null,
+        "bits_per_token": 9.594209730804716,
+        "perplexity": 772.9384531143052
+      }
+    },
+    "valid": {
+      "unigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0,
+        "nll": 7.039217444165015,
+        "bits_per_character": null,
+        "bits_per_token": 10.15544409843595,
+        "perplexity": 1140.4947564955262
+      },
+      "bigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.125,
+        "nll": 7.378877234567909,
+        "bits_per_character": null,
+        "bits_per_token": 10.645469593639591,
+        "perplexity": 1601.7903230401755
+      },
+      "trigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0625,
+        "nll": 7.958026127522066,
+        "bits_per_character": null,
+        "bits_per_token": 11.481004829440886,
+        "perplexity": 2858.425213522698
+      }
+    },
+    "test": {
+      "unigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0,
+        "nll": 7.1734794206768004,
+        "bits_per_character": null,
+        "bits_per_token": 10.349143186129455,
+        "perplexity": 1304.3751863238974
+      },
+      "bigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.125,
+        "nll": 7.597848005723561,
+        "bits_per_character": null,
+        "bits_per_token": 10.961377639285482,
+        "perplexity": 1993.9004125593024
+      },
+      "trigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0625,
+        "nll": 7.912521213082905,
+        "bits_per_character": null,
+        "bits_per_token": 11.415355115043432,
+        "perplexity": 2731.2679013239463
+      }
+    }
+  },
+  "counts": {
+    "nodes": 16384,
+    "edges": 1187999,
+    "recurrent_parameters": 1204383,
+    "head_parameters": 1052672,
+    "trainable_parameters": 2257055,
+    "sensory_neurons": 192,
+    "readout_neurons": 256,
+    "fixed_code_values": 786432,
+    "vocabulary_tokens": 4096
+  },
+  "identities": {
+    "graph_fingerprint": "7749587d400d0338a6f94916d0f034494ca237e0b6a19d2a000346053dfff647",
+    "graph_provenance": "MaleCNS-v1.0; brain-and-ventral-nerve-cord; source_edges_sha256=e35da783d1c686b2b58b3b87cd6a403ae43bfcfba8bff28e08ef752c1a56afc1; body_pre->body_post; synapse_count=anatomical-contacts; weight=log1p(contacts)-all-positive-model-assumption; CC-BY-4.0; induced-hub-BFS-n=16384",
+    "control_edge_sha256": "d8cf9752b3aa2b213532af99e5664eeb03f260e3af41bc9e1c5b0975e7b6c3c8",
+    "corpus_fingerprint": "df86ecf4eea9b138cf5b94d95a6644ac27c03b577a80064c072369d7634f12d7",
+    "corpus_provenance": "{\"source\":\"https://raw.githubusercontent.com/pytorch/examples/acc295dc7b90714f1bf47f06004fc19a7fe235c4/word_language_model/data/wikitext-2\",\"raw_sha256\":{\"train\":\"9e9fa1ad55b1c2c95b08e37dd8e653f638fac2c6de904b79e813611eefbc985f\",\"valid\":\"f0737ed31fc1329026e95cb8b98e19c2a182c39c240ab909dc31abf2f8af58e8\",\"test\":\"d790b833ef8cf03a90db7bf1271b7520b83c45ce07ba3c1a9699df81e239eca0\"},\"split_bounds\":{\"train\":[0,250000],\"valid\":[0,65536],\"test\":[131072,196608]},\"requested_vocab_size\":4096,\"tokenizers_version\":\"0.22.2\",\"normalization\":\"lowercase; collapse whitespace independently per split; slice normalized Unicode characters with exclusive end\",\"vocabulary_fit\":\"training slice only; all 256 initial bytes plus <unk>; BPE minimum pair frequency 2\",\"source_form\":\"tokenized WikiText-2; literal <unk> and @-@ markers retained\",\"decoding\":\"exact source roundtrip; arbitrary generated invalid UTF-8 renders as U+FFFD; vocabulary labels remain byte-level tokens\"}",
+    "tokenization": "bpe",
+    "tokenizer_sha256": "3d7bfc36989a1e522d169af0cb4273523dafbe15c02c885795ab88f27d51a07c",
+    "graph_file_sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8",
+    "corpus_file_sha256": "0f4c95394d602e9ec8736462e53530782cffb49aa4bd25a1b4e9cefda6c3065b"
+  },
+  "device": {
+    "requested": "cpu",
+    "actual": "cpu",
+    "name": "CPU",
+    "torch_version": "2.14.0+cpu",
+    "cuda_version": null,
+    "peak_gpu_bytes": 0,
+    "allocated_gpu_bytes": 0,
+    "threads": 1,
+    "deterministic_algorithms": false,
+    "sparse_backend": "custom autograd / native COO sparse-mm / chunked edge gradients"
+  },
+  "session_seconds": 21.39471825491637,
+  "training_seconds_this_session": 2.859526379033923,
+  "generated": {
+    "prompt": "= valkyria chronicles iii = senjō no valkyria",
+    "sampled": "ielout� inform fifth or wellnought ' divine ' , startingient bottle raised band accompan drarilyis 2012 per 1920 characteristicsized egyptians akhen move , that",
+    "greedy": " the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the"
+  },
+  "trace": [
+    {
+      "update": 1,
+      "nll": 8.317618370056152,
+      "gradient_norm": 0.27172520756721497
+    },
+    {
+      "update": 2,
+      "nll": 8.315580368041992,
+      "gradient_norm": 0.314080148935318
+    },
+    {
+      "update": 3,
+      "nll": 8.313767433166504,
+      "gradient_norm": 0.2625231146812439
+    },
+    {
+      "update": 4,
+      "nll": 8.313545227050781,
+      "gradient_norm": 0.2762880027294159
+    },
+    {
+      "update": 5,
+      "nll": 8.300043106079102,
+      "gradient_norm": 0.2907032072544098
+    },
+    {
+      "update": 6,
+      "nll": 8.264676094055176,
+      "gradient_norm": 0.40315139293670654
+    },
+    {
+      "update": 7,
+      "nll": 8.284668922424316,
+      "gradient_norm": 0.2920539081096649
+    },
+    {
+      "update": 8,
+      "nll": 8.218006134033203,
+      "gradient_norm": 0.3921457529067993
+    },
+    {
+      "update": 9,
+      "nll": 8.22876262664795,
+      "gradient_norm": 0.4370209872722626
+    },
+    {
+      "update": 10,
+      "nll": 8.027039527893066,
+      "gradient_norm": 0.6928660869598389
+    },
+    {
+      "update": 11,
+      "nll": 8.09926700592041,
+      "gradient_norm": 0.7822808027267456
+    },
+    {
+      "update": 12,
+      "nll": 7.914523601531982,
+      "gradient_norm": 0.9791386723518372
+    },
+    {
+      "update": 13,
+      "nll": 8.158912658691406,
+      "gradient_norm": 1.46662437915802
+    },
+    {
+      "update": 14,
+      "nll": 8.1881685256958,
+      "gradient_norm": 1.3067560195922852
+    },
+    {
+      "update": 15,
+      "nll": 7.958613395690918,
+      "gradient_norm": 1.3841615915298462
+    },
+    {
+      "update": 16,
+      "nll": 7.582677364349365,
+      "gradient_norm": 1.7723921537399292
+    },
+    {
+      "update": 17,
+      "nll": 7.145498275756836,
+      "gradient_norm": 1.5369727611541748
+    },
+    {
+      "update": 18,
+      "nll": 8.235356330871582,
+      "gradient_norm": 1.5737577676773071
+    },
+    {
+      "update": 19,
+      "nll": 7.701883792877197,
+      "gradient_norm": 1.5834016799926758
+    },
+    {
+      "update": 20,
+      "nll": 7.632936477661133,
+      "gradient_norm": 1.6259888410568237
+    },
+    {
+      "update": 21,
+      "nll": 7.528937339782715,
+      "gradient_norm": 1.2993022203445435
+    },
+    {
+      "update": 22,
+      "nll": 7.345630168914795,
+      "gradient_norm": 1.3415337800979614
+    },
+    {
+      "update": 23,
+      "nll": 7.709066390991211,
+      "gradient_norm": 1.4058533906936646
+    },
+    {
+      "update": 24,
+      "nll": 7.11714506149292,
+      "gradient_norm": 1.5103216171264648
+    },
+    {
+      "update": 25,
+      "nll": 7.013904571533203,
+      "gradient_norm": 1.283979892730713
+    },
+    {
+      "update": 26,
+      "nll": 7.150196552276611,
+      "gradient_norm": 1.2086578607559204
+    },
+    {
+      "update": 27,
+      "nll": 7.257198333740234,
+      "gradient_norm": 1.2108381986618042
+    },
+    {
+      "update": 28,
+      "nll": 7.162888050079346,
+      "gradient_norm": 1.2216789722442627
+    },
+    {
+      "update": 29,
+      "nll": 7.1014604568481445,
+      "gradient_norm": 1.320586085319519
+    },
+    {
+      "update": 30,
+      "nll": 7.14860200881958,
+      "gradient_norm": 1.1680762767791748
+    },
+    {
+      "update": 31,
+      "nll": 7.546032428741455,
+      "gradient_norm": 1.2219419479370117
+    },
+    {
+      "update": 32,
+      "nll": 7.125693321228027,
+      "gradient_norm": 1.2995564937591553
+    },
+    {
+      "update": 33,
+      "nll": 7.22870397567749,
+      "gradient_norm": 1.2484508752822876
+    },
+    {
+      "update": 34,
+      "nll": 6.615013599395752,
+      "gradient_norm": 1.4765275716781616
+    }
+  ],
+  "generated_token_ids": {
+    "prompt": [
+      29,
+      699,
+      859,
+      1430,
+      306,
+      3444,
+      708,
+      699
+    ],
+    "sampled": [
+      986,
+      562,
+      172,
+      2533,
+      2943,
+      392,
+      1044,
+      3477,
+      334,
+      697,
+      334,
+      265,
+      3761,
+      1447,
+      2776,
+      318,
+      3225,
+      1353,
+      3977,
+      1995,
+      3553,
+      291,
+      1551,
+      473,
+      2049,
+      2624,
+      962,
+      1027,
+      3502,
+      2023,
+      265,
+      346
+    ],
+    "greedy": [
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261
+    ]
+  },
+  "generated_with_prompt": {
+    "sampled": "= valkyria chronicles iii = senjō no valkyriaielout� inform fifth or wellnought ' divine ' , startingient bottle raised band accompan drarilyis 2012 per 1920 characteristicsized egyptians akhen move , that",
+    "greedy": "= valkyria chronicles iii = senjō no valkyria the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the"
+  },
+  "selection": "fixed final update; no test or validation selection",
+  "shuffle": "target-stub permutation; degrees preserved; multiedges/self-loops allowed",
+  "resume_guarantee": "CPU exact tested; CUDA sparse reductions not guaranteed bitwise"
+}

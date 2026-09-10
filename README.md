@@ -15,6 +15,11 @@ Inspired by [DOOMFLY](https://github.com/nftechie/doomfly), this independent
 experiment takes the connectome-to-computation question from game control to
 text prediction.
 
+**Subword option:** a train-only 4,096-token byte-level BPE path is available.
+See [BPE.md](BPE.md) for preparation, training and token-level metrics. The
+loop and measured scores below describe the original **character** pilot;
+they are not BPE performance results.
+
 ## The loop
 
 1. A character from a **48-character alphabet** activates a fixed bipolar code
@@ -171,15 +176,17 @@ python -m pip install pytest
 python -m pytest -q
 ```
 
-The recorded suite has 96 passing tests, including sparse derivatives,
-causality, controls and CPU checkpoint continuation. CUDA derivative and
-checkpoint checks were also run; software correctness is not biological validity.
+The suite has 142 passing tests, including sparse derivatives, BPE fitting and
+decoding, causality, controls and CPU checkpoint continuation. The character
+pilot also had CUDA derivative and checkpoint checks; software correctness is
+not biological validity.
 
 ## Repository map
 
 | Path | Contents |
 | --- | --- |
 | `flyrl/ar_*.py`, `flyrl/autoregressive.py` | Sparse character LM, training, evaluation and checkpoints |
+| `flyrl/bpe_*.py`, `data/bpe_corpus/`, [BPE.md](BPE.md) | Train-only byte BPE, prepared inputs and subword usage |
 | `scripts/prepare_large_connectome.py` | Pinned anatomical data importer |
 | `data/large_connectome/`, `data/ar_corpus/` | Prepared inputs, source records and hashes |
 | `results/ar-main/`, `results/ar-resume/` | Measured results and restoration evidence |

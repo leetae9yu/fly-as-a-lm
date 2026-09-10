@@ -2,7 +2,7 @@
 
 h' = (1-leak) h + leak tanh(W_anatomy (h + code) + bias + code).
 The fixed sensory code is injected before anatomical propagation, so even the
-first next-character prediction can use its current input.
+first next-token prediction can use its current input.
 Only existing edges, neuron biases and the linear readout are trainable. The
 sensory and readout neurons are disjoint, sampled without looking at edges.
 Graph weights are importer-provided strengths (normally log1p synapse counts).
@@ -16,6 +16,7 @@ the slower simple-graph double-edge-swap control used by the old RL experiment.
 """
 
 from math import sqrt
+from typing import Final, assert_never
 
 import numpy as np
 import torch
@@ -25,6 +26,8 @@ from flyrl.ar_config import ARConfig
 from flyrl.ar_sparse import sparse_recur
 from flyrl.ar_topology import SparseTopology
 from flyrl.connectome import Graph
+
+BPE_SENSORY_NEURONS: Final = 192
 
 
 def requested_device(requested: str) -> torch.device:
@@ -40,7 +43,7 @@ def requested_device(requested: str) -> torch.device:
 
 
 class ConnectomeLM(torch.nn.Module):
-    """Strictly causal next-character logits, with zero state per training window."""
+    """Strictly causal next-token logits, with zero state per training window."""
 
     config: ARConfig
     nodes: int
@@ -61,7 +64,14 @@ class ConnectomeLM(torch.nn.Module):
         rng = np.random.default_rng(config.seed)
         order = np.arange(self.nodes, dtype=np.int64)
         rng.shuffle(order)
-        sensory_count = min(self.nodes // 2, config.alphabet_size * 4)
+        match config.tokenization:
+            case "character":
+                sensory_budget = config.alphabet_size * 4
+            case "bpe":
+                sensory_budget = BPE_SENSORY_NEURONS
+            case _:
+                assert_never(config.tokenization)
+        sensory_count = min(self.nodes // 2, sensory_budget)
         head_count = min(config.readout_neurons, self.nodes - sensory_count)
         self.register_buffer("sensory", torch.tensor(order[:sensory_count]))
         self.register_buffer("ports", torch.tensor(order[-head_count:]))

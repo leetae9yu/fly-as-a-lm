@@ -1,0 +1,479 @@
+{
+  "config": {
+    "alphabet_size": 4096,
+    "tokenization": "bpe",
+    "seed": 0,
+    "device": "cpu",
+    "control": "shuffled",
+    "context": 8,
+    "batch_size": 2,
+    "learning_rate": 0.003,
+    "weight_decay": 0.0,
+    "gradient_clip": 1.0,
+    "leak": 0.5,
+    "initial_gain": 0.9,
+    "readout_neurons": 256,
+    "edge_chunk": 65536,
+    "eval_windows": 16,
+    "sample_length": 32
+  },
+  "updates": 34,
+  "initial": {
+    "train": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 8.317834496498108,
+      "bits_per_character": null,
+      "bits_per_token": 12.000098579032969,
+      "perplexity": 4096.279888336063
+    },
+    "valid": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 8.317323327064514,
+      "bits_per_character": null,
+      "bits_per_token": 11.99936111742607,
+      "perplexity": 4094.186530341593
+    },
+    "test": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 8.31826663017273,
+      "bits_per_character": null,
+      "bits_per_token": 12.000722016142346,
+      "perplexity": 4098.050411340242
+    }
+  },
+  "final": {
+    "train": {
+      "windows": 16,
+      "greedy_accuracy": 0.0625,
+      "nll": 6.893845438957214,
+      "bits_per_character": null,
+      "bits_per_token": 9.945716627438573,
+      "perplexity": 986.1864548009022
+    },
+    "valid": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.680432677268982,
+      "bits_per_character": null,
+      "bits_per_token": 11.080522135377505,
+      "perplexity": 2165.556556266794
+    },
+    "test": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.6258465051651,
+      "bits_per_character": null,
+      "bits_per_token": 11.001770935582122,
+      "perplexity": 2050.5155025213903
+    }
+  },
+  "zero_recurrent": {
+    "train": {
+      "windows": 16,
+      "greedy_accuracy": 0.0625,
+      "nll": 7.4490150809288025,
+      "bits_per_character": null,
+      "bits_per_token": 10.746657116763084,
+      "perplexity": 1718.1700532804066
+    },
+    "valid": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.824184000492096,
+      "bits_per_character": null,
+      "bits_per_token": 11.287911456512719,
+      "perplexity": 2500.344997892029
+    },
+    "test": {
+      "windows": 16,
+      "greedy_accuracy": 0.0,
+      "nll": 7.790363967418671,
+      "bits_per_character": null,
+      "bits_per_token": 11.239119462514987,
+      "perplexity": 2417.197203135077
+    }
+  },
+  "baselines": {
+    "train": {
+      "unigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0625,
+        "nll": 6.3736554952065125,
+        "bits_per_character": null,
+        "bits_per_token": 9.195241175269127,
+        "perplexity": 586.1967565231754
+      },
+      "bigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.1875,
+        "nll": 6.081371045548103,
+        "bits_per_character": null,
+        "bits_per_token": 8.773563849217979,
+        "perplexity": 437.62879259427496
+      },
+      "trigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.6875,
+        "nll": 6.65019942460808,
+        "bits_per_character": null,
+        "bits_per_token": 9.594209730804716,
+        "perplexity": 772.9384531143052
+      }
+    },
+    "valid": {
+      "unigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0,
+        "nll": 7.039217444165015,
+        "bits_per_character": null,
+        "bits_per_token": 10.15544409843595,
+        "perplexity": 1140.4947564955262
+      },
+      "bigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.125,
+        "nll": 7.378877234567909,
+        "bits_per_character": null,
+        "bits_per_token": 10.645469593639591,
+        "perplexity": 1601.7903230401755
+      },
+      "trigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0625,
+        "nll": 7.958026127522066,
+        "bits_per_character": null,
+        "bits_per_token": 11.481004829440886,
+        "perplexity": 2858.425213522698
+      }
+    },
+    "test": {
+      "unigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0,
+        "nll": 7.1734794206768004,
+        "bits_per_character": null,
+        "bits_per_token": 10.349143186129455,
+        "perplexity": 1304.3751863238974
+      },
+      "bigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.125,
+        "nll": 7.597848005723561,
+        "bits_per_character": null,
+        "bits_per_token": 10.961377639285482,
+        "perplexity": 1993.9004125593024
+      },
+      "trigram": {
+        "windows": 16,
+        "greedy_accuracy": 0.0625,
+        "nll": 7.912521213082905,
+        "bits_per_character": null,
+        "bits_per_token": 11.415355115043432,
+        "perplexity": 2731.2679013239463
+      }
+    }
+  },
+  "counts": {
+    "nodes": 16384,
+    "edges": 1187999,
+    "recurrent_parameters": 1204383,
+    "head_parameters": 1052672,
+    "trainable_parameters": 2257055,
+    "sensory_neurons": 192,
+    "readout_neurons": 256,
+    "fixed_code_values": 786432,
+    "vocabulary_tokens": 4096
+  },
+  "identities": {
+    "graph_fingerprint": "7749587d400d0338a6f94916d0f034494ca237e0b6a19d2a000346053dfff647",
+    "graph_provenance": "MaleCNS-v1.0; brain-and-ventral-nerve-cord; source_edges_sha256=e35da783d1c686b2b58b3b87cd6a403ae43bfcfba8bff28e08ef752c1a56afc1; body_pre->body_post; synapse_count=anatomical-contacts; weight=log1p(contacts)-all-positive-model-assumption; CC-BY-4.0; induced-hub-BFS-n=16384",
+    "control_edge_sha256": "b18834e099c98a776c15ceccc023cb9513c1760c4360e7620e4168af6e377849",
+    "corpus_fingerprint": "df86ecf4eea9b138cf5b94d95a6644ac27c03b577a80064c072369d7634f12d7",
+    "corpus_provenance": "{\"source\":\"https://raw.githubusercontent.com/pytorch/examples/acc295dc7b90714f1bf47f06004fc19a7fe235c4/word_language_model/data/wikitext-2\",\"raw_sha256\":{\"train\":\"9e9fa1ad55b1c2c95b08e37dd8e653f638fac2c6de904b79e813611eefbc985f\",\"valid\":\"f0737ed31fc1329026e95cb8b98e19c2a182c39c240ab909dc31abf2f8af58e8\",\"test\":\"d790b833ef8cf03a90db7bf1271b7520b83c45ce07ba3c1a9699df81e239eca0\"},\"split_bounds\":{\"train\":[0,250000],\"valid\":[0,65536],\"test\":[131072,196608]},\"requested_vocab_size\":4096,\"tokenizers_version\":\"0.22.2\",\"normalization\":\"lowercase; collapse whitespace independently per split; slice normalized Unicode characters with exclusive end\",\"vocabulary_fit\":\"training slice only; all 256 initial bytes plus <unk>; BPE minimum pair frequency 2\",\"source_form\":\"tokenized WikiText-2; literal <unk> and @-@ markers retained\",\"decoding\":\"exact source roundtrip; arbitrary generated invalid UTF-8 renders as U+FFFD; vocabulary labels remain byte-level tokens\"}",
+    "tokenization": "bpe",
+    "tokenizer_sha256": "3d7bfc36989a1e522d169af0cb4273523dafbe15c02c885795ab88f27d51a07c",
+    "graph_file_sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8",
+    "corpus_file_sha256": "0f4c95394d602e9ec8736462e53530782cffb49aa4bd25a1b4e9cefda6c3065b"
+  },
+  "device": {
+    "requested": "cpu",
+    "actual": "cpu",
+    "name": "CPU",
+    "torch_version": "2.14.0+cpu",
+    "cuda_version": null,
+    "peak_gpu_bytes": 0,
+    "allocated_gpu_bytes": 0,
+    "threads": 1,
+    "deterministic_algorithms": false,
+    "sparse_backend": "custom autograd / native COO sparse-mm / chunked edge gradients"
+  },
+  "session_seconds": 22.912992005003616,
+  "training_seconds_this_session": 3.240623719058931,
+  "generated": {
+    "prompt": "= valkyria chronicles iii = senjō no valkyria",
+    "sampled": "ielout� missed fifth ornownought ' divine ' , startingient bottl raised band accompan drarily almost 2012 per 1920 characteristicsized egyptians akhen move pleena",
+    "greedy": " the the the the the successful successful material<unk> the the the the the the the the the the the high successful material and the the the the the the the the"
+  },
+  "trace": [
+    {
+      "update": 1,
+      "nll": 8.317567825317383,
+      "gradient_norm": 0.28056979179382324
+    },
+    {
+      "update": 2,
+      "nll": 8.317283630371094,
+      "gradient_norm": 0.3238430619239807
+    },
+    {
+      "update": 3,
+      "nll": 8.311354637145996,
+      "gradient_norm": 0.27602487802505493
+    },
+    {
+      "update": 4,
+      "nll": 8.313268661499023,
+      "gradient_norm": 0.2941814363002777
+    },
+    {
+      "update": 5,
+      "nll": 8.293715476989746,
+      "gradient_norm": 0.3352857828140259
+    },
+    {
+      "update": 6,
+      "nll": 8.2435941696167,
+      "gradient_norm": 0.4907834231853485
+    },
+    {
+      "update": 7,
+      "nll": 8.261474609375,
+      "gradient_norm": 0.40540242195129395
+    },
+    {
+      "update": 8,
+      "nll": 8.191140174865723,
+      "gradient_norm": 0.5497141480445862
+    },
+    {
+      "update": 9,
+      "nll": 8.207695007324219,
+      "gradient_norm": 0.5669023394584656
+    },
+    {
+      "update": 10,
+      "nll": 8.00848388671875,
+      "gradient_norm": 0.7783960103988647
+    },
+    {
+      "update": 11,
+      "nll": 8.105049133300781,
+      "gradient_norm": 0.8180791735649109
+    },
+    {
+      "update": 12,
+      "nll": 7.9303998947143555,
+      "gradient_norm": 1.0425317287445068
+    },
+    {
+      "update": 13,
+      "nll": 8.13649845123291,
+      "gradient_norm": 1.382915735244751
+    },
+    {
+      "update": 14,
+      "nll": 8.159276962280273,
+      "gradient_norm": 1.1867527961730957
+    },
+    {
+      "update": 15,
+      "nll": 7.921989917755127,
+      "gradient_norm": 1.2357640266418457
+    },
+    {
+      "update": 16,
+      "nll": 7.578174591064453,
+      "gradient_norm": 1.6835949420928955
+    },
+    {
+      "update": 17,
+      "nll": 7.200366497039795,
+      "gradient_norm": 1.6441800594329834
+    },
+    {
+      "update": 18,
+      "nll": 8.200881004333496,
+      "gradient_norm": 1.4887464046478271
+    },
+    {
+      "update": 19,
+      "nll": 7.670776844024658,
+      "gradient_norm": 1.5276598930358887
+    },
+    {
+      "update": 20,
+      "nll": 7.638667583465576,
+      "gradient_norm": 1.6301355361938477
+    },
+    {
+      "update": 21,
+      "nll": 7.511181831359863,
+      "gradient_norm": 1.257891058921814
+    },
+    {
+      "update": 22,
+      "nll": 7.328909873962402,
+      "gradient_norm": 1.341702938079834
+    },
+    {
+      "update": 23,
+      "nll": 7.68295955657959,
+      "gradient_norm": 1.3168697357177734
+    },
+    {
+      "update": 24,
+      "nll": 7.109221458435059,
+      "gradient_norm": 1.4873061180114746
+    },
+    {
+      "update": 25,
+      "nll": 7.015313148498535,
+      "gradient_norm": 1.2116641998291016
+    },
+    {
+      "update": 26,
+      "nll": 7.097863674163818,
+      "gradient_norm": 1.1595944166183472
+    },
+    {
+      "update": 27,
+      "nll": 7.227068901062012,
+      "gradient_norm": 1.1305084228515625
+    },
+    {
+      "update": 28,
+      "nll": 7.115842342376709,
+      "gradient_norm": 1.1744073629379272
+    },
+    {
+      "update": 29,
+      "nll": 7.037779331207275,
+      "gradient_norm": 1.2397979497909546
+    },
+    {
+      "update": 30,
+      "nll": 7.126083850860596,
+      "gradient_norm": 1.0986052751541138
+    },
+    {
+      "update": 31,
+      "nll": 7.551377773284912,
+      "gradient_norm": 1.1585192680358887
+    },
+    {
+      "update": 32,
+      "nll": 7.113954544067383,
+      "gradient_norm": 1.231204867362976
+    },
+    {
+      "update": 33,
+      "nll": 7.208829402923584,
+      "gradient_norm": 1.179112195968628
+    },
+    {
+      "update": 34,
+      "nll": 6.622264385223389,
+      "gradient_norm": 1.3806259632110596
+    }
+  ],
+  "generated_token_ids": {
+    "prompt": [
+      29,
+      699,
+      859,
+      1430,
+      306,
+      3444,
+      708,
+      699
+    ],
+    "sampled": [
+      986,
+      562,
+      172,
+      3259,
+      2943,
+      392,
+      4057,
+      3477,
+      334,
+      697,
+      334,
+      265,
+      3761,
+      1447,
+      2776,
+      76,
+      3225,
+      1353,
+      3977,
+      1995,
+      3553,
+      2818,
+      1551,
+      473,
+      2049,
+      2624,
+      962,
+      1027,
+      3502,
+      2023,
+      3535,
+      2779
+    ],
+    "greedy": [
+      261,
+      261,
+      261,
+      261,
+      261,
+      2438,
+      2438,
+      2096,
+      0,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      1003,
+      2438,
+      2096,
+      292,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261,
+      261
+    ]
+  },
+  "generated_with_prompt": {
+    "sampled": "= valkyria chronicles iii = senjō no valkyriaielout� missed fifth ornownought ' divine ' , startingient bottl raised band accompan drarily almost 2012 per 1920 characteristicsized egyptians akhen move pleena",
+    "greedy": "= valkyria chronicles iii = senjō no valkyria the the the the the successful successful material<unk> the the the the the the the the the the the high successful material and the the the the the the the the"
+  },
+  "selection": "fixed final update; no test or validation selection",
+  "shuffle": "target-stub permutation; degrees preserved; multiedges/self-loops allowed",
+  "resume_guarantee": "CPU exact tested; CUDA sparse reductions not guaranteed bitwise"
+}

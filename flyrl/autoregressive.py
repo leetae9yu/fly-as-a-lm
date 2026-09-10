@@ -1,4 +1,4 @@
-"""Train a sparse anatomical next-character LM: python -m flyrl.autoregressive."""
+"""Train a sparse anatomical next-token LM: python -m flyrl.autoregressive."""
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -9,12 +9,12 @@ import typer
 
 from flyrl.ar_benchmark import benchmark
 from flyrl.ar_config import ARConfig
+from flyrl.ar_corpus import load_ar_corpus, tokenization, vocabulary
 from flyrl.ar_experiment import RunBudget, run
 from flyrl.ar_learning import ARLearner
 from flyrl.ar_reporting import file_identity
 from flyrl.connectome import load_graph
 from flyrl.language_checkpoint import atomic_text
-from flyrl.language_data import load_corpus
 
 app: Final = typer.Typer(add_completion=False, pretty_exceptions_enable=False)
 
@@ -65,9 +65,10 @@ class Command:
 def execute(options: Command) -> None:
     """Execute one model at a time; real-only never constructs a shuffled graph."""
     torch.set_num_threads(options.cpu_threads)
-    graph, corpus = load_graph(options.graph), load_corpus(options.corpus)
+    graph, corpus = load_graph(options.graph), load_ar_corpus(options.corpus)
     template = ARConfig(
-        alphabet_size=len(corpus.alphabet),
+        alphabet_size=len(vocabulary(corpus)),
+        tokenization=tokenization(corpus),
         device=options.device,
         context=options.context,
         batch_size=options.batch_size,
