@@ -1,0 +1,36 @@
+{
+  "source": "https://raw.githubusercontent.com/pytorch/examples/acc295dc7b90714f1bf47f06004fc19a7fe235c4/word_language_model/data/wikitext-2",
+  "raw_sha256": {
+    "train": "9e9fa1ad55b1c2c95b08e37dd8e653f638fac2c6de904b79e813611eefbc985f",
+    "valid": "f0737ed31fc1329026e95cb8b98e19c2a182c39c240ab909dc31abf2f8af58e8",
+    "test": "d790b833ef8cf03a90db7bf1271b7520b83c45ce07ba3c1a9699df81e239eca0"
+  },
+  "split_bounds": {
+    "train": [
+      0,
+      250000
+    ],
+    "valid": [
+      0,
+      65536
+    ],
+    "test": [
+      131072,
+      196608
+    ]
+  },
+  "requested_vocab_size": 4096,
+  "tokenizers_version": "0.22.2",
+  "normalization": "lowercase; collapse whitespace independently per split; slice normalized Unicode characters with exclusive end",
+  "vocabulary_fit": "training slice only; all 256 initial bytes plus <unk>; BPE minimum pair frequency 2",
+  "source_form": "tokenized WikiText-2; literal <unk> and @-@ markers retained",
+  "decoding": "exact source roundtrip; arbitrary generated invalid UTF-8 renders as U+FFFD; vocabulary labels remain byte-level tokens",
+  "actual_vocab_size": 4096,
+  "token_counts": {
+    "train": 58336,
+    "valid": 17934,
+    "test": 17343
+  },
+  "tokenizer_sha256": "3d7bfc36989a1e522d169af0cb4273523dafbe15c02c885795ab88f27d51a07c",
+  "fingerprint": "df86ecf4eea9b138cf5b94d95a6644ac27c03b577a80064c072369d7634f12d7"
+}

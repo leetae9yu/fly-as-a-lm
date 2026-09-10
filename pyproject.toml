@@ -17,6 +17,7 @@ include = [
     "/LANGUAGE_RESULTS.md",
     "/AUTOREGRESSIVE.md",
     "/AR_RESULTS.md",
+    "/BPE.md",
     "/run_colab.sh",
     "/run_language_colab.sh",
     "/run_ar_colab.sh",
@@ -39,7 +40,7 @@ requires-python = ">=3.11"
 dependencies = ["numpy>=2.0,<3", "pydantic>=2.10,<3", "typer>=0.15,<1", "typing-extensions>=4.12"]
 
 [project.optional-dependencies]
-language = ["torch>=2.6,<3"]
+language = ["torch>=2.6,<3", "tokenizers==0.22.2"]
 connectome = ["pyarrow==21.0.0"]
 
 [project.scripts]
