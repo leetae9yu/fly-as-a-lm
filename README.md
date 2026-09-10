@@ -1,14 +1,21 @@
-# FlyRL: connectome reward-learning experiments
+# FlyRL: connectome-constrained language experiments
 
-For the **T4 GPU natural-text experiment**, see [LANGUAGE.md](LANGUAGE.md) and
-run `bash run_language_colab.sh`. The sections below document the original
-CPU binary-task prototype.
+For the **current autoregressive language model**, see
+[AUTOREGRESSIVE.md](AUTOREGRESSIVE.md) and run
+`bash run_ar_colab.sh --output results/ar-fresh`.
+It trains actual connectome-constrained recurrence by next-character maximum
+likelihood on T4. Whole-graph capacity and subset language results are reported
+separately in [AR_RESULTS.md](AR_RESULTS.md).
+
+The earlier reward-based text experiment remains in [LANGUAGE.md](LANGUAGE.md)
+and [LANGUAGE_RESULTS.md](LANGUAGE_RESULTS.md). The sections below document the
+original CPU binary-task prototype, not the current language model.
 
 A small CPU-only prototype for the research question: can a real Drosophila
 connectivity pattern adapt through local reward signals, and how does its
 behavior compare with rewired and non-learning controls?
 
-This is an experimental starting point, not a language model or a biologically
+This original binary-task prototype is not a language model or a biologically
 validated fly simulation. The original project document supplies the research
 philosophy; implementation choices remain hypotheses to test.
 
