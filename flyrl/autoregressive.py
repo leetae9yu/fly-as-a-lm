@@ -6,12 +6,13 @@ from typing import Annotated, Final
 
 import torch
 import typer
+from pydantic import TypeAdapter
 
 from flyrl.ar_benchmark import benchmark
-from flyrl.ar_config import ARConfig
+from flyrl.ar_config import Architecture, ARConfig, GenerationContext
 from flyrl.ar_corpus import load_ar_corpus, tokenization, vocabulary
 from flyrl.ar_experiment import RunBudget, run
-from flyrl.ar_learning import ARLearner
+from flyrl.ar_learning import make_learner
 from flyrl.ar_reporting import file_identity
 from flyrl.connectome import load_graph
 from flyrl.language_checkpoint import atomic_text
@@ -33,6 +34,8 @@ class Command:
     corpus: Annotated[Path, typer.Option(exists=True, dir_okay=False)]
     output: Annotated[Path, typer.Option(file_okay=False)]
     device: Annotated[str, typer.Option()] = "cpu"
+    architecture: Annotated[str, typer.Option()] = "connectome"
+    generation_context: Annotated[str, typer.Option()] = "stateful"
     updates: Annotated[int, typer.Option(min=0)] = 1000
     batch_size: Annotated[int, typer.Option(min=1)] = 8
     context: Annotated[int, typer.Option(min=1)] = 32
@@ -69,6 +72,12 @@ def execute(options: Command) -> None:
     template = ARConfig(
         alphabet_size=len(vocabulary(corpus)),
         tokenization=tokenization(corpus),
+        architecture=TypeAdapter[Architecture](Architecture).validate_python(
+            options.architecture
+        ),
+        generation_context=TypeAdapter[GenerationContext](
+            GenerationContext
+        ).validate_python(options.generation_context),
         device=options.device,
         context=options.context,
         batch_size=options.batch_size,
@@ -97,10 +106,13 @@ def execute(options: Command) -> None:
                 {**template.model_dump(), "seed": int(seed), "control": control}
             )
             if options.benchmark_only:
-                learner = ARLearner(graph, config)
+                learner = make_learner(graph, config)
                 result = benchmark(learner)
                 path = (
-                    options.output / f"seed-{config.seed}" / control / "benchmark.json"
+                    options.output
+                    / f"seed-{config.seed}"
+                    / config.condition
+                    / "benchmark.json"
                 )
                 atomic_text(path, result.model_dump_json(indent=2))
                 typer.echo(result.model_dump_json())

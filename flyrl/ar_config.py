@@ -8,6 +8,8 @@ from flyrl.language_data import MAX_SYMBOLS
 from flyrl.language_models import Settings
 
 Tokenization: TypeAlias = Literal["character", "bpe"]
+Architecture: TypeAlias = Literal["connectome", "gru", "transformer"]
+GenerationContext: TypeAlias = Literal["stateful", "windowed"]
 MIN_BYTE_VOCABULARY: Final = 257
 
 
@@ -16,6 +18,8 @@ class ARConfig(Settings):
 
     alphabet_size: Annotated[int, Field(ge=2, le=65536)]
     tokenization: Tokenization = "character"
+    architecture: Architecture = "connectome"
+    generation_context: GenerationContext = "stateful"
     seed: Annotated[int, Field(ge=0, le=2**32 - 1)] = 0
     device: str = "cpu"
     control: Literal["real", "shuffled", "frozen"] = "real"
@@ -31,6 +35,28 @@ class ARConfig(Settings):
     eval_windows: Annotated[int, Field(ge=1)] = 512
     sample_length: Annotated[int, Field(ge=0)] = 120
 
+    @property
+    def condition(self) -> str:
+        """Use distinct output names for anatomical controls and dense models."""
+        match self.architecture:
+            case "connectome":
+                return self.control
+            case "gru" | "transformer":
+                return self.architecture
+            case _:
+                assert_never(self.architecture)
+
+    @property
+    def is_anatomical(self) -> bool:
+        """Distinguish graph controls from ordinary dense model references."""
+        match self.architecture:
+            case "connectome":
+                return True
+            case "gru" | "transformer":
+                return False
+            case _:
+                assert_never(self.architecture)
+
     @model_validator(mode="after")
     def vocabulary_matches_unit(self) -> Self:
         """Keep legacy character bounds and require a complete byte alphabet for BPE."""
@@ -45,6 +71,22 @@ class ARConfig(Settings):
                     raise ValueError(message)
             case _:
                 assert_never(self.tokenization)
+        return self
+
+    @model_validator(mode="after")
+    def architecture_matches_control(self) -> Self:
+        """Dense references have no anatomical ablation or unbounded state API."""
+        match self.architecture:
+            case "connectome":
+                pass
+            case "gru" | "transformer":
+                if self.control != "real" or self.generation_context != "windowed":
+                    message = (
+                        "Dense baselines require real control and windowed generation"
+                    )
+                    raise ValueError(message)
+            case _:
+                assert_never(self.architecture)
         return self
 
 

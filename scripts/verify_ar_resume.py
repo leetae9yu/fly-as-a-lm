@@ -15,7 +15,7 @@ import typer
 from flyrl.ar_checkpoint import load_checkpoint, save_checkpoint
 from flyrl.ar_corpus import load_ar_corpus
 from flyrl.ar_framework import optimizer_tensors
-from flyrl.ar_learning import ARLearner
+from flyrl.ar_learning import ExperimentLearner, make_learner
 from flyrl.ar_reporting import RunReport, continuations, file_identity
 from flyrl.connectome import load_graph
 from flyrl.language_checkpoint import atomic_text
@@ -44,7 +44,7 @@ class ResumeEvidence(Settings):
     continuation_loss_difference: float
 
 
-def difference(first: ARLearner, second: ARLearner) -> Difference:
+def difference(first: ExperimentLearner, second: ExperimentLearner) -> Difference:
     """Compare corresponding parameters, moments, window RNG, progress and trace."""
     parameters = tuple(
         zip(first.model.parameters(), second.model.parameters(), strict=True)
@@ -84,7 +84,7 @@ class Command:
         graph, corpus = load_graph(self.graph), load_ar_corpus(self.corpus)
         source = self.run / "checkpoint.npz"
         source_hash = file_identity(source)
-        first = ARLearner(graph, report.config)
+        first = make_learner(graph, report.config)
         load_checkpoint(first, source, corpus.fingerprint)
         if first.updates != report.updates:
             message = "Published report and checkpoint have different update counts"
@@ -93,7 +93,7 @@ class Command:
         first.train(corpus.train, 2)
         midpoint = self.output / "midpoint.npz"
         save_checkpoint(first, midpoint, corpus.fingerprint)
-        second = ARLearner(graph, report.config)
+        second = make_learner(graph, report.config)
         load_checkpoint(second, midpoint, corpus.fingerprint)
         restored = difference(first, second)
         if (

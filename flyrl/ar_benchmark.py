@@ -2,12 +2,17 @@
 
 import resource
 from time import perf_counter
+from typing import assert_never
 
 import torch
 
+from flyrl.ar_config import Architecture
 from flyrl.ar_framework import optimizer_step
-from flyrl.ar_learning import ARLearner
+from flyrl.ar_learning import ExperimentLearner
+from flyrl.ar_model import ConnectomeLM
+from flyrl.gru_model import GRULM
 from flyrl.language_models import Settings
+from flyrl.transformer_model import TransformerLM
 
 
 class Benchmark(Settings):
@@ -26,6 +31,9 @@ class Benchmark(Settings):
     batch_size: int
     context: int
     edge_chunk: int
+    architecture: Architecture | None = None
+    vocabulary_tokens: int | None = None
+    trainable_parameters: int | None = None
 
 
 def synchronize(device: torch.device) -> None:
@@ -48,7 +56,7 @@ def _finish(device: torch.device, start: float) -> tuple[float, int]:
     )
 
 
-def benchmark(learner: ARLearner) -> Benchmark:
+def benchmark(learner: ExperimentLearner) -> Benchmark:
     """Consume one synthetic batch and optimizer step; use a disposable learner."""
     config, device = learner.config, learner.model.weight.device
     tokens = (
@@ -69,6 +77,13 @@ def benchmark(learner: ARLearner) -> Benchmark:
     )
     optimizer_step(learner.optimizer)
     optimizer, optimizer_peak = _finish(device, start)
+    match learner.model:
+        case ConnectomeLM() as model:
+            nodes, edges = model.nodes, model.weight.numel()
+        case GRULM() | TransformerLM():
+            nodes, edges = 0, 0
+        case _:
+            assert_never(learner.model)
     return Benchmark(
         device=str(device),
         forward_seconds=forward,
@@ -79,9 +94,14 @@ def benchmark(learner: ARLearner) -> Benchmark:
         optimizer_peak_gpu_bytes=optimizer_peak,
         process_peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         * 1024,
-        nodes=learner.model.nodes,
-        edges=learner.model.weight.numel(),
+        nodes=nodes,
+        edges=edges,
         batch_size=config.batch_size,
         context=config.context,
         edge_chunk=config.edge_chunk,
+        architecture=config.architecture,
+        vocabulary_tokens=config.alphabet_size,
+        trainable_parameters=sum(
+            p.numel() for p in learner.model.parameters() if p.requires_grad
+        ),
     )

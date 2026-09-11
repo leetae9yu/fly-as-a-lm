@@ -12,8 +12,9 @@ from flyrl.ar_benchmark import synchronize
 from flyrl.ar_checkpoint import load_checkpoint, save_checkpoint
 from flyrl.ar_config import ARConfig, ARMetrics, TraceEntry
 from flyrl.ar_corpus import ARCorpus, tokenization, vocabulary
-from flyrl.ar_learning import ARLearner
+from flyrl.ar_learning import make_learner
 from flyrl.ar_reporting import (
+    SHUFFLE_DESCRIPTION,
     RunReport,
     baselines,
     continuations,
@@ -59,11 +60,11 @@ def run(
         message = "Need nonnegative updates and positive checkpoint steps"
         raise ValueError(message)
     start = perf_counter()
-    learner = ARLearner(graph, config)
+    learner = make_learner(graph, config)
     device = learner.model.weight.device
     if device.type == "cuda":
         torch.cuda.reset_peak_memory_stats(device)
-    path = budget.output / f"seed-{config.seed}" / config.control
+    path = budget.output / f"seed-{config.seed}" / config.condition
     checkpoint, initial_path = path / "checkpoint.npz", path / "initial.json"
     adapter = TypeAdapter(dict[str, ARMetrics])
     if budget.resume:
@@ -107,7 +108,11 @@ def run(
         corpus_file_sha256=budget.corpus_file_sha256,
     )
     final = evaluate_splits(learner, corpus)
-    ablated = evaluate_splits(learner, corpus, zero_recurrent=True)
+    ablated = (
+        evaluate_splits(learner, corpus, zero_recurrent=True)
+        if config.is_anatomical
+        else {}
+    )
     generated = continuations(learner, corpus)
     synchronize(device)
     report = RunReport(
@@ -126,6 +131,7 @@ def run(
         generated_token_ids=generated.token_ids,
         generated_with_prompt=generated.complete_text,
         trace=tuple(learner.trace),
+        shuffle=SHUFFLE_DESCRIPTION if config.is_anatomical else "not applicable",
     )
     atomic_text(path / "report.json", report.model_dump_json(indent=2))
     return report

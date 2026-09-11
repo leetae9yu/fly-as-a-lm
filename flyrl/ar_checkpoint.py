@@ -15,7 +15,7 @@ from pydantic import TypeAdapter
 
 from flyrl.ar_config import ARConfig, TraceEntry
 from flyrl.ar_framework import optimizer_tensors
-from flyrl.ar_learning import ARLearner
+from flyrl.ar_learning import ExperimentLearner
 from flyrl.language_models import Settings
 from flyrl.language_runtime import graph_fingerprint
 
@@ -35,7 +35,7 @@ class Metadata(Settings):
     trace: tuple[TraceEntry, ...]
 
 
-def runtime_identity(learner: ARLearner) -> str:
+def runtime_identity(learner: ExperimentLearner) -> str:
     """Record device, library and execution flags relevant to exact continuation."""
     device = learner.model.weight.device
     return json.dumps(
@@ -53,7 +53,7 @@ def runtime_identity(learner: ARLearner) -> str:
     )
 
 
-def save_checkpoint(learner: ARLearner, path: Path, corpus: str) -> None:
+def save_checkpoint(learner: ExperimentLearner, path: Path, corpus: str) -> None:
     """Flush a complete uncompressed NPZ then atomically replace the destination."""
     metadata = Metadata(
         config=learner.config,
@@ -107,7 +107,7 @@ def _tensor(
     return torch.tensor(array, device=reference.device)
 
 
-def load_checkpoint(learner: ARLearner, path: Path, corpus: str) -> None:
+def load_checkpoint(learner: ExperimentLearner, path: Path, corpus: str) -> None:
     """Validate all data before applying model, Adam moments and consumed RNG state."""
     with path.open("rb") as stream:
         data: NpzFile[generic] = NpzFile(stream, allow_pickle=False)

@@ -3,20 +3,27 @@
 import hashlib
 from math import log
 from pathlib import Path
-from typing import assert_never
+from typing import Final, assert_never
 
 import torch
 from pydantic import Field
 
 from flyrl.ar_config import ARConfig, ARMetrics, TraceEntry
 from flyrl.ar_corpus import ARCorpus, decode
-from flyrl.ar_learning import ARLearner
+from flyrl.ar_learning import ExperimentLearner
+from flyrl.ar_model import ConnectomeLM
 from flyrl.ar_ngrams import fit_ngrams
 from flyrl.bpe_data import BPECorpus
+from flyrl.gru_model import GRULM
 from flyrl.language_baselines import fit_baselines, score_baselines
 from flyrl.language_data import Corpus, evaluation_starts
 from flyrl.language_models import Settings
 from flyrl.language_runtime import graph_fingerprint
+from flyrl.transformer_model import TransformerLM
+
+SHUFFLE_DESCRIPTION: Final = (
+    "target-stub permutation; degrees preserved; multiedges/self-loops allowed"
+)
 
 
 class RunReport(Settings):
@@ -38,12 +45,8 @@ class RunReport(Settings):
     generated_token_ids: dict[str, tuple[int, ...]] = Field(default_factory=dict)
     generated_with_prompt: dict[str, str] = Field(default_factory=dict)
     selection: str = "fixed final update; no test or validation selection"
-    shuffle: str = (
-        "target-stub permutation; degrees preserved; multiedges/self-loops allowed"
-    )
-    resume_guarantee: str = (
-        "CPU exact tested; CUDA sparse reductions not guaranteed bitwise"
-    )
+    shuffle: str = SHUFFLE_DESCRIPTION
+    resume_guarantee: str = "CPU exact tested; CUDA reductions not guaranteed bitwise"
 
 
 def file_identity(path: Path) -> str:
@@ -53,7 +56,7 @@ def file_identity(path: Path) -> str:
 
 
 def evaluate_splits(
-    learner: ARLearner, corpus: ARCorpus, *, zero_recurrent: bool = False
+    learner: ExperimentLearner, corpus: ARCorpus, *, zero_recurrent: bool = False
 ) -> dict[str, ARMetrics]:
     """Evaluate immutable splits without sharing a hidden state across them."""
     return {
@@ -115,9 +118,17 @@ def baselines(corpus: ARCorpus, config: ARConfig) -> dict[str, dict[str, ARMetri
     return result
 
 
-def counts(learner: ARLearner) -> dict[str, int]:
+def counts(learner: ExperimentLearner) -> dict[str, int]:
     """Separate anatomical core, small decoder, and frozen versus trained counts."""
-    model = learner.model
+    match learner.model:
+        case GRULM() as dense:
+            return dense_counts(dense, dense.readout)
+        case TransformerLM() as dense:
+            return dense_counts(dense, dense.output)
+        case ConnectomeLM() as model:
+            pass
+        case _:
+            assert_never(learner.model)
     return {
         "nodes": model.nodes,
         "edges": model.weight.numel(),
@@ -133,9 +144,35 @@ def counts(learner: ARLearner) -> dict[str, int]:
     }
 
 
-def identities(learner: ARLearner, corpus: ARCorpus) -> dict[str, str]:
+def dense_counts(model: GRULM | TransformerLM, head: torch.nn.Linear) -> dict[str, int]:
+    """Count ordinary model components without implying anatomical connectivity."""
+    total = sum(p.numel() for p in model.parameters())
+    embedding = model.weight.numel()
+    head_count = sum(p.numel() for p in head.parameters())
+    return {
+        "trainable_parameters": total,
+        "embedding_parameters": embedding,
+        "head_parameters": head_count,
+        "body_parameters": total - embedding - head_count,
+        "vocabulary_tokens": model.config.alphabet_size,
+    }
+
+
+def identities(learner: ExperimentLearner, corpus: ARCorpus) -> dict[str, str]:
     """Identify the source graph and exact control's ordered recurrent edges."""
-    edges = learner.model.edges.detach().cpu().numpy()
+    match learner.model:
+        case ConnectomeLM() as model:
+            graph_identity = {
+                "graph_fingerprint": graph_fingerprint(learner.graph),
+                "graph_provenance": learner.graph.provenance,
+                "control_edge_sha256": hashlib.sha256(
+                    model.edges.detach().cpu().numpy().tobytes()
+                ).hexdigest(),
+            }
+        case GRULM() | TransformerLM():
+            graph_identity = {"graph_usage": "none"}
+        case _:
+            assert_never(learner.model)
     match corpus:
         case Corpus():
             text_identity = {
@@ -152,16 +189,15 @@ def identities(learner: ARLearner, corpus: ARCorpus) -> dict[str, str]:
         case _:
             assert_never(corpus)
     return {
-        "graph_fingerprint": graph_fingerprint(learner.graph),
-        "graph_provenance": learner.graph.provenance,
-        "control_edge_sha256": hashlib.sha256(edges.tobytes()).hexdigest(),
+        **graph_identity,
+        "architecture": learner.config.architecture,
         "corpus_fingerprint": corpus.fingerprint,
         "corpus_provenance": corpus.provenance,
         **text_identity,
     }
 
 
-def device_evidence(learner: ARLearner) -> dict[str, str | int | bool | None]:
+def device_evidence(learner: ExperimentLearner) -> dict[str, str | int | bool | None]:
     """Capture observed placement, allocated GPU bytes, runtime and numeric flags."""
     device = learner.model.weight.device
     cuda = device.type == "cuda"
@@ -177,6 +213,8 @@ def device_evidence(learner: ARLearner) -> dict[str, str | int | bool | None]:
         "deterministic_algorithms": torch.are_deterministic_algorithms_enabled(),
         "sparse_backend": (
             "custom autograd / native COO sparse-mm / chunked edge gradients"
+            if learner.config.is_anatomical
+            else "not applicable"
         ),
     }
 
@@ -189,7 +227,7 @@ class Continuations(Settings):
     complete_text: dict[str, str]
 
 
-def continuations(learner: ARLearner, corpus: ARCorpus) -> Continuations:
+def continuations(learner: ExperimentLearner, corpus: ARCorpus) -> Continuations:
     """Generate freely from a training-only prefix; no test continuation is fed back."""
     prompt = [int(corpus.train.item(i)) for i in range(learner.config.context)]
     ids = {
