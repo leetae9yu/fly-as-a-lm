@@ -1,0 +1,18 @@
+{
+  "updates": 8000,
+  "seeds": [0, 1, 2],
+  "checkpoint_steps": 250,
+  "graph": "data/large_connectome/malecns_v1_n16384.npz",
+  "corpus": "data/bpe_full/corpus.npz",
+  "output": "results/bpe-main",
+  "graph_sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8",
+  "corpus_sha256": "c9f13e15cbc44e99c574a6aeec3f1ef1df7493b3ca6efa4d8e43de9258c6cb7e",
+  "rationale": "Fixed before held-out scoring: 8000 updates x 8 windows x 32 targets = 2048000 training targets per condition and seed. T4 warm profiles predict 10375.94 seconds of training for all 15 jobs, below a three-hour training budget; evaluation and I/O are additional. No learning-rate search, early stopping or test-based selection. Core AdamW lr=.003; ordinary model lr=.001. All runs use float32, no dropout, no weight decay, clipping=1, same window RNG per seed, and windowed generation.",
+  "configurations": [
+    {"alphabet_size":4096,"tokenization":"bpe","architecture":"connectome","generation_context":"windowed","device":"cuda","control":"real","context":32,"batch_size":8,"eval_windows":1024,"sample_length":128,"learning_rate":0.003},
+    {"alphabet_size":4096,"tokenization":"bpe","architecture":"connectome","generation_context":"windowed","device":"cuda","control":"shuffled","context":32,"batch_size":8,"eval_windows":1024,"sample_length":128,"learning_rate":0.003},
+    {"alphabet_size":4096,"tokenization":"bpe","architecture":"connectome","generation_context":"windowed","device":"cuda","control":"frozen","context":32,"batch_size":8,"eval_windows":1024,"sample_length":128,"learning_rate":0.003},
+    {"alphabet_size":4096,"tokenization":"bpe","architecture":"gru","generation_context":"windowed","device":"cuda","control":"real","context":32,"batch_size":8,"eval_windows":1024,"sample_length":128,"learning_rate":0.001},
+    {"alphabet_size":4096,"tokenization":"bpe","architecture":"transformer","generation_context":"windowed","device":"cuda","control":"real","context":32,"batch_size":8,"eval_windows":1024,"sample_length":128,"learning_rate":0.001}
+  ]
+}

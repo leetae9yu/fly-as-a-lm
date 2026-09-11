@@ -18,6 +18,7 @@ include = [
     "/AUTOREGRESSIVE.md",
     "/AR_RESULTS.md",
     "/BPE.md",
+    "/BPE_STUDY.json",
     "/run_colab.sh",
     "/run_language_colab.sh",
     "/run_ar_colab.sh",
