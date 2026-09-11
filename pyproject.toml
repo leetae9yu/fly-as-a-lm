@@ -20,6 +20,7 @@ include = [
     "/BPE.md",
     "/BPE_STUDY.json",
     "/BPE_STUDY.md",
+    "/BPE_RESULTS.md",
     "/run_colab.sh",
     "/run_language_colab.sh",
     "/run_ar_colab.sh",

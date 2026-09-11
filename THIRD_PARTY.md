@@ -15,6 +15,10 @@ its licensing discussion. This project preserves that upstream distinction
 rather than declaring the corpus MIT. Follow the linked upstream terms when
 redistributing raw or transformed text.
 
+The expanded BPE corpus retains the same source terms; its exact bounds,
+tokenizer settings and attribution are in
+[data/bpe_full/provenance.json](data/bpe_full/provenance.json).
+
 `data/large_connectome/upstream/download.html` is a publisher-page snapshot
 retained as source/license evidence, not original project code.
 

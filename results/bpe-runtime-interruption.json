@@ -1,0 +1,19 @@
+{
+  "session": "flyrl-bpe-full",
+  "endpoint": "gpu-t4-s-kkb-ass1c1-1brdwok3gsq0r",
+  "interrupted_job": 6,
+  "seed": 1,
+  "condition": "shuffled",
+  "observed_error": "RuntimeError: Connection was lost.",
+  "assignment_present_after_error": false,
+  "replacement_request_error": "Service Unavailable",
+  "cause": "User-reported GPU usage limit. The recorded API observations alone do not distinguish quota from availability or another termination cause.",
+  "completed_and_recovered_jobs": [0, 1, 2, 3, 4, 5],
+  "external_checkpoint_updates": 4250,
+  "external_checkpoint": "artifacts/bpe-live/job-6/checkpoint.npz",
+  "initial_scores": "artifacts/bpe-live/job-6/initial.json",
+  "integrity": "CRC, finite tensors, seed, control and corpus identity checked.",
+  "status": "Stopped by explicit user instruction. Automatic allocation retries cancelled; no experiments authorized to resume.",
+  "resume_plan": "Only after new explicit authorization: restore the external checkpoint and initial scores, retaining the fixed 8000-update budget.",
+  "timing_caveat": "The resumed report's training_seconds_this_session covers only the resumed portion. Do not compare it as a full 8000-update training time; pre-interruption training time is not accumulated by the checkpoint."
+}

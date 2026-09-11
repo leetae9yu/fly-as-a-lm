@@ -1,5 +1,9 @@
 # Full-training BPE comparison protocol
 
+**This is the planned protocol, not a record of 15 completed runs.** The study
+stopped after six complete runs and one interruption. See
+[BPE_RESULTS.md](BPE_RESULTS.md) for the actual coverage and measurements.
+
 This is a resource-limited, fixed-budget comparison, not training to convergence.
 The immutable settings are in [BPE_STUDY.json](BPE_STUDY.json), committed as
 `548400e` before the first main training job. The budget was selected from T4

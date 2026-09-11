@@ -1,0 +1,1107 @@
+{
+  "condition": "real",
+  "config": {
+    "alphabet_size": 4096,
+    "tokenization": "bpe",
+    "architecture": "connectome",
+    "generation_context": "windowed",
+    "seed": 0,
+    "device": "cpu",
+    "control": "real",
+    "context": 32,
+    "batch_size": 8,
+    "learning_rate": 0.003,
+    "weight_decay": 0.0,
+    "gradient_clip": 1.0,
+    "leak": 0.5,
+    "initial_gain": 0.9,
+    "readout_neurons": 256,
+    "edge_chunk": 65536,
+    "eval_windows": 512,
+    "sample_length": 120
+  },
+  "warm_updates": 3,
+  "wall_seconds_per_update": 6.179145248994852,
+  "synchronized_phases": {
+    "forward": 1.857031197519973,
+    "backward": 4.398117223987356,
+    "clipping": 0.00184753502253443,
+    "optimizer": 0.010347523493692279
+  },
+  "profiler_cpu_us": 6340676.869999999,
+  "profiler_device_us": 0.0,
+  "operators": [
+    {
+      "key": "Optimizer.zero_grad#AdamW.zero_grad",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 58.521000000000015,
+      "cpu_time_total": 58.521000000000015,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "phase_forward_loss",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 11704.34100000211,
+      "cpu_time_total": 1903377.93,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::slice",
+      "count": 1826,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 8416.259000004744,
+      "cpu_time_total": 9781.546000002185,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::as_strided",
+      "count": 5419,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 6319.72499999675,
+      "cpu_time_total": 6319.72499999675,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::new_zeros",
+      "count": 33,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 240.56099999902773,
+      "cpu_time_total": 3440.9469999983476,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::new_empty",
+      "count": 33,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 98.56200000181798,
+      "cpu_time_total": 585.0850000010616,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::empty",
+      "count": 324,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 2354.5319999999656,
+      "cpu_time_total": 2354.5319999999656,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::zero_",
+      "count": 194,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 654.003999997788,
+      "cpu_time_total": 14932.044999998732,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::fill_",
+      "count": 867,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 22217.14299999927,
+      "cpu_time_total": 22217.14299999927,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::unbind",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 30.359999999999843,
+      "cpu_time_total": 72.44,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::select",
+      "count": 1280,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 5973.721999985184,
+      "cpu_time_total": 7458.096999996733,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::zeros_like",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 195.44100000044415,
+      "cpu_time_total": 1068.9710000000207,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::empty_like",
+      "count": 66,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 151.600999999264,
+      "cpu_time_total": 423.32199999912876,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::empty_strided",
+      "count": 211,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 789.441999996581,
+      "cpu_time_total": 789.441999996581,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::index",
+      "count": 1376,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 3266536.8860000176,
+      "cpu_time_total": 3272086.609000007,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::reshape",
+      "count": 1443,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 2230.458000012218,
+      "cpu_time_total": 4063.7929999973444,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_reshape_alias",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 40.51999999936697,
+      "cpu_time_total": 40.51999999936697,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::numpy_T",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 160.44299999933742,
+      "cpu_time_total": 628.8070000000877,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::permute",
+      "count": 96,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 660.487000002487,
+      "cpu_time_total": 755.4889999995861,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::index_put_",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 209.88099999968495,
+      "cpu_time_total": 1207.2899999996102,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_index_put_impl_",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1813.733999999807,
+      "cpu_time_total": 2134.5369999976233,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::view",
+      "count": 1443,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 2049.0159999851785,
+      "cpu_time_total": 2049.0159999851785,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::add",
+      "count": 163,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 20615.638999999595,
+      "cpu_time_total": 20621.43899999941,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "_SparseRecur",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 9897.92399999829,
+      "cpu_time_total": 1783375.2839999998,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::to",
+      "count": 313,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 432.16500000072847,
+      "cpu_time_total": 2599.976999998791,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::lift_fresh",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 33.28100000105769,
+      "cpu_time_total": 33.28100000105769,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::detach_",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 74.96100000014121,
+      "cpu_time_total": 195.72400000063135,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "detach_",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 120.76300000049014,
+      "cpu_time_total": 120.76300000049014,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::sparse_coo_tensor",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 420.68300000510135,
+      "cpu_time_total": 2371.337000001593,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_sparse_coo_tensor_with_dims_and_tensors",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1423.6529999959712,
+      "cpu_time_total": 1950.6539999964916,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::resize_",
+      "count": 192,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 501.16300000053525,
+      "cpu_time_total": 501.16300000053525,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_sparse_mm",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 11764.489000004629,
+      "cpu_time_total": 2217710.058000001,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::zeros",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 354.1629999962497,
+      "cpu_time_total": 7163.135999998383,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_sparse_addmm",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 874.1699999966368,
+      "cpu_time_total": 2198782.4329999983,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::addmm",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 2191559.852000002,
+      "cpu_time_total": 2197908.2630000017,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::sparse_dim",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 35.20100000174352,
+      "cpu_time_total": 35.20100000174352,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::dense_dim",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 29.519999999807624,
+      "cpu_time_total": 29.519999999807624,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_nnz",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 26.000000000785803,
+      "cpu_time_total": 26.000000000785803,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_indices",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 30.999999997799023,
+      "cpu_time_total": 30.999999997799023,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_values",
+      "count": 64,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 18.04000000045926,
+      "cpu_time_total": 18.04000000045926,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::mul",
+      "count": 736,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 152524.63399998436,
+      "cpu_time_total": 154799.4099999871,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_to_copy",
+      "count": 146,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 849.0460000010353,
+      "cpu_time_total": 2167.8119999980627,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::copy_",
+      "count": 755,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 19216.520999991022,
+      "cpu_time_total": 19216.520999991022,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::unsqueeze",
+      "count": 36,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 428.6819999993022,
+      "cpu_time_total": 551.6020000002609,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::tanh",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 36714.05499999982,
+      "cpu_time_total": 36714.05499999982,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::matmul",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 127.88000000036118,
+      "cpu_time_total": 27789.74500000004,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::mm",
+      "count": 96,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 91419.9779999943,
+      "cpu_time_total": 91501.6599999975,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::resolve_conj",
+      "count": 224,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 81.6820000032094,
+      "cpu_time_total": 81.6820000032094,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::stack",
+      "count": 2,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 48.99999999883585,
+      "cpu_time_total": 957.0069999999832,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::cat",
+      "count": 2,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 897.3670000003185,
+      "cpu_time_total": 897.3670000003185,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::clone",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 5.4799999999813735,
+      "cpu_time_total": 23.56000000005588,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_unsafe_view",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 3.279999999795109,
+      "cpu_time_total": 3.279999999795109,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::cross_entropy_loss",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 11.320000000298023,
+      "cpu_time_total": 4740.679000000004,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::log_softmax",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 7.599999999627471,
+      "cpu_time_total": 4695.67799999984,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_log_softmax",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 4687.398000000045,
+      "cpu_time_total": 4687.398000000045,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::nll_loss_nd",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 5.039999999804422,
+      "cpu_time_total": 33.68099999986589,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::nll_loss",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 4.199999999953434,
+      "cpu_time_total": 28.641000000061467,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::nll_loss_forward",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 24.441000000108033,
+      "cpu_time_total": 24.441000000108033,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "phase_backward",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 6399.607999989763,
+      "cpu_time_total": 4424516.1959999995,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::ones_like",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 4.760000000009313,
+      "cpu_time_total": 14.800000000046566,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: NllLossBackward0",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 15.639999999897555,
+      "cpu_time_total": 209.72200000006706,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "NllLossBackward0",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 8.520000000251457,
+      "cpu_time_total": 194.0820000001695,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::nll_loss_backward",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 72.08099999977276,
+      "cpu_time_total": 185.56199999991804,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: LogSoftmaxBackward0",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 24.96099999989383,
+      "cpu_time_total": 5313.602999999886,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "LogSoftmaxBackward0",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 15.399999999906868,
+      "cpu_time_total": 5288.641999999993,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_log_softmax_backward_data",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 5273.242000000086,
+      "cpu_time_total": 5273.242000000086,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: ViewBackward0",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 6.6399999998975545,
+      "cpu_time_total": 23.0,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "ViewBackward0",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 4.5200000000186265,
+      "cpu_time_total": 16.360000000102445,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: StackBackward0",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 49.56099999998696,
+      "cpu_time_total": 182.40200000000186,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "StackBackward0",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 51.920000000158325,
+      "cpu_time_total": 132.8410000000149,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: AddBackward0",
+      "count": 159,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1673.5369999969844,
+      "cpu_time_total": 10544.605999998515,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "AddBackward0",
+      "count": 159,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 284.122999998508,
+      "cpu_time_total": 284.122999998508,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::sum",
+      "count": 672,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 293618.727999998,
+      "cpu_time_total": 302584.79299999564,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: MmBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1198.6879999996163,
+      "cpu_time_total": 81557.89700000011,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "MmBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 973.6900000048336,
+      "cpu_time_total": 66130.53500000131,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::t",
+      "count": 96,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 728.083999999566,
+      "cpu_time_total": 1317.0499999986496,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::transpose",
+      "count": 96,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 313.7619999987073,
+      "cpu_time_total": 588.9659999990836,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: PermuteBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 238.3629999998957,
+      "cpu_time_total": 662.0890000017826,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "PermuteBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 136.601000003051,
+      "cpu_time_total": 423.72600000188686,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: IndexBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 376.08100000349805,
+      "cpu_time_total": 6899.291999998037,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "IndexBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 395.083999999566,
+      "cpu_time_total": 4923.637999995612,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: MulBackward0",
+      "count": 63,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 873.0470000000205,
+      "cpu_time_total": 4729.353000003146,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "MulBackward0",
+      "count": 63,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 232.04100000555627,
+      "cpu_time_total": 3856.3060000031255,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: TanhBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 380.4450000047218,
+      "cpu_time_total": 5865.570000005653,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "TanhBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 260.64100000145845,
+      "cpu_time_total": 5485.125000000931,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::tanh_backward",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 5224.483999999473,
+      "cpu_time_total": 5224.483999999473,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: UnsqueezeBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 205.44300000322983,
+      "cpu_time_total": 928.6910000019707,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "UnsqueezeBackward0",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 91.72099999967031,
+      "cpu_time_total": 384.0040000004228,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::squeeze",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 220.04200000083074,
+      "cpu_time_total": 292.2830000007525,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: _SparseRecurBackward",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 3682.5540000002366,
+      "cpu_time_total": 4301091.882000001,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "_SparseRecurBackward",
+      "count": 32,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 88838.93900001538,
+      "cpu_time_total": 4278117.733999997,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::item",
+      "count": 37,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 138.5220000029076,
+      "cpu_time_total": 244.28200000012293,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_local_scalar_dense",
+      "count": 37,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 105.75999999721535,
+      "cpu_time_total": 105.75999999721535,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::add_",
+      "count": 192,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 38511.94900000328,
+      "cpu_time_total": 38600.50900000287,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "autograd::engine::evaluate_function: torch::autograd::AccumulateGrad",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 20.200000001117587,
+      "cpu_time_total": 93.68099999986589,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "torch::autograd::AccumulateGrad",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 53.32099999859929,
+      "cpu_time_total": 73.4809999987483,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::detach",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 6.3999999994412065,
+      "cpu_time_total": 20.16000000014901,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "detach",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 13.760000000707805,
+      "cpu_time_total": 13.760000000707805,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "phase_clipping",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 443.5240000002086,
+      "cpu_time_total": 1966.376000000164,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_foreach_norm",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 14.281000000424683,
+      "cpu_time_total": 711.2860000003129,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::linalg_vector_norm",
+      "count": 5,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 698.125,
+      "cpu_time_total": 705.5650000004098,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::isnan",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 3.1600000001490116,
+      "cpu_time_total": 9.200000000186265,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::ne",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 6.040000000037253,
+      "cpu_time_total": 6.040000000037253,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::isinf",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 6.159999999217689,
+      "cpu_time_total": 46.16000000014901,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::abs",
+      "count": 2,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 12.200000001117587,
+      "cpu_time_total": 22.920000000856817,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::eq",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 9.440000000409782,
+      "cpu_time_total": 24.520000000484288,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::logical_or",
+      "count": 2,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 30.12099999934435,
+      "cpu_time_total": 35.32099999953061,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::is_nonzero",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 2.2000000001862645,
+      "cpu_time_total": 6.879999999888241,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::reciprocal",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 5.03999999910593,
+      "cpu_time_total": 5.03999999910593,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::clamp",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 8.119999999180436,
+      "cpu_time_total": 8.479999999515712,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::_foreach_mul_",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 14.120000000111759,
+      "cpu_time_total": 643.605000000447,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::mul_",
+      "count": 8,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1403.0510000018403,
+      "cpu_time_total": 1432.0910000009462,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "phase_optimizer",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 72.0809999993071,
+      "cpu_time_total": 10757.847000000067,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "Optimizer.step#AdamW.step",
+      "count": 1,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 750.48399999924,
+      "cpu_time_total": 10685.76600000076,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::lerp_",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1231.49199999962,
+      "cpu_time_total": 1231.49199999962,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::addcmul_",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1122.329000000842,
+      "cpu_time_total": 1122.329000000842,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::sqrt",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1724.6140000000596,
+      "cpu_time_total": 1724.6140000000596,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::div",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 2671.2220000009984,
+      "cpu_time_total": 2703.5820000004023,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    },
+    {
+      "key": "aten::addcdiv_",
+      "count": 4,
+      "device_type": "DeviceType.CPU",
+      "self_cpu_time_total": 1550.2929999995977,
+      "cpu_time_total": 1550.2929999995977,
+      "self_device_time_total": 0.0,
+      "device_time_total": 0.0
+    }
+  ],
+  "source_checkpoint_sha256": ""
+}

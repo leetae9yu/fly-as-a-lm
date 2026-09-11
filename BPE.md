@@ -4,8 +4,13 @@ The autoregressive core now accepts a train-only **4,096-token byte-level BPE**
 vocabulary. This is an opt-in successor to the character experiment, not a
 replacement for its saved data or a new claim of language quality.
 
+This page describes the initial implementation and small CPU check. A later
+full-training-corpus comparison completed six runs before stopping; see
+[BPE_RESULTS.md](BPE_RESULTS.md) and [BPE_STUDY.md](BPE_STUDY.md).
+
 The anatomical recurrence, optimizer and learning rule are unchanged. No
-attention layer or pretrained language encoder was added.
+attention layer or pretrained encoder was added to the anatomical model.
+The later study adds a separate Transformer reference, not a replacement core.
 
 ## What changes
 

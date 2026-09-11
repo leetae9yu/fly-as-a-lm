@@ -1,26 +1,64 @@
 # FLY AS A LANGUAGE MODEL
 
-A character language model built on a real fruit-fly connectome. Text stimulates
-fixed sensory codes; activity propagates through anatomical connections; a small
-readout predicts the next character. Backpropagation changes the weights on those
+A language-model experiment built on a real fruit-fly connectome. Text stimulates
+fixed sensory codes; activity propagates through anatomical connections; a linear
+readout predicts the next token. Backpropagation changes the weights on those
 connections, without replacing the recurrent core with a transformer.
 
-**Status: held-out character prediction learned; fluent language and a
-biological-wiring advantage not demonstrated.** The first T4 pilot reached
-45.21% next-character accuracy. A rewired control reached the same accuracy.
-The full retained graph fits on T4; natural-text training used a 16,384-neuron
-subset. Results, controls, generated text and assumptions are included.
+**Status: BPE prediction learned, but ordinary models performed better and
+trained faster. The study is stopped with 6 of 15 planned runs complete.**
+One full five-model comparison and one additional anatomical run finished;
+the next run was interrupted. Fluent language and a biological-wiring advantage
+were not demonstrated. The anatomical runs reported here used a 16,384-neuron
+subset, not the full retained graph.
 
 Inspired by [DOOMFLY](https://github.com/nftechie/doomfly), this independent
 experiment takes the connectome-to-computation question from game control to
 text prediction.
 
-**Subword option:** a train-only 4,096-token byte-level BPE path is available.
-See [BPE.md](BPE.md) for preparation, training and token-level metrics. The
-loop and measured scores below describe the original **character** pilot;
-they are not BPE performance results.
+## Latest result: BPE comparison
 
-## The loop
+A train-only **4,096-token byte-level BPE** vocabulary was fitted on the full
+normalized WikiText-2 training split: 2.83 million tokens. Each neural run used
+the same 2,048,000-target budget, batch 8 and context 32. The three fully
+trainable architectures have approximately 2.25 million parameters.
+
+Completed seed-0 results on **1,024 identical held-out final-target windows**:
+
+| Model | Test perplexity (lower is better) | Test token accuracy | Training time |
+| --- | ---: | ---: | ---: |
+| Anatomical, trained | 187.04 | 20.31% | 25.85 min |
+| Rewired, trained | 196.88 | 19.92% | 28.62 min |
+| Anatomical, frozen core | 384.02 | 13.57% | 3.64 min |
+| Ordinary GRU | **56.53** | **29.49%** | **0.56 min** |
+| Small Transformer | 65.32 | 27.83% | 1.25 min |
+
+The anatomical model improved from test perplexity **4,096.64 to 187.04**.
+Its completed seed-1 repetition reached **172.83**, but matching controls for
+that seed did not finish. There is no completed three-seed comparison or
+statistical claim of wiring superiority.
+
+These are windowed **BPE-token** metrics, not character BPC or standard
+word-level WikiText perplexity. The models use different input representations:
+ordinary models learn embeddings, while the anatomical model uses fixed codes.
+Frozen-core training intentionally has fewer trainable parameters.
+Reported times are training only, excluding evaluation and checkpoint I/O.
+
+The T4 runtime ended during seed-1 shuffled training. Six completed checkpoints
+were recovered, plus an external 4,250-update checkpoint for the interrupted run.
+Further experiments and automatic retries were stopped by the user.
+Free generation still contains malformed fragments, topic drift and loops:
+
+```text
+ , the <unk> of the <unk> , <unk> , <unk> , <unk> , <unk>
+```
+
+[Partial results and limitations](BPE_RESULTS.md) include all six runs, validation
+scores, baselines, timings, CPU bottleneck evidence and checkpoint checks.
+[Fixed protocol](BPE_STUDY.md) and [BPE implementation](BPE.md) describe reproduction.
+The historical character pilot below is a separate experiment.
+
+## The anatomical loop: original character pilot
 
 1. A character from a **48-character alphabet** activates a fixed bipolar code
    on **192 sensory neurons**. These ports are sampled, not identified natural
@@ -46,7 +84,7 @@ The wiring comes from a biological reconstruction. The scalar neuron dynamics,
 functional signs, input/output ports and learning rule are engineering choices.
 This does not demonstrate that a living fly can learn human language.
 
-## First experiment
+## Historical result: character pilot
 
 One seed, three matched conditions, 4,000 updates each on Colab Free with a
 Tesla T4. Each condition sees 1,024,000 next-character training targets from a
@@ -89,7 +127,7 @@ It has learned character patterns and fragments of words, not coherent prose.
 Greedy generation enters repetitive loops. The unedited outputs are in the
 [anatomical model report](results/ar-main/seed-0/real/report.json).
 
-## The scale boundary
+## The scale boundary: character capacity measurements
 
 MaleCNS v1.0 covers the brain **and ventral nerve cord**. The full retained
 annotated neuronal graph has **166,700 neurons, 25,582,938 directed pairs and
@@ -110,7 +148,25 @@ matrix. This brought full-graph update time down from 11.872 to 4.626 seconds.
 See [anatomy and provenance](data/large_connectome/README.md) and the
 [recorded capacity measurements](artifacts/ar-capacity-cached.json).
 
-## Run the experiment
+## Reproduce an experiment
+
+The following commands are reproduction instructions, not evidence of ongoing
+training. No experiment is being automatically resumed for this publication.
+
+### Full-corpus BPE protocol
+
+The prepared corpus, tokenizer, pilot graph and fixed plan are committed.
+After installing the project as shown below, on a compatible CUDA machine:
+
+```bash
+python -m scripts.run_bpe_study --job 0
+```
+
+Jobs `0..4` select the five seed-0 conditions; `5..9` and `10..14` select the
+planned repetitions. A job resumes its own existing checkpoint if present.
+See [the stopped-study report](BPE_RESULTS.md) for which jobs actually completed.
+
+### Original character pilot
 
 Use a Colab T4 runtime with a compatible preinstalled PyTorch, or a local CUDA
 machine. The pilot graph and corpus are committed; the 1.07 GB raw connectome
@@ -156,11 +212,12 @@ the original measurements. Detailed setup and verification:
 
 ## Work on this with me
 
-The useful next step is to test which parts of the result survive stronger
-controls, not to turn the current score into a claim about fly intelligence.
+The current comparison exposes a substantial performance and throughput gap.
+Useful contributions would investigate that gap without turning trainability
+into a claim about fly intelligence.
 
 - **Replication:** run more seeds under the same budget and report the spread.
-- **Baselines:** compare against parameter-matched conventional and sparse RNNs.
+- **Baselines:** extend the existing GRU/Transformer comparison with controlled budgets.
 - **Anatomy:** test other regions and input/output placements with matched controls.
 - **Scaling:** improve sparse throughput and measure longer or larger runs.
 - **Interpretability:** inspect what changes in the trained circuit, using
@@ -173,20 +230,25 @@ test or a reproducible numerical check.
 
 ```bash
 python -m pip install pytest
-python -m pytest -q
+python -m scripts.verify_torch -q
 ```
 
-The suite has 142 passing tests, including sparse derivatives, BPE fitting and
-decoding, causality, controls and CPU checkpoint continuation. The character
-pilot also had CUDA derivative and checkpoint checks; software correctness is
-not biological validity.
+Recorded validation includes 192 passing tests and one CUDA-only skip locally,
+48 passing model tests on T4, and three subsequent study/CLI checks. The Torch
+wrapper explicitly enables sparse-check defaults without filtering warnings.
+The publication update uses saved evidence and runs no further experiments.
+Software correctness is not biological validity.
 
 ## Repository map
 
 | Path | Contents |
 | --- | --- |
-| `flyrl/ar_*.py`, `flyrl/autoregressive.py` | Sparse character LM, training, evaluation and checkpoints |
+| `flyrl/ar_*.py`, `flyrl/autoregressive.py` | Shared likelihood training, anatomical model, evaluation and checkpoints |
 | `flyrl/bpe_*.py`, `data/bpe_corpus/`, [BPE.md](BPE.md) | Train-only byte BPE, prepared inputs and subword usage |
+| `flyrl/gru_model.py`, `flyrl/transformer_model.py` | Ordinary parameter-matched references |
+| `data/bpe_full/`, [BPE_STUDY.json](BPE_STUDY.json) | Full-training corpus and predeclared 15-job plan |
+| [BPE_RESULTS.md](BPE_RESULTS.md), [BPE_STUDY.md](BPE_STUDY.md) | Partial results and methods |
+| `results/bpe-main/`, `results/bpe-resume/` | Six completed reports and restoration evidence |
 | `scripts/prepare_large_connectome.py` | Pinned anatomical data importer |
 | `data/large_connectome/`, `data/ar_corpus/` | Prepared inputs, source records and hashes |
 | `results/ar-main/`, `results/ar-resume/` | Measured results and restoration evidence |
