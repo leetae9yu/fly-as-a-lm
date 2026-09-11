@@ -1,11 +1,11 @@
 # FLY AS A LANGUAGE MODEL
 
 A language-model experiment built on a real fruit-fly connectome. Text stimulates
-fixed sensory codes; activity propagates through anatomical connections; a linear
+sensory neurons; activity propagates through anatomical connections; a linear
 readout predicts the next token. Backpropagation changes the weights on those
 connections, without replacing the recurrent core with a transformer.
 
-**Status: BPE prediction learned, but ordinary models performed better and
+**WikiText BPE status: prediction learned, but ordinary models performed better and
 trained faster. The study is stopped with 6 of 15 planned runs complete.**
 One full five-model comparison and one additional anatomical run finished;
 the next run was interrupted. Fluent language and a biological-wiring advantage
@@ -16,7 +16,27 @@ Inspired by [DOOMFLY](https://github.com/nftechie/doomfly), this independent
 experiment takes the connectome-to-computation question from game control to
 text prediction.
 
-## Latest result: BPE comparison
+## Latest result: TinyStories pilot
+
+[The TinyStories pilot](PILOT.md) adds story-isolated next-token training with
+learnable sensory codes and token-aligned neuron activation heatmaps. It keeps
+the anatomical circuit as the model core, without an attention or GRU layer.
+The first 16,384-neuron T4 pilot completed 1,000 updates: held-out test perplexity
+fell from 4,096.25 to **57.99**, with **28.29%** next-token accuracy. Generated
+text has recognizable sentence fragments but still contains errors and repetition.
+[Results, full continuations and activation observations](TINYSTORIES_RESULTS.md)
+describe the small custom split and limitations. The historical BPE study below
+remains stopped.
+
+The [GPU optimization](GPU_OPTIMIZATION.md) subsequently reduced same-T4 training
+time from 0.397 to 0.128 seconds/update (**3.11x**) through fused edge gradients
+and a batched sequence readout. A second same-T4 comparison reduced the selected
+implementation from 0.116 to 0.079 seconds/update (**1.46x**) by preparing sparse
+values once per sequence and replacing native SpMM with cached-layout Triton CSR.
+It did not change the anatomical topology or establish a new language-quality
+score.
+
+## Historical result: WikiText BPE comparison
 
 A train-only **4,096-token byte-level BPE** vocabulary was fitted on the full
 normalized WikiText-2 training split: 2.83 million tokens. Each neural run used

@@ -21,6 +21,9 @@ include = [
     "/BPE_STUDY.json",
     "/BPE_STUDY.md",
     "/BPE_RESULTS.md",
+    "/PILOT.md",
+    "/TINYSTORIES_RESULTS.md",
+    "/GPU_OPTIMIZATION.md",
     "/run_colab.sh",
     "/run_language_colab.sh",
     "/run_ar_colab.sh",
@@ -43,8 +46,14 @@ requires-python = ">=3.11"
 dependencies = ["numpy>=2.0,<3", "pydantic>=2.10,<3", "typer>=0.15,<1", "typing-extensions>=4.12"]
 
 [project.optional-dependencies]
-language = ["torch>=2.6,<3", "tokenizers==0.22.2"]
+language = [
+    "torch>=2.6,<3",
+    "tokenizers==0.22.2",
+    "matplotlib>=3.10,<4",
+    "httpx2[http2,brotli,zstd]",
+]
 connectome = ["pyarrow==21.0.0"]
+cuda = ["triton>=3.6,<4"]
 
 [project.scripts]
 flyrl = "flyrl.cli:app"

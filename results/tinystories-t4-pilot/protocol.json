@@ -1,0 +1,35 @@
+{
+  "run": "tinystories-t4-pilot-20260911",
+  "graph_nodes": 16384,
+  "graph_edges": 1187999,
+  "corpus_fingerprint": "fd9d30ce06ef753feb2160370d40bceebd41f126aaf6be58d9d6ed42cda45575",
+  "split_stories": [
+    1000,
+    16,
+    16
+  ],
+  "split_tokens": [
+    230745,
+    4098,
+    3155
+  ],
+  "vocabulary": 4096,
+  "context": 64,
+  "batch_size": 8,
+  "updates": 1000,
+  "training_targets": 512000,
+  "seed": 0,
+  "learning_rate": 0.003,
+  "trainable_codes": true,
+  "checkpoint_steps": 100,
+  "sample_length": 64,
+  "prompt": "Once upon a time",
+  "conditions": [
+    "real"
+  ],
+  "selection": "fixed final update; no early stopping or test-based changes",
+  "evaluation": "all within-story pairs; persistent state; reset between stories",
+  "source_sha256": "7d53d8d96b6236c00fe332d504a2af213aedd44a6fd56d5faa62ccd33674bea8",
+  "graph_sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8",
+  "corpus_sha256": "c750d2aabe2311cb713d3afed98c6fa8b1f044f092a7727a3a8cef278ec22b5e"
+}

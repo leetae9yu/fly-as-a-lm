@@ -60,20 +60,34 @@ class TokenLearner(Generic[ModelT]):
             logits.reshape(-1, self.config.alphabet_size), windows[:, 1:].reshape(-1)
         )
 
-    def train(self, tokens: IntVector, updates: int) -> None:
-        """Train additional updates on train tokens, resetting every context."""
+    def train(
+        self, tokens: IntVector, updates: int, *, starts: IntVector | None = None
+    ) -> None:
+        """Train reset windows, optionally using only caller-supplied legal starts."""
         if tokens.size <= self.config.context or updates < 0:
             message = "Training needs context plus target and nonnegative updates"
             raise ValueError(message)
+        if starts is not None and (
+            starts.ndim != 1
+            or starts.dtype != np.int64
+            or starts.size == 0
+            or bool(
+                ((starts < 0) | (starts >= tokens.size - self.config.context)).any()
+            )
+        ):
+            message = "Training starts must be nonempty valid int64 window indices"
+            raise ValueError(message)
         offsets = np.arange(self.config.context + 1, dtype=np.int64)
         for _ in range(updates):
-            starts = torch.randint(
-                tokens.size - self.config.context,
+            selected = torch.randint(
+                tokens.size - self.config.context if starts is None else starts.size,
                 (self.config.batch_size,),
                 generator=self.window_rng,
             ).numpy()
+            if starts is not None:
+                selected = starts[selected]
             windows = torch.tensor(
-                tokens[starts[:, None] + offsets], device=self.model.weight.device
+                tokens[selected[:, None] + offsets], device=self.model.weight.device
             )
             self.optimizer.zero_grad(set_to_none=True)
             loss = self.loss(windows)

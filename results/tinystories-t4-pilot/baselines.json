@@ -1,0 +1,45 @@
+{
+  "corpus_fingerprint": "fd9d30ce06ef753feb2160370d40bceebd41f126aaf6be58d9d6ed42cda45575",
+  "smoothing": 0.5,
+  "fit": "All training stories, with no cross-story transitions",
+  "evaluation": "Same within-story target positions as the neural pilot",
+  "exposure_caveat": "Counts see all training tokens once; neural windows use replacement",
+  "splits": {
+    "valid": {
+      "unigram": {
+        "windows": 4082,
+        "greedy_accuracy": 0.07226849583537481,
+        "nll": 6.074334428630589,
+        "bits_per_character": null,
+        "bits_per_token": 8.763412156886446,
+        "perplexity": 434.56017543204325
+      },
+      "bigram": {
+        "windows": 4082,
+        "greedy_accuracy": 0.22978931896129348,
+        "nll": 5.410809157198707,
+        "bits_per_character": null,
+        "bits_per_token": 7.806147538287166,
+        "perplexity": 223.81261401908145
+      }
+    },
+    "test": {
+      "unigram": {
+        "windows": 3139,
+        "greedy_accuracy": 0.07136030582988213,
+        "nll": 6.007120218039623,
+        "bits_per_character": null,
+        "bits_per_token": 8.666442548589593,
+        "perplexity": 406.3115451971942
+      },
+      "bigram": {
+        "windows": 3139,
+        "greedy_accuracy": 0.25230965275565465,
+        "nll": 5.2508329514593,
+        "bits_per_character": null,
+        "bits_per_token": 7.575350659606691,
+        "perplexity": 190.72506703660824
+      }
+    }
+  }
+}

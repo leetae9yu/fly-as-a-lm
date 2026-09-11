@@ -1,0 +1,66 @@
+{
+  "updates": 100,
+  "rng_equal": true,
+  "max_training_nll_delta": 0.004651308059692383,
+  "validation_nll_delta": 0.002352299715361994,
+  "test_nll_delta": 0.0003248532511852531,
+  "greedy_generation_equal": false,
+  "maximum_parameter_or_adam_delta": 0.26096653938293457,
+  "array_max_abs_differences": {
+    "model.codes": 0.2294202446937561,
+    "adam.codes.exp_avg": 0.0002879356616176665,
+    "adam.codes.exp_avg_sq": 6.337540980894119e-08,
+    "model.weight": 0.26096653938293457,
+    "adam.weight.exp_avg": 0.003025601152330637,
+    "adam.weight.exp_avg_sq": 6.560899237229023e-07,
+    "model.bias": 0.1256258189678192,
+    "adam.bias.exp_avg": 0.000733698601834476,
+    "adam.bias.exp_avg_sq": 6.25906977802515e-07,
+    "model.readout": 0.1278962939977646,
+    "adam.readout.exp_avg": 0.00112021598033607,
+    "adam.readout.exp_avg_sq": 1.8838036339730024e-06,
+    "model.output_bias": 0.0013178959488868713,
+    "adam.output_bias.exp_avg": 0.00018238482880406082,
+    "adam.output_bias.exp_avg_sq": 9.46020008996129e-08
+  },
+  "legacy_metrics": {
+    "valid": {
+      "tokens": 4082,
+      "stories": 16,
+      "nll": 4.1950771678668035,
+      "perplexity": 66.35885215078444,
+      "accuracy": 0.2586967172954434,
+      "denominator": "within_story_next_token_pairs",
+      "context_policy": "full_story_recurrent_state"
+    },
+    "test": {
+      "tokens": 3139,
+      "stories": 16,
+      "nll": 4.033703128636054,
+      "perplexity": 56.469638872755105,
+      "accuracy": 0.28066263141127745,
+      "denominator": "within_story_next_token_pairs",
+      "context_policy": "full_story_recurrent_state"
+    }
+  },
+  "selected_metrics": {
+    "valid": {
+      "tokens": 4082,
+      "stories": 16,
+      "nll": 4.1974294675821655,
+      "perplexity": 66.51513179603099,
+      "accuracy": 0.2589416952474277,
+      "denominator": "within_story_next_token_pairs",
+      "context_policy": "full_story_recurrent_state"
+    },
+    "test": {
+      "tokens": 3139,
+      "stories": 16,
+      "nll": 4.034027981887239,
+      "perplexity": 56.48798619846903,
+      "accuracy": 0.2793883402357439,
+      "denominator": "within_story_next_token_pairs",
+      "context_policy": "full_story_recurrent_state"
+    }
+  }
+}

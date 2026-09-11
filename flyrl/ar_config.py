@@ -19,6 +19,7 @@ class ARConfig(Settings):
     alphabet_size: Annotated[int, Field(ge=2, le=65536)]
     tokenization: Tokenization = "character"
     architecture: Architecture = "connectome"
+    trainable_codes: bool = False
     generation_context: GenerationContext = "stateful"
     seed: Annotated[int, Field(ge=0, le=2**32 - 1)] = 0
     device: str = "cpu"
@@ -80,6 +81,9 @@ class ARConfig(Settings):
             case "connectome":
                 pass
             case "gru" | "transformer":
+                if self.trainable_codes:
+                    message = "Trainable sensory codes require connectome architecture"
+                    raise ValueError(message)
                 if self.control != "real" or self.generation_context != "windowed":
                     message = (
                         "Dense baselines require real control and windowed generation"

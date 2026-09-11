@@ -1,0 +1,19 @@
+{
+  "gpu": "Tesla T4",
+  "python": "3.13.15",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "vram_bytes": 15637086208,
+  "peak_allocated_bytes": 284225536,
+  "total_run_seconds": 434.208057605,
+  "training_including_checkpoint_seconds": 417.18082131799997,
+  "restoration": {
+    "parameters": 0.0,
+    "adam": 0.0,
+    "rng_equal": true,
+    "updates_equal": true,
+    "trace_equal": true
+  },
+  "stored_generation_reproduced": true,
+  "checkpoint_sha256": "e0ad8077ceabf61875e4cf38faffc95e781c1535f6688ed544c1269441a4b99a"
+}

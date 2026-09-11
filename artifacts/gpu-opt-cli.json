@@ -1,0 +1,9 @@
+{
+  "source_updates": 1000,
+  "continued_updates": 1002,
+  "device": "cuda",
+  "original_checkpoint_unchanged": true,
+  "original_checkpoint_sha256": "e0ad8077ceabf61875e4cf38faffc95e781c1535f6688ed544c1269441a4b99a",
+  "activation_export": "activations.json",
+  "purpose": "Two disposable verification updates, not a new scientific run"
+}

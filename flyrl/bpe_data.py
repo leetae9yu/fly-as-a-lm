@@ -33,11 +33,12 @@ MIN_VOCAB: Final = 257
 MAX_VOCAB: Final = 65_536
 
 
-def _fingerprint(
+def bpe_fingerprint(
     tokenizer_json: str,
     streams: tuple[IntVector, IntVector, IntVector],
     provenance: str,
 ) -> str:
+    """Hash tokenizer, exact token streams and caller-owned provenance metadata."""
     digest = hashlib.sha256(json.dumps((FORMAT, tokenizer_json, provenance)).encode())
     for stream in streams:
         digest.update(stream.size.to_bytes(8, "little"))
@@ -118,7 +119,7 @@ class BPECorpus:
                 raise CorpusError(reason="Each BPE split needs a nonempty int64 vector")
             if ((tokens < 0) | (tokens >= len(self.vocabulary))).any():
                 raise CorpusError(reason="BPE token ID is outside the vocabulary")
-        if self.fingerprint != _fingerprint(
+        if self.fingerprint != bpe_fingerprint(
             self.tokenizer_json, (self.train, self.valid, self.test), self.provenance
         ):
             raise CorpusError(reason="BPE corpus content fingerprint mismatch")
@@ -162,7 +163,7 @@ def make_bpe_corpus(text: TextSplits, vocab_size: int = 4096) -> BPECorpus:
         )
         for split in (text.train, text.valid, text.test)
     )
-    fingerprint = _fingerprint(serialized, (train, valid, test), text.provenance)
+    fingerprint = bpe_fingerprint(serialized, (train, valid, test), text.provenance)
     return BPECorpus(
         vocabulary, train, valid, test, serialized, fingerprint, text.provenance
     )

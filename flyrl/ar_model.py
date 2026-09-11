@@ -1,9 +1,9 @@
-"""Continuous anatomical recurrence with fixed sensory codes and a small readout.
+"""Continuous anatomical recurrence with optional learned sensory codes and readout.
 
 h' = (1-leak) h + leak tanh(W_anatomy (h + code) + bias + code).
-The fixed sensory code is injected before anatomical propagation, so even the
-first next-token prediction can use its current input.
-Only existing edges, neuron biases and the linear readout are trainable. The
+Sensory codes (fixed by default) are injected before anatomical propagation,
+so even the first next-token prediction can use its current input.
+Existing edges, biases and readout learn; sensory codes can opt in to learning. The
 sensory and readout neurons are disjoint, sampled without looking at edges.
 Graph weights are importer-provided strengths (normally log1p synapse counts).
 Random functional signs avoid an unsupported all-excitatory assumption. Original
@@ -23,7 +23,8 @@ import torch
 from typing_extensions import override
 
 from flyrl.ar_config import ARConfig
-from flyrl.ar_sparse import sparse_recur
+from flyrl.ar_prepared import PreparedRecurrence, prepare_recurrence
+from flyrl.ar_sparse import sparse_recur, sparse_recur_prepared
 from flyrl.ar_topology import SparseTopology
 from flyrl.connectome import Graph
 
@@ -76,7 +77,11 @@ class ConnectomeLM(torch.nn.Module):
         self.register_buffer("sensory", torch.tensor(order[:sensory_count]))
         self.register_buffer("ports", torch.tensor(order[-head_count:]))
         codes = 2 * rng.integers(2, size=(config.alphabet_size, sensory_count)) - 1
-        self.register_buffer("codes", torch.tensor(codes, dtype=torch.float32))
+        code_tensor = torch.tensor(codes, dtype=torch.float32)
+        if config.trainable_codes:
+            self.codes = torch.nn.Parameter(code_tensor)
+        else:
+            self.register_buffer("codes", code_tensor)
         strength = np.abs(graph.weight)
         fan_in = np.bincount(graph.target, weights=strength, minlength=self.nodes)
         initial = config.initial_gain * strength / fan_in[graph.target]
@@ -86,10 +91,12 @@ class ConnectomeLM(torch.nn.Module):
             np.random.default_rng(config.seed + 104729).shuffle(target)
         self.topology = SparseTopology(
             torch.stack((torch.tensor(target), torch.tensor(graph.source.copy()))),
+            nodes=self.nodes,
         )
         self.sensory = self.get_buffer("sensory")
         self.ports = self.get_buffer("ports")
-        self.codes = self.get_buffer("codes")
+        if not config.trainable_codes:
+            self.codes = self.get_buffer("codes")
         train_core = config.control != "frozen"
         self.weight = torch.nn.Parameter(
             torch.tensor(initial, dtype=torch.float32), requires_grad=train_core
@@ -116,29 +123,61 @@ class ConnectomeLM(torch.nn.Module):
     def step(
         self, tokens: torch.Tensor, state: torch.Tensor, *, zero_recurrent: bool = False
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        """Consume only the current character, returning its next-character logits."""
+        """Consume the current token and project its state for online generation."""
+        state = self._advance(tokens, state, zero_recurrent=zero_recurrent)
+        return state[self.ports].T @ self.readout + self.output_bias, state
+
+    def _advance(
+        self,
+        tokens: torch.Tensor,
+        state: torch.Tensor,
+        *,
+        zero_recurrent: bool,
+        prepared: PreparedRecurrence | None = None,
+    ) -> torch.Tensor:
+        """Update the anatomical state independently of the output projection."""
         drive = torch.zeros_like(state)
         drive[self.sensory] = self.codes[tokens].T
-        recurrent = (
-            torch.zeros_like(state)
-            if zero_recurrent
-            else sparse_recur(
+        if zero_recurrent:
+            recurrent = torch.zeros_like(state)
+        elif prepared is None:
+            recurrent = sparse_recur(
                 self.weight, state + drive, self.topology, self.config.edge_chunk
             )
-        )
-        state = (1 - self.config.leak) * state + self.config.leak * torch.tanh(
+        else:
+            recurrent = sparse_recur_prepared(
+                self.weight,
+                state + drive,
+                prepared,
+                self.topology,
+                self.config.edge_chunk,
+            )
+        return (1 - self.config.leak) * state + self.config.leak * torch.tanh(
             recurrent + self.bias[:, None] + drive
         )
-        return state[self.ports].T @ self.readout + self.output_bias, state
 
     @override
     def forward(
         self, tokens: torch.Tensor, *, zero_recurrent: bool = False
     ) -> torch.Tensor:
-        """Map [batch, time] input tokens to [batch, time, vocabulary] logits."""
+        """Project all causal readout states together as one dense matrix product."""
         state = self.weight.new_zeros((self.nodes, tokens.shape[0]))
-        logits: list[torch.Tensor] = []
+        readouts: list[torch.Tensor] = []
+        prepared = (
+            None
+            if zero_recurrent
+            else prepare_recurrence(
+                self.weight,
+                self.topology,
+                need_reverse=torch.is_grad_enabled(),
+            )
+        )
         for character in tokens.unbind(dim=1):
-            output, state = self.step(character, state, zero_recurrent=zero_recurrent)
-            logits.append(output)
-        return torch.stack(logits, dim=1)
+            state = self._advance(
+                character,
+                state,
+                zero_recurrent=zero_recurrent,
+                prepared=prepared,
+            )
+            readouts.append(state[self.ports].T)
+        return torch.stack(readouts, dim=1) @ self.readout + self.output_bias

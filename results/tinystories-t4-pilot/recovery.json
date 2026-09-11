@@ -1,0 +1,68 @@
+{
+  "updates": 1000,
+  "initial": {
+    "valid": {
+      "tokens": 4082,
+      "stories": 16,
+      "nll": 8.317780243538571,
+      "perplexity": 4096.057659057384,
+      "accuracy": 0.0,
+      "denominator": "within_story_next_token_pairs",
+      "context_policy": "full_story_recurrent_state"
+    },
+    "test": {
+      "tokens": 3139,
+      "stories": 16,
+      "nll": 8.317826651736937,
+      "perplexity": 4096.247754124691,
+      "accuracy": 0.0,
+      "denominator": "within_story_next_token_pairs",
+      "context_policy": "full_story_recurrent_state"
+    }
+  },
+  "final": {
+    "valid": {
+      "tokens": 4082,
+      "stories": 16,
+      "nll": 4.198585322386841,
+      "perplexity": 66.59205807994404,
+      "accuracy": 0.2611464968152866,
+      "denominator": "within_story_next_token_pairs",
+      "context_policy": "full_story_recurrent_state"
+    },
+    "test": {
+      "tokens": 3139,
+      "stories": 16,
+      "nll": 4.060325221523201,
+      "perplexity": 57.99316863899092,
+      "accuracy": 0.2828926409684613,
+      "denominator": "within_story_next_token_pairs",
+      "context_policy": "full_story_recurrent_state"
+    }
+  },
+  "generation": {
+    "greedy": "Once upon a time, there was a little girl named Lily. She loved to the kitchen and said, \"I'm sorry, I can't you want to play with me. You can play with your toys.\"\nLily and Ben said, \"I'm sorry, I can't get it.\"\nLily and Ben said, \"I",
+    "sampled": "Once upon a time with there. Lila wasike who was mean. He bees and someone dry fall.\nAfter wa opened his new friend. They go to play with theure and the words and hugged each other. They think waved their making some saladseshood,. She says, \"No, I you can me,\" share him"
+  },
+  "verification": {
+    "gpu": "Tesla T4",
+    "python": "3.13.15",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "vram_bytes": 15637086208,
+    "peak_allocated_bytes": 284225536,
+    "total_run_seconds": 434.208057605,
+    "training_including_checkpoint_seconds": 417.18082131799997,
+    "restoration": {
+      "parameters": 0.0,
+      "adam": 0.0,
+      "rng_equal": true,
+      "updates_equal": true,
+      "trace_equal": true
+    },
+    "stored_generation_reproduced": true,
+    "checkpoint_sha256": "e0ad8077ceabf61875e4cf38faffc95e781c1535f6688ed544c1269441a4b99a"
+  },
+  "artifacts": "results/tinystories-t4-pilot",
+  "zip_sha256": "479a10ac7c56386953e97912035114229abb861d458e3cfce8ae167a14420b97"
+}
