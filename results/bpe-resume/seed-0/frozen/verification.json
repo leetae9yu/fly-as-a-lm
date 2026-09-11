@@ -1,0 +1,21 @@
+{
+  "source_sha256": "5b2a822989afad7e4a23ebbd4d0dde45a08bdcb82279c272808570701051df97",
+  "source_updates": 8000,
+  "continued_updates": 8004,
+  "stored_generation_reproduced": true,
+  "restoration": {
+    "parameters": 0.0,
+    "adam": 0.0,
+    "rng_equal": true,
+    "updates_equal": true,
+    "trace_equal": true
+  },
+  "continuation": {
+    "parameters": 2.384185791015625e-7,
+    "adam": 2.3283064365386963e-10,
+    "rng_equal": true,
+    "updates_equal": true,
+    "trace_equal": true
+  },
+  "continuation_loss_difference": 0.0
+}
