@@ -1,0 +1,40 @@
+{
+  "source": "https://raw.githubusercontent.com/pytorch/examples/acc295dc7b90714f1bf47f06004fc19a7fe235c4/word_language_model/data/wikitext-2",
+  "raw_sha256": {
+    "train": "9e9fa1ad55b1c2c95b08e37dd8e653f638fac2c6de904b79e813611eefbc985f",
+    "valid": "f0737ed31fc1329026e95cb8b98e19c2a182c39c240ab909dc31abf2f8af58e8",
+    "test": "d790b833ef8cf03a90db7bf1271b7520b83c45ce07ba3c1a9699df81e239eca0"
+  },
+  "split_bounds": {
+    "train": [
+      0,
+      10707000
+    ],
+    "valid": [
+      0,
+      1112671
+    ],
+    "test": [
+      196608,
+      1246301
+    ]
+  },
+  "requested_vocab_size": 4096,
+  "tokenizers_version": "0.22.2",
+  "normalization": "lowercase; collapse whitespace independently per split; slice normalized Unicode characters with exclusive end",
+  "vocabulary_fit": "all normalized training text only; all 256 initial bytes plus <unk>; BPE minimum pair frequency 2",
+  "source_form": "tokenized WikiText-2; literal <unk> and @-@ markers retained",
+  "decoding": "exact source roundtrip; arbitrary generated invalid UTF-8 renders as U+FFFD; vocabulary labels remain byte-level tokens",
+  "source_attribution": "WikiText-2: Stephen Merity, Caiming Xiong, James Bradbury, Richard Socher; Wikipedia contributors",
+  "source_license": "Upstream dataset card metadata: CC BY-SA 3.0/GFDL; licensing discussion links CC BY-SA 4.0. Original upstream attribution/share-alike terms apply, not project MIT.",
+  "source_license_url": "https://huggingface.co/datasets/Salesforce/wikitext",
+  "source_license_record": "data/wikitext2/README.md; THIRD_PARTY.md",
+  "actual_vocab_size": 4096,
+  "token_counts": {
+    "train": 2830508,
+    "valid": 288823,
+    "test": 276241
+  },
+  "tokenizer_sha256": "d11e6296f338422848d8c4c0daef888ba1e4f2c5ab7b7966a8c965422cb99c63",
+  "fingerprint": "1ec7da9e28bf8382a240f4eca0ab6cfa8750ed5aeaa59633d337a8982543c48f"
+}
