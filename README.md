@@ -16,7 +16,7 @@ Inspired by [DOOMFLY](https://github.com/nftechie/doomfly), this independent
 experiment takes the connectome-to-computation question from game control to
 text prediction.
 
-## Latest result: TinyStories pilot
+## Latest result: TinyStories and central-brain comparison
 
 [The TinyStories pilot](PILOT.md) adds story-isolated next-token training with
 learnable sensory codes and token-aligned neuron activation heatmaps. It keeps
@@ -35,6 +35,17 @@ implementation from 0.116 to 0.079 seconds/update (**1.46x**) by preparing spars
 values once per sequence and replacing native SpMM with cached-layout Triton CSR.
 It did not change the anatomical topology or establish a new language-quality
 score.
+
+The [central-brain follow-up](CENTRAL_BRAIN_RESULTS.md) then compared the
+visual-biased graph with two induced `cb_intrinsic` selections and
+degree-preserving shuffled controls in one six-condition T4 run. Central real
+wiring beat its own shuffle at both scales: test perplexity was **88.45 versus
+124.89** for the edge-matched graph and **111.66 versus 189.84** for the
+node-matched graph. The visual-biased reference remained better in absolute
+quality at **57.10**. This is one seed, not proof of a biological language
+specialization, but it is the clearest wiring-sensitive result in the project
+so far. Full activation arrays and all 12 heatmap pages were recovered and
+verified.
 
 ## Historical result: WikiText BPE comparison
 

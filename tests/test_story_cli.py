@@ -19,9 +19,12 @@ def test_pilot_entrypoints_exist() -> None:
     assert all(importlib.util.find_spec(name) is not None for name in modules)
 
 
-@pytest.mark.parametrize("sample_length", [0, 2])
+@pytest.mark.parametrize(
+    ("sample_length", "control"),
+    [(0, "real"), (2, "real"), (0, "shuffled")],
+)
 def test_tiny_cpu_cli_prepares_trains_and_resumes(
-    tmp_path: Path, sample_length: int
+    tmp_path: Path, sample_length: int, control: str
 ) -> None:
     # Given: small delimiter-separated local stories with explicit source identity.
     raw = tmp_path / "stories.txt"
@@ -71,6 +74,8 @@ def test_tiny_cpu_cli_prepares_trains_and_resumes(
         str(sample_length),
         "--checkpoint-steps",
         "1",
+        "--control",
+        control,
         "--prompt",
         "The bird",
     ]
@@ -92,6 +97,7 @@ def test_tiny_cpu_cli_prepares_trains_and_resumes(
     assert after.trace == full.trace
     assert after.generated_token_ids == full.generated_token_ids
     assert after.config.trainable_codes is True
+    assert after.config.control == control
     assert after.config.device == "cpu"
     assert after.updates == 2
     assert after.final.test.tokens > 0

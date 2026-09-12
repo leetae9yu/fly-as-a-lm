@@ -1,0 +1,10 @@
+{
+  "condition": "visual-n16384-shuffled",
+  "gpu": "Tesla T4",
+  "python": "3.13.15",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "seconds": 146.56521697899984,
+  "peak_allocated_bytes": 311649792,
+  "resumed": false
+}

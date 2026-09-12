@@ -1,0 +1,40 @@
+{
+  "format": "flyrl-central-connectome-v1",
+  "region_superclass": "cb_intrinsic",
+  "source_graph_sha256": "6f19085b11bf56e85e2129ca422cba3a4bdf00f5f580d7f0243e4fde359079d0",
+  "annotations_sha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2",
+  "comparison_edges": 1187999,
+  "pool_nodes": 32164,
+  "pool_edges": 6815307,
+  "pool_contacts": 34365451,
+  "root_body_id": "10540",
+  "selection_order_path": "selection_order.npy",
+  "selection_order_sha256": "84d7453108075b9c393132a9d9fa08855be485f6b5dbf3b28d87bf8fd289522f",
+  "artifacts": [
+    {
+      "path": "malecns_v1_cb_intrinsic_n5600.npz",
+      "bytes": 3536564,
+      "sha256": "738d23289b7345dcf49a25e9305d106e7349fca87b93f97df8698db2753ce935",
+      "neurons": 5600,
+      "directed_edges": 1187928,
+      "synaptic_contacts": 4507454,
+      "edge_delta": -71
+    },
+    {
+      "path": "malecns_v1_cb_intrinsic_n16384.npz",
+      "bytes": 11081710,
+      "sha256": "d0a3de91f395592120feee3170b40f9191c4e90d6f7701e4e6536de8afe83f90",
+      "neurons": 16384,
+      "directed_edges": 3222739,
+      "synaptic_contacts": 14085149,
+      "edge_delta": 2034740
+    }
+  ],
+  "assumptions": [
+    "Selection uses only the induced cb_intrinsic pool.",
+    "Connected BFS ranks fresh neighbors by pool incident contacts then bodyId.",
+    "Each artifact retains every internal directed pair and original contact count.",
+    "The 5600-node artifact matches edge count; the 16384-node artifact matches nodes.",
+    "Boundary edges and every non-cb_intrinsic neuron are excluded."
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "format": "flyrl-central-brain-t4-v1",
+  "run": "central-brain-t4-comparison-20260912",
+  "corpus_fingerprint": "fd9d30ce06ef753feb2160370d40bceebd41f126aaf6be58d9d6ed42cda45575",
+  "corpus_sha256": "c750d2aabe2311cb713d3afed98c6fa8b1f044f092a7727a3a8cef278ec22b5e",
+  "source_sha256": "18c62d8eae102c8e36ebf0d8ec80000049510632c7d7f4e10d7885b3074195f8",
+  "selection_manifest_sha256": "fe7ec257a3f4586b724281170ec22186d1b7e6212acbce39fe57dbf89fa68924",
+  "conditions": [
+    {
+      "name": "visual-n16384-real",
+      "graph": "malecns_v1_n16384.npz",
+      "control": "real",
+      "nodes": 16384,
+      "edges": 1187999,
+      "sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8"
+    },
+    {
+      "name": "visual-n16384-shuffled",
+      "graph": "malecns_v1_n16384.npz",
+      "control": "shuffled",
+      "nodes": 16384,
+      "edges": 1187999,
+      "sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8"
+    },
+    {
+      "name": "central-n5600-real",
+      "graph": "malecns_v1_cb_intrinsic_n5600.npz",
+      "control": "real",
+      "nodes": 5600,
+      "edges": 1187928,
+      "sha256": "738d23289b7345dcf49a25e9305d106e7349fca87b93f97df8698db2753ce935"
+    },
+    {
+      "name": "central-n5600-shuffled",
+      "graph": "malecns_v1_cb_intrinsic_n5600.npz",
+      "control": "shuffled",
+      "nodes": 5600,
+      "edges": 1187928,
+      "sha256": "738d23289b7345dcf49a25e9305d106e7349fca87b93f97df8698db2753ce935"
+    },
+    {
+      "name": "central-n16384-real",
+      "graph": "malecns_v1_cb_intrinsic_n16384.npz",
+      "control": "real",
+      "nodes": 16384,
+      "edges": 3222739,
+      "sha256": "d0a3de91f395592120feee3170b40f9191c4e90d6f7701e4e6536de8afe83f90"
+    },
+    {
+      "name": "central-n16384-shuffled",
+      "graph": "malecns_v1_cb_intrinsic_n16384.npz",
+      "control": "shuffled",
+      "nodes": 16384,
+      "edges": 3222739,
+      "sha256": "d0a3de91f395592120feee3170b40f9191c4e90d6f7701e4e6536de8afe83f90"
+    }
+  ],
+  "seed": 0,
+  "context": 64,
+  "batch_size": 8,
+  "updates": 1000,
+  "training_targets": 512000,
+  "learning_rate": 0.003,
+  "checkpoint_steps": 100,
+  "trainable_codes": true,
+  "sample_length": 64,
+  "prompt": "Once upon a time",
+  "selection": "fixed update budget; no held-out-driven changes or early stopping",
+  "evaluation": "all within-story pairs; persistent state; reset between stories"
+}

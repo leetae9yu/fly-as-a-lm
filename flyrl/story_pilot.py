@@ -47,7 +47,7 @@ class PilotReport(Settings):
 @app.command()
 @dataclass(frozen=True, slots=True, kw_only=True)
 class Command:
-    """Train only the sparse anatomical model; --updates is a total target.
+    """Train one sparse anatomical condition; --updates is a total target.
 
     The intended pilot defaults to the existing real 16384-neuron graph. Tiny CPU
     checks must explicitly override --graph and --updates. Training samples only
@@ -57,6 +57,7 @@ class Command:
     corpus: Annotated[Path, typer.Option(exists=True, dir_okay=False)]
     output: Annotated[Path, typer.Option(file_okay=False)]
     graph: Annotated[Path, typer.Option(exists=True, dir_okay=False)] = DEFAULT_GRAPH
+    control: Annotated[Literal["real", "shuffled"], typer.Option()] = "real"
     updates: Annotated[int, typer.Option(min=0)] = 1000
     checkpoint_steps: Annotated[int, typer.Option(min=1)] = 100
     resume: Annotated[bool, typer.Option()] = False
@@ -89,6 +90,7 @@ def run(options: Command) -> PilotReport:
         tokenization="bpe",
         seed=options.seed,
         device=options.device,
+        control=options.control,
         context=options.context,
         batch_size=options.batch_size,
         learning_rate=options.learning_rate,

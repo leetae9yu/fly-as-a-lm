@@ -24,6 +24,8 @@ include = [
     "/PILOT.md",
     "/TINYSTORIES_RESULTS.md",
     "/GPU_OPTIMIZATION.md",
+    "/CENTRAL_BRAIN_PILOT.md",
+    "/CENTRAL_BRAIN_RESULTS.md",
     "/run_colab.sh",
     "/run_language_colab.sh",
     "/run_ar_colab.sh",
@@ -34,6 +36,8 @@ exclude = [
     "/data/large_connectome/raw",
     "/data/large_connectome/*.npz",
     "/data/large_connectome/*.npy",
+    "/data/central_connectome/*.npz",
+    "/data/central_connectome/*.npy",
 ]
 
 [project]
