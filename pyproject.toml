@@ -27,6 +27,8 @@ include = [
     "/CENTRAL_BRAIN_PILOT.md",
     "/CENTRAL_BRAIN_RESULTS.md",
     "/CENTRAL_BRAIN_REPLICATION.md",
+    "/BRAIN_ACTIVITY.md",
+    "/assets/brain-activity-3d.gif",
     "/run_colab.sh",
     "/run_language_colab.sh",
     "/run_ar_colab.sh",
@@ -62,6 +64,7 @@ cuda = ["triton>=3.6,<4"]
 
 [project.scripts]
 flyrl = "flyrl.cli:app"
+flyrl-brain-activity = "flyrl.brain_activity:app"
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.11", "basedpyright>=1.28"]
