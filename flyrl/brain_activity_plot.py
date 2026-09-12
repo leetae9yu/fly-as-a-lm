@@ -20,6 +20,8 @@ from flyrl.brain_activity_data import (
     BrainPlayback,
     FloatArray,
     RenderOptions,
+    RenderView,
+    activity_changes,
     activity_emphasis,
 )
 from flyrl.brain_activity_scene import prepare_scene
@@ -32,10 +34,20 @@ if TYPE_CHECKING:
 
 FONT_FAMILY: Final = ("DejaVu Sans",)
 STORY_CHARACTER_LIMIT: Final = 112
-INTERPRETATION: Final = (
-    "State before token selection · size = change from prior frame "
-    "(frame 1: zero baseline)"
-)
+INTERPRETATIONS: Final[dict[RenderView, str]] = {
+    "activity_3d": (
+        "Fixed camera · color/size = state change from prior frame "
+        "(frame 1: zero baseline)"
+    ),
+    "projections": (
+        "Fixed projections · color/size = state change from prior frame "
+        "(frame 1: zero baseline)"
+    ),
+    "rotating_3d": (
+        "Rotating anatomy view · color/size = state change from prior frame "
+        "(frame 1: zero baseline)"
+    ),
+}
 CAUTION: Final = "Model state, not biological firing, attention, or causal importance."
 
 
@@ -71,6 +83,7 @@ def render_playback(playback: BrainPlayback, options: RenderOptions) -> Path:
         options.view,
     )
     points = scene.points
+    changes = activity_changes(playback.states)
     emphasis = activity_emphasis(playback.states)
     token_text = _figure_text(figure, 0.5, 0.84, 23, "white")
     story_text = _figure_text(figure, 0.5, 0.075, 12, "#d9deea")
@@ -78,11 +91,17 @@ def render_playback(playback: BrainPlayback, options: RenderOptions) -> Path:
     _ = figure.text(
         0.04,
         0.965,
-        "Inside a fruit-fly central-brain model as it selects each token",
+        "Where a fruit-fly central-brain model changes for each token",
         color="white",
         fontsize=20,
     )
-    _ = figure.text(0.04, 0.925, INTERPRETATION, color="#aab4c8", fontsize=11)
+    _ = figure.text(
+        0.04,
+        0.925,
+        INTERPRETATIONS[options.view],
+        color="#aab4c8",
+        fontsize=11,
+    )
     _ = figure.text(
         0.5,
         0.018,
@@ -91,22 +110,11 @@ def render_playback(playback: BrainPlayback, options: RenderOptions) -> Path:
         color="#9aa6bc",
         fontsize=11,
     )
-    _ = figure.text(0.66, 0.89, "negative", color="#2e99ff", fontsize=10)
-    _ = figure.text(0.74, 0.89, "← state →", color="#aab4c8", fontsize=10)
-    _ = figure.text(0.825, 0.89, "positive", color="#ff3d57", fontsize=10)
-    _ = figure.text(
-        0.96,
-        0.89,
-        "· gray = soma",
-        ha="right",
-        color="#9aa6bc",
-        fontsize=10,
-    )
+    _ = figure.text(0.64, 0.89, "blue = state fell", color="#2e99ff", fontsize=11)
+    _ = figure.text(0.84, 0.89, "red = state rose", color="#ff3d57", fontsize=11)
 
     def update(frame: int) -> None:
-        values: FloatArray = (
-            playback.states[frame : frame + 1].reshape(-1).astype(np.float64)
-        )
+        values: FloatArray = changes[frame : frame + 1].reshape(-1).astype(np.float64)
         strength: FloatArray = emphasis[frame : frame + 1].reshape(-1)
         colors = _state_colors(values, strength)
         sizes: FloatArray = 2.0 + 44.0 * strength**1.45
@@ -164,7 +172,7 @@ def _figure_text(
 
 
 def _state_colors(values: FloatArray, strength: FloatArray) -> FloatArray:
-    """Map signed states to a dark-center blue/red ramp with change alpha."""
+    """Map signed state changes to a dark-center blue/red ramp."""
     neutral = np.asarray([0.12, 0.14, 0.19], dtype=np.float64)
     negative = np.asarray([0.18, 0.60, 1.00], dtype=np.float64)
     positive = np.asarray([1.00, 0.24, 0.34], dtype=np.float64)
@@ -172,12 +180,9 @@ def _state_colors(values: FloatArray, strength: FloatArray) -> FloatArray:
     colors[:, :3] = neutral
     negative_rows = values < 0
     positive_rows = ~negative_rows
-    colors[negative_rows, :3] += np.abs(values[negative_rows, None]) * (
-        negative - neutral
-    )
-    colors[positive_rows, :3] += np.abs(values[positive_rows, None]) * (
-        positive - neutral
-    )
+    magnitude = np.minimum(np.abs(values), 1.0)
+    colors[negative_rows, :3] += magnitude[negative_rows, None] * (negative - neutral)
+    colors[positive_rows, :3] += magnitude[positive_rows, None] * (positive - neutral)
     colors[:, 3] = 0.03 + 0.97 * strength
     return colors
 

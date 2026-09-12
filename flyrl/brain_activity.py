@@ -9,6 +9,7 @@ import typer
 from flyrl.brain_activity_data import (
     BrainPlayback,
     RenderOptions,
+    activity_changes,
     activity_emphasis,
     align_soma_positions,
     load_playback,
@@ -18,6 +19,7 @@ from flyrl.brain_activity_plot import render_playback
 __all__ = [
     "BrainPlayback",
     "RenderOptions",
+    "activity_changes",
     "activity_emphasis",
     "align_soma_positions",
     "render_playback",
@@ -37,9 +39,9 @@ class Command:
     output: Annotated[Path, typer.Option(dir_okay=False)]
     frames_per_second: Annotated[int, typer.Option(min=1, max=12)] = 3
     dpi: Annotated[int, typer.Option(min=50, max=200)] = 150
-    view: Annotated[Literal["projections", "rotating_3d"], typer.Option()] = (
-        "projections"
-    )
+    view: Annotated[
+        Literal["activity_3d", "projections", "rotating_3d"], typer.Option()
+    ] = "activity_3d"
 
     def __post_init__(self) -> None:
         """Execute the validated offline renderer."""

@@ -61,13 +61,14 @@ fixed graph and custom TinyStories corpus.
 
 ### Watch the model select each token
 
-[![Rotating 3D soma activity synchronized to generated tokens](assets/brain-activity-3d.gif)](BRAIN_ACTIVITY.md)
+[![Fixed-camera 3D soma-state changes synchronized to generated tokens](assets/brain-activity-3d.gif)](BRAIN_ACTIVITY.md)
 
 The [token-synchronized anatomical playback](BRAIN_ACTIVITY.md) places all
 5,576 positioned neurons from the N5,600 recording at their measured MaleCNS
 soma coordinates. Every frame corresponds to one generated token. Color shows
-the signed model state; brightness and point size show change since the previous
-token selection. Frame 1 uses the zero state as its baseline because no previous
+the direction of model-state change; brightness and point size show its
+magnitude. The camera stays fixed so spatial changes are not confused with
+rotation. Frame 1 uses the zero state as its baseline because no previous
 recorded frame exists. The remaining 24 neurons have no measured soma coordinate
 and are omitted rather than assigned invented positions. This is model activity,
 not biological firing, attention or causal importance.

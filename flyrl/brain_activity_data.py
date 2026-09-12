@@ -18,7 +18,7 @@ from flyrl.bpe_tokenizer import restore_tokenizer
 
 FloatArray = NDArray[np.float64]
 IntArray = NDArray[np.int64]
-RenderView = Literal["projections", "rotating_3d"]
+RenderView = Literal["activity_3d", "projections", "rotating_3d"]
 MATRIX_DIMENSIONS: Final = 2
 SOMA_DIMENSIONS: Final = 3
 MINIMUM_POSITIONED_NEURONS: Final = 2
@@ -82,7 +82,7 @@ class RenderOptions:
     output: Path
     frames_per_second: int = 3
     dpi: int = 150
-    view: RenderView = "projections"
+    view: RenderView = "activity_3d"
 
     def __post_init__(self) -> None:
         """Accept only supported animation containers and useful dimensions."""
@@ -138,8 +138,8 @@ def align_soma_positions(
     )
 
 
-def activity_emphasis(states: NDArray[np.float32]) -> FloatArray:
-    """Scale per-token state changes for point brightness and size."""
+def activity_changes(states: NDArray[np.float32]) -> NDArray[np.float32]:
+    """Return signed change from the previous token-selection state."""
     if (
         states.ndim != MATRIX_DIMENSIONS
         or states.size == 0
@@ -150,7 +150,12 @@ def activity_emphasis(states: NDArray[np.float32]) -> FloatArray:
     previous = np.empty_like(states)
     previous[0] = 0
     previous[1:] = states[:-1]
-    change: FloatArray = np.abs(states - previous).astype(np.float64)
+    return states - previous
+
+
+def activity_emphasis(states: NDArray[np.float32]) -> FloatArray:
+    """Scale per-token state changes for point brightness and size."""
+    change: FloatArray = np.abs(activity_changes(states)).astype(np.float64)
     ranked = TypeAdapter(list[float]).validate_python(change.reshape(-1).tolist())
     ranked.sort()
     scale = ranked[int(0.99 * (len(ranked) - 1))]

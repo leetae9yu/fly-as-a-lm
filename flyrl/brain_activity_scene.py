@@ -110,6 +110,14 @@ class Scene:
     rotate: Callable[[int], None]
 
 
+@dataclass(frozen=True, slots=True)
+class CameraPlan:
+    """A 3D camera schedule and view-specific framing."""
+
+    azimuths: tuple[float, ...]
+    zoom: float
+
+
 def prepare_scene(
     native: Figure,
     coordinates: FloatArray,
@@ -118,12 +126,35 @@ def prepare_scene(
 ) -> Scene:
     """Build the requested spatial scene with a stable frame contract."""
     builders: dict[RenderView, Callable[[], Scene]] = {
+        "activity_3d": lambda: _prepare_three_dimensional_scene(
+            native, coordinates, view_camera("activity_3d", frames)
+        ),
         "projections": lambda: _prepare_projection_scene(native, coordinates),
         "rotating_3d": lambda: _prepare_three_dimensional_scene(
-            native, coordinates, frames
+            native, coordinates, view_camera("rotating_3d", frames)
         ),
     }
     return builders[view]()
+
+
+def view_camera(view: RenderView, frames: int) -> CameraPlan:
+    """Return the camera plan consumed by a spatial view."""
+    plans: dict[RenderView, CameraPlan] = {
+        "activity_3d": CameraPlan(tuple(-35.0 for _ in range(frames)), 1.60),
+        "projections": CameraPlan(tuple(0.0 for _ in range(frames)), 1.0),
+        "rotating_3d": CameraPlan(
+            tuple(
+                -65.0 + 120.0 * frame / max(frames - 1, 1) for frame in range(frames)
+            ),
+            1.30,
+        ),
+    }
+    return plans[view]
+
+
+def view_azimuths(view: RenderView, frames: int) -> tuple[float, ...]:
+    """Return the camera schedule consumed by a spatial view."""
+    return view_camera(view, frames).azimuths
 
 
 def _prepare_projection_scene(native: Figure, coordinates: FloatArray) -> Scene:
@@ -166,7 +197,7 @@ def _prepare_projection_scene(native: Figure, coordinates: FloatArray) -> Scene:
 
 
 def _prepare_three_dimensional_scene(
-    native: Figure, coordinates: FloatArray, frames: int
+    native: Figure, coordinates: FloatArray, camera: CameraPlan
 ) -> Scene:
     """Create a rotating 3D soma cloud without inventing missing positions."""
     axes = TypeAdapter(
@@ -177,9 +208,9 @@ def _prepare_three_dimensional_scene(
         coordinates[:, 0],
         coordinates[:, 1],
         coordinates[:, 2],
-        s=1,
-        color="#4d5668",
-        alpha=0.25,
+        s=3,
+        color="#aab4c8",
+        alpha=0.65,
         linewidths=0,
     )
     points = axes.scatter(
@@ -192,11 +223,10 @@ def _prepare_three_dimensional_scene(
         depthshade=False,
     )
     axes.set_position((0.05, 0.12, 0.90, 0.66))
-    axes.set_box_aspect((1.55, 1.25, 0.85), zoom=1.30)
+    axes.set_box_aspect((1.55, 1.25, 0.85), zoom=camera.zoom)
     axes.set_axis_off()
 
     def rotate(frame: int) -> None:
-        progress = frame / max(frames - 1, 1)
-        axes.view_init(elev=18.0, azim=-65.0 + 120.0 * progress)
+        axes.view_init(elev=18.0, azim=camera.azimuths[frame])
 
     return Scene((points,), rotate)
