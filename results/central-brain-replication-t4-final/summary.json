@@ -1,0 +1,66 @@
+{
+  "format": "flyrl-central-replication-results-v1",
+  "rows": [
+    {
+      "seed": 1,
+      "real_test_nll": 4.53857092053771,
+      "shuffled_test_nll": 5.145269862403152,
+      "delta": 0.6066989418654423,
+      "real_accuracy": 0.2284166932143995,
+      "shuffled_accuracy": 0.17425931825422109
+    },
+    {
+      "seed": 2,
+      "real_test_nll": 4.495651615771111,
+      "shuffled_test_nll": 5.182992578502216,
+      "delta": 0.6873409627311053,
+      "real_accuracy": 0.22491239248168207,
+      "shuffled_accuracy": 0.1768079006052883
+    },
+    {
+      "seed": 3,
+      "real_test_nll": 4.609844250297729,
+      "shuffled_test_nll": 5.239850217121048,
+      "delta": 0.6300059668233189,
+      "real_accuracy": 0.22363810130614845,
+      "shuffled_accuracy": 0.1768079006052883
+    },
+    {
+      "seed": 4,
+      "real_test_nll": 4.319337256055761,
+      "shuffled_test_nll": 5.1207982136512795,
+      "delta": 0.8014609575955189,
+      "real_accuracy": 0.24784963364128704,
+      "shuffled_accuracy": 0.19528512265052564
+    },
+    {
+      "seed": 5,
+      "real_test_nll": 4.416629551853789,
+      "shuffled_test_nll": 5.207689284670691,
+      "delta": 0.791059732816902,
+      "real_accuracy": 0.22554953806944886,
+      "shuffled_accuracy": 0.16916215355208666
+    },
+    {
+      "seed": 6,
+      "real_test_nll": 4.553718897444916,
+      "shuffled_test_nll": 4.831115708073145,
+      "delta": 0.27739681062822896,
+      "real_accuracy": 0.22363810130614845,
+      "shuffled_accuracy": 0.20006371455877667
+    }
+  ],
+  "analysis": {
+    "verdict": "advance",
+    "advance": true,
+    "unanimous_positive": true,
+    "median_delta": 0.6586734647772121,
+    "mean_delta": 0.6323272287434194,
+    "range": [
+      0.27739681062822896,
+      0.8014609575955189
+    ],
+    "geometric_mean_ppl_ratio_real_over_shuffled": 0.5313537791978138,
+    "two_sided_unanimous_sign_p": 0.03125
+  }
+}

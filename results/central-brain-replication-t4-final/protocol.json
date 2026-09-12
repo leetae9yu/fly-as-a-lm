@@ -1,0 +1,70 @@
+{
+  "format": "flyrl-central-replication-v1",
+  "graph": "malecns_v1_cb_intrinsic_n5600.npz",
+  "graph_sha256": "738d23289b7345dcf49a25e9305d106e7349fca87b93f97df8698db2753ce935",
+  "graph_nodes": 5600,
+  "graph_edges": 1187928,
+  "corpus_fingerprint": "fd9d30ce06ef753feb2160370d40bceebd41f126aaf6be58d9d6ed42cda45575",
+  "corpus_sha256": "c750d2aabe2311cb713d3afed98c6fa8b1f044f092a7727a3a8cef278ec22b5e",
+  "source_sha256": "af5e03b2ab32bf0a0b4f2b9841247e8b7f07a70b591f39f67de6519f6e97dcac",
+  "worker_sha256": "7d527e034db5a32b1381c28a49449921b97ee53f28cc6c5c36fe15bd2460ff7a",
+  "pairs": [
+    {
+      "seed": 1,
+      "order": [
+        "real",
+        "shuffled"
+      ]
+    },
+    {
+      "seed": 2,
+      "order": [
+        "shuffled",
+        "real"
+      ]
+    },
+    {
+      "seed": 3,
+      "order": [
+        "real",
+        "shuffled"
+      ]
+    },
+    {
+      "seed": 4,
+      "order": [
+        "shuffled",
+        "real"
+      ]
+    },
+    {
+      "seed": 5,
+      "order": [
+        "real",
+        "shuffled"
+      ]
+    },
+    {
+      "seed": 6,
+      "order": [
+        "shuffled",
+        "real"
+      ]
+    }
+  ],
+  "context": 64,
+  "batch_size": 8,
+  "updates": 1000,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0,
+  "gradient_clip": 1.0,
+  "leak": 0.5,
+  "initial_gain": 0.9,
+  "readout_neurons": 256,
+  "trainable_codes": true,
+  "checkpoint_steps": 100,
+  "sample_length": 64,
+  "prompt": "Once upon a time",
+  "median_advancement_threshold": 0.1,
+  "heldout_policy": "sealed until all twelve conditions complete"
+}

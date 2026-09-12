@@ -1,0 +1,11 @@
+{
+  "seed": 6,
+  "control": "shuffled",
+  "gpu": "Tesla T4",
+  "python": "3.13.15",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "seconds": 97.63053762499999,
+  "peak_allocated_bytes": 266452480,
+  "resumed": false
+}

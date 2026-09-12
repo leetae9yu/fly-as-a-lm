@@ -1,0 +1,20 @@
+{
+  "valid": {
+    "tokens": 4082,
+    "stories": 16,
+    "nll": 8.31781701256632,
+    "perplexity": 4096.208269883997,
+    "accuracy": 0.0002449779519843214,
+    "denominator": "within_story_next_token_pairs",
+    "context_policy": "full_story_recurrent_state"
+  },
+  "test": {
+    "tokens": 3139,
+    "stories": 16,
+    "nll": 8.31782470975343,
+    "perplexity": 4096.239799286835,
+    "accuracy": 0.00031857279388340236,
+    "denominator": "within_story_next_token_pairs",
+    "context_policy": "full_story_recurrent_state"
+  }
+}

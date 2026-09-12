@@ -16,7 +16,7 @@ Inspired by [DOOMFLY](https://github.com/nftechie/doomfly), this independent
 experiment takes the connectome-to-computation question from game control to
 text prediction.
 
-## Latest result: TinyStories and central-brain comparison
+## Latest result: TinyStories central-brain replication
 
 [The TinyStories pilot](PILOT.md) adds story-isolated next-token training with
 learnable sensory codes and token-aligned neuron activation heatmaps. It keeps
@@ -46,6 +46,18 @@ quality at **57.10**. This is one seed, not proof of a biological language
 specialization, but it is the clearest wiring-sensitive result in the project
 so far. Full activation arrays and all 12 heatmap pages were recovered and
 verified.
+
+A prespecified [six-seed replication](CENTRAL_BRAIN_REPLICATION.md) then tested
+the edge-matched N5,600 central graph with fresh seeds 1–6. Original wiring beat
+its degree-preserving shuffled-target control in **all six pairs**. The median
+test-NLL advantage was **0.6587 nat/token**, the real/shuffled geometric-mean
+perplexity ratio was **0.5314** (46.9% lower for real wiring), and the two-sided
+exact probability of six concordant signs was **0.03125**. All 12 conditions
+completed without resume on one Tesla T4 and passed strict checkpoint,
+optimizer, RNG, activation and provenance recovery. This clears the frozen
+decision gate for an anatomy-aware ALPN-to-MBON port experiment; it does not
+establish superiority to a same-scale Transformer or generalization beyond the
+fixed graph and custom TinyStories corpus.
 
 ## Historical result: WikiText BPE comparison
 

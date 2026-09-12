@@ -26,6 +26,7 @@ include = [
     "/GPU_OPTIMIZATION.md",
     "/CENTRAL_BRAIN_PILOT.md",
     "/CENTRAL_BRAIN_RESULTS.md",
+    "/CENTRAL_BRAIN_REPLICATION.md",
     "/run_colab.sh",
     "/run_language_colab.sh",
     "/run_ar_colab.sh",
