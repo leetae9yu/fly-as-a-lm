@@ -1,0 +1,345 @@
+{
+  "format": "flyrl-anatomy-factorial-results-v1",
+  "rows": [
+    {
+      "seed": 7,
+      "conditions": [
+        {
+          "seed": 7,
+          "wiring": "real",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.200878922291416,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 7,
+          "wiring": "real",
+          "port_policy": "alpn_random",
+          "test_nll": 5.614208514312909,
+          "test_accuracy": 0.11850907932462568
+        },
+        {
+          "seed": 7,
+          "wiring": "real",
+          "port_policy": "random_mbon",
+          "test_nll": 6.1924058659587855,
+          "test_accuracy": 0.07422746097483275
+        },
+        {
+          "seed": 7,
+          "wiring": "real",
+          "port_policy": "random_random",
+          "test_nll": 5.566222658427744,
+          "test_accuracy": 0.1210576616756929
+        },
+        {
+          "seed": 7,
+          "wiring": "shuffled",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.190256858259373,
+          "test_accuracy": 0.07422746097483275
+        },
+        {
+          "seed": 7,
+          "wiring": "shuffled",
+          "port_policy": "random_random",
+          "test_nll": 5.399959577576831,
+          "test_accuracy": 0.1357120101943294
+        }
+      ],
+      "primary_gain": -0.6346562638636719,
+      "shuffled_gain": -0.7902972806825419,
+      "topology_interaction": 0.15564101681887,
+      "input_gain": -0.02822945610889782,
+      "output_gain": -0.6064268077547741,
+      "input_output_interaction": 0.039512799552534617
+    },
+    {
+      "seed": 8,
+      "conditions": [
+        {
+          "seed": 8,
+          "wiring": "real",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.198893736334658,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 8,
+          "wiring": "real",
+          "port_policy": "alpn_random",
+          "test_nll": 5.592797810729805,
+          "test_accuracy": 0.12615482637782732
+        },
+        {
+          "seed": 8,
+          "wiring": "real",
+          "port_policy": "random_mbon",
+          "test_nll": 6.196434584876161,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 8,
+          "wiring": "real",
+          "port_policy": "random_random",
+          "test_nll": 5.535887257313797,
+          "test_accuracy": 0.14622491239248167
+        },
+        {
+          "seed": 8,
+          "wiring": "shuffled",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.19725965807946,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 8,
+          "wiring": "shuffled",
+          "port_policy": "random_random",
+          "test_nll": 5.603384535036941,
+          "test_accuracy": 0.1328448550493788
+        }
+      ],
+      "primary_gain": -0.6630064790208614,
+      "shuffled_gain": -0.593875123042519,
+      "topology_interaction": -0.06913135597834241,
+      "input_gain": -0.02968485243725283,
+      "output_gain": -0.6333216265836086,
+      "input_output_interaction": 0.05445140195751108
+    },
+    {
+      "seed": 9,
+      "conditions": [
+        {
+          "seed": 9,
+          "wiring": "real",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.149417596472491,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 9,
+          "wiring": "real",
+          "port_policy": "alpn_random",
+          "test_nll": 6.000998709375747,
+          "test_accuracy": 0.09302325581395349
+        },
+        {
+          "seed": 9,
+          "wiring": "real",
+          "port_policy": "random_mbon",
+          "test_nll": 6.13920728884597,
+          "test_accuracy": 0.07422746097483275
+        },
+        {
+          "seed": 9,
+          "wiring": "real",
+          "port_policy": "random_random",
+          "test_nll": 5.66889668270523,
+          "test_accuracy": 0.12551768079006054
+        },
+        {
+          "seed": 9,
+          "wiring": "shuffled",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.141791765079942,
+          "test_accuracy": 0.07422746097483275
+        },
+        {
+          "seed": 9,
+          "wiring": "shuffled",
+          "port_policy": "random_random",
+          "test_nll": 5.679415221273539,
+          "test_accuracy": 0.11309334182860784
+        }
+      ],
+      "primary_gain": -0.48052091376726036,
+      "shuffled_gain": -0.46237654380640336,
+      "topology_interaction": -0.018144369960857,
+      "input_gain": -0.17115616714851845,
+      "output_gain": -0.3093647466187419,
+      "input_output_interaction": 0.3218917190439958
+    },
+    {
+      "seed": 10,
+      "conditions": [
+        {
+          "seed": 10,
+          "wiring": "real",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.215689001359846,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 10,
+          "wiring": "real",
+          "port_policy": "alpn_random",
+          "test_nll": 5.6033298678366235,
+          "test_accuracy": 0.14080917489646383
+        },
+        {
+          "seed": 10,
+          "wiring": "real",
+          "port_policy": "random_mbon",
+          "test_nll": 6.212001765294605,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 10,
+          "wiring": "real",
+          "port_policy": "random_random",
+          "test_nll": 5.558757860974242,
+          "test_accuracy": 0.1494106403313157
+        },
+        {
+          "seed": 10,
+          "wiring": "shuffled",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.206104211725221,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 10,
+          "wiring": "shuffled",
+          "port_policy": "random_random",
+          "test_nll": 5.553443772582424,
+          "test_accuracy": 0.13889773813316342
+        }
+      ],
+      "primary_gain": -0.6569311403856037,
+      "shuffled_gain": -0.6526604391427968,
+      "topology_interaction": -0.004270701242806929,
+      "input_gain": -0.024129621463810924,
+      "output_gain": -0.6328015189217928,
+      "input_output_interaction": 0.04088477079714181
+    },
+    {
+      "seed": 11,
+      "conditions": [
+        {
+          "seed": 11,
+          "wiring": "real",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.1921974417889105,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 11,
+          "wiring": "real",
+          "port_policy": "alpn_random",
+          "test_nll": 5.625561792252739,
+          "test_accuracy": 0.1086333227142402
+        },
+        {
+          "seed": 11,
+          "wiring": "real",
+          "port_policy": "random_mbon",
+          "test_nll": 6.186303949614322,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 11,
+          "wiring": "real",
+          "port_policy": "random_random",
+          "test_nll": 5.575871958858688,
+          "test_accuracy": 0.12296909843899331
+        },
+        {
+          "seed": 11,
+          "wiring": "shuffled",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.17510441892198,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 11,
+          "wiring": "shuffled",
+          "port_policy": "random_random",
+          "test_nll": 5.44182558962022,
+          "test_accuracy": 0.14080917489646383
+        }
+      ],
+      "primary_gain": -0.6163254829302227,
+      "shuffled_gain": -0.73327882930176,
+      "topology_interaction": 0.11695334637153731,
+      "input_gain": -0.027791662784319993,
+      "output_gain": -0.5885338201459027,
+      "input_output_interaction": 0.04379634121946285
+    },
+    {
+      "seed": 12,
+      "conditions": [
+        {
+          "seed": 12,
+          "wiring": "real",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.19791500581302,
+          "test_accuracy": 0.07136030582988213
+        },
+        {
+          "seed": 12,
+          "wiring": "real",
+          "port_policy": "alpn_random",
+          "test_nll": 5.16355755998284,
+          "test_accuracy": 0.187639375597324
+        },
+        {
+          "seed": 12,
+          "wiring": "real",
+          "port_policy": "random_mbon",
+          "test_nll": 6.051092101039686,
+          "test_accuracy": 0.07677604332589996
+        },
+        {
+          "seed": 12,
+          "wiring": "real",
+          "port_policy": "random_random",
+          "test_nll": 5.679531575008804,
+          "test_accuracy": 0.11787193373685888
+        },
+        {
+          "seed": 12,
+          "wiring": "shuffled",
+          "port_policy": "alpn_mbon",
+          "test_nll": 6.1909140191590115,
+          "test_accuracy": 0.07422746097483275
+        },
+        {
+          "seed": 12,
+          "wiring": "shuffled",
+          "port_policy": "random_random",
+          "test_nll": 5.611386450129203,
+          "test_accuracy": 0.1073590315387066
+        }
+      ],
+      "primary_gain": -0.5183834308042163,
+      "shuffled_gain": -0.5795275690298087,
+      "topology_interaction": 0.06114413822559239,
+      "input_gain": 0.18457555512631485,
+      "output_gain": -0.7029589859305312,
+      "input_output_interaction": -0.6627969197992991
+    }
+  ],
+  "analysis": {
+    "verdict": "neither_gate_passed",
+    "advance": false,
+    "primary_status": "reversed",
+    "topology_status": "inconclusive",
+    "primary_unanimous_positive": false,
+    "topology_unanimous_positive": false,
+    "median_primary_gain": -0.6254908733969473,
+    "mean_primary_gain": -0.5949706184619727,
+    "primary_range": [
+      -0.6630064790208614,
+      -0.48052091376726036
+    ],
+    "median_topology_interaction": 0.028436718491392732,
+    "mean_topology_interaction": 0.04036534570566556,
+    "topology_range": [
+      -0.06913135597834241,
+      0.15564101681887
+    ],
+    "primary_two_sided_unanimous_sign_p": 0.03125,
+    "topology_two_sided_unanimous_sign_p": null
+  }
+}

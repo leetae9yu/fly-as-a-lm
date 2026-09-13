@@ -1,0 +1,137 @@
+{
+  "format": "flyrl-anatomy-factorial-v1",
+  "graph": "malecns_v1_cb_intrinsic_n5600.npz",
+  "graph_sha256": "738d23289b7345dcf49a25e9305d106e7349fca87b93f97df8698db2753ce935",
+  "graph_nodes": 5600,
+  "graph_edges": 1187928,
+  "port_manifest": "anatomy_ports.json",
+  "port_manifest_sha256": "c6ae8ded08f31e5bd7b0cf7fa98dc394db58bedf59bd71f239f4f2c83fe1877b",
+  "port_arrays": "anatomy_ports.npz",
+  "port_arrays_sha256": "e9e230da2dbf8fa3c6bf2e10df571dc5519203518d196b3956e19a83429e4a78",
+  "annotations_sha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2",
+  "alpn_count": 313,
+  "mbon_count": 97,
+  "kenyon_count": 4064,
+  "corpus_fingerprint": "fd9d30ce06ef753feb2160370d40bceebd41f126aaf6be58d9d6ed42cda45575",
+  "corpus_sha256": "c750d2aabe2311cb713d3afed98c6fa8b1f044f092a7727a3a8cef278ec22b5e",
+  "source_sha256": "5071d01b302fccfec2f52cce62655a810073053ddd53786d99f52bcf3874992b",
+  "worker_sha256": "783247d32ba3b96bcaad4b509cfbaf241bdb93f4f217d82991bc71e91b5c4c15",
+  "conditions": [
+    {
+      "name": "real-alpn_mbon",
+      "wiring": "real",
+      "port_policy": "alpn_mbon"
+    },
+    {
+      "name": "real-alpn_random",
+      "wiring": "real",
+      "port_policy": "alpn_random"
+    },
+    {
+      "name": "real-random_mbon",
+      "wiring": "real",
+      "port_policy": "random_mbon"
+    },
+    {
+      "name": "real-random_random",
+      "wiring": "real",
+      "port_policy": "random_random"
+    },
+    {
+      "name": "shuffled-alpn_mbon",
+      "wiring": "shuffled",
+      "port_policy": "alpn_mbon"
+    },
+    {
+      "name": "shuffled-random_random",
+      "wiring": "shuffled",
+      "port_policy": "random_random"
+    }
+  ],
+  "seeds": [
+    {
+      "seed": 7,
+      "order": [
+        "real-alpn_mbon",
+        "real-alpn_random",
+        "real-random_mbon",
+        "real-random_random",
+        "shuffled-alpn_mbon",
+        "shuffled-random_random"
+      ]
+    },
+    {
+      "seed": 8,
+      "order": [
+        "real-alpn_random",
+        "real-random_mbon",
+        "real-random_random",
+        "shuffled-alpn_mbon",
+        "shuffled-random_random",
+        "real-alpn_mbon"
+      ]
+    },
+    {
+      "seed": 9,
+      "order": [
+        "real-random_mbon",
+        "real-random_random",
+        "shuffled-alpn_mbon",
+        "shuffled-random_random",
+        "real-alpn_mbon",
+        "real-alpn_random"
+      ]
+    },
+    {
+      "seed": 10,
+      "order": [
+        "real-random_random",
+        "shuffled-alpn_mbon",
+        "shuffled-random_random",
+        "real-alpn_mbon",
+        "real-alpn_random",
+        "real-random_mbon"
+      ]
+    },
+    {
+      "seed": 11,
+      "order": [
+        "shuffled-alpn_mbon",
+        "shuffled-random_random",
+        "real-alpn_mbon",
+        "real-alpn_random",
+        "real-random_mbon",
+        "real-random_random"
+      ]
+    },
+    {
+      "seed": 12,
+      "order": [
+        "shuffled-random_random",
+        "real-alpn_mbon",
+        "real-alpn_random",
+        "real-random_mbon",
+        "real-random_random",
+        "shuffled-alpn_mbon"
+      ]
+    }
+  ],
+  "context": 64,
+  "batch_size": 8,
+  "updates": 1000,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0,
+  "gradient_clip": 1.0,
+  "leak": 0.5,
+  "initial_gain": 0.9,
+  "sensory_neurons": 313,
+  "readout_neurons": 97,
+  "trainable_codes": true,
+  "checkpoint_steps": 100,
+  "sample_length": 64,
+  "activation_neurons": 64,
+  "prompt": "Once upon a time",
+  "primary_threshold": 0.1,
+  "topology_threshold": 0.05,
+  "heldout_policy": "sealed until all thirty-six conditions complete"
+}

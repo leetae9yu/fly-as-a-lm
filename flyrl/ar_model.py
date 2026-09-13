@@ -16,10 +16,11 @@ the slower simple-graph double-edge-swap control used by the old RL experiment.
 """
 
 from math import sqrt
-from typing import Final, assert_never
+from typing import Final, TypeAlias, assert_never
 
 import numpy as np
 import torch
+from numpy.typing import NDArray
 from typing_extensions import override
 
 from flyrl.ar_config import ARConfig
@@ -29,6 +30,7 @@ from flyrl.ar_topology import SparseTopology
 from flyrl.connectome import Graph
 
 BPE_SENSORY_NEURONS: Final = 192
+IndexArray: TypeAlias = NDArray[np.int64]
 
 
 def requested_device(requested: str) -> torch.device:
@@ -41,6 +43,36 @@ def requested_device(requested: str) -> torch.device:
         message = "CUDA requested but unavailable; CPU fallback is forbidden"
         raise ValueError(message)
     return device
+
+
+def _port_indices(
+    config: ARConfig,
+    nodes: int,
+    sensory_budget: int,
+    order: IndexArray,
+) -> tuple[IndexArray, IndexArray]:
+    """Resolve legacy or explicit disjoint ports without changing RNG consumption."""
+    match config.port_policy:
+        case "legacy_random":
+            sensory_count = min(nodes // 2, sensory_budget)
+            head_count = min(config.readout_neurons, nodes - sensory_count)
+            return order[:sensory_count], order[-head_count:]
+        case "alpn_mbon" | "alpn_random" | "random_mbon" | "random_random":
+            if config.sensory_indices is None or config.readout_indices is None:
+                message = "Explicit port configuration is incomplete"
+                raise ValueError(message)
+            sensory = np.asarray(config.sensory_indices, dtype=np.int64)
+            readout = np.asarray(config.readout_indices, dtype=np.int64)
+            if (
+                sensory.size + readout.size > nodes
+                or bool((sensory >= nodes).any())
+                or bool((readout >= nodes).any())
+            ):
+                message = "Explicit port index exceeds graph bounds"
+                raise ValueError(message)
+            return sensory, readout
+        case _:
+            assert_never(config.port_policy)
 
 
 class ConnectomeLM(torch.nn.Module):
@@ -72,10 +104,13 @@ class ConnectomeLM(torch.nn.Module):
                 sensory_budget = BPE_SENSORY_NEURONS
             case _:
                 assert_never(config.tokenization)
-        sensory_count = min(self.nodes // 2, sensory_budget)
-        head_count = min(config.readout_neurons, self.nodes - sensory_count)
-        self.register_buffer("sensory", torch.tensor(order[:sensory_count]))
-        self.register_buffer("ports", torch.tensor(order[-head_count:]))
+        sensory_indices, readout_indices = _port_indices(
+            config, self.nodes, sensory_budget, order
+        )
+        sensory_count = sensory_indices.size
+        head_count = readout_indices.size
+        self.register_buffer("sensory", torch.tensor(sensory_indices))
+        self.register_buffer("ports", torch.tensor(readout_indices))
         codes = 2 * rng.integers(2, size=(config.alphabet_size, sensory_count)) - 1
         code_tensor = torch.tensor(codes, dtype=torch.float32)
         if config.trainable_codes:
@@ -126,6 +161,37 @@ class ConnectomeLM(torch.nn.Module):
         """Consume the current token and project its state for online generation."""
         state = self._advance(tokens, state, zero_recurrent=zero_recurrent)
         return state[self.ports].T @ self.readout + self.output_bias, state
+
+    @torch.no_grad()
+    def selected_states(
+        self,
+        tokens: torch.Tensor,
+        indices: torch.Tensor,
+        *,
+        state: torch.Tensor | None = None,
+        prepared: PreparedRecurrence | None = None,
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        """Record ordered selected states while carrying full recurrent state."""
+        current = (
+            self.weight.new_zeros((self.nodes, tokens.shape[0]))
+            if state is None
+            else state
+        )
+        recurrence = (
+            prepare_recurrence(self.weight, self.topology, need_reverse=False)
+            if prepared is None
+            else prepared
+        )
+        selected: list[torch.Tensor] = []
+        for token in tokens.unbind(dim=1):
+            current = self._advance(
+                token,
+                current,
+                zero_recurrent=False,
+                prepared=recurrence,
+            )
+            selected.append(current[indices].T)
+        return torch.stack(selected, dim=1), current
 
     def _advance(
         self,

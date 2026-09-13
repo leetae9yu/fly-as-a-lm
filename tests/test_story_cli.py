@@ -19,6 +19,15 @@ def test_pilot_entrypoints_exist() -> None:
     assert all(importlib.util.find_spec(name) is not None for name in modules)
 
 
+def test_pilot_exposes_explicit_port_manifest_options() -> None:
+    # Given/When: inspecting the real TinyStories training command boundary.
+    result = CliRunner().invoke(app, ["--help"])
+    # Then: anatomy conditions can declare both policy and immutable manifest.
+    assert result.exit_code == 0, result.output
+    assert "--port-policy" in result.stdout
+    assert "--port-manifest" in result.stdout
+
+
 @pytest.mark.parametrize(
     ("sample_length", "control"),
     [(0, "real"), (2, "real"), (0, "shuffled")],

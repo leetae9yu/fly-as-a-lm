@@ -2,14 +2,14 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Final, Literal
+from typing import Annotated, Final, Literal, assert_never
 
 import torch
 import typer
 
 from flyrl.activations import ActivationOptions, export_activations
 from flyrl.ar_checkpoint import load_checkpoint, save_checkpoint
-from flyrl.ar_config import ARConfig, TraceEntry
+from flyrl.ar_config import ARConfig, PortPolicy, TraceEntry
 from flyrl.ar_learning import ARLearner
 from flyrl.connectome import load_graph
 from flyrl.language_checkpoint import atomic_text
@@ -18,6 +18,8 @@ from flyrl.language_models import Settings
 from flyrl.language_runtime import graph_fingerprint
 from flyrl.story_data import load_story_corpus
 from flyrl.story_metrics import HeldoutMetrics, evaluate_heldout
+from scripts.anatomy_port_artifacts import ConfiguredPorts, load_condition_ports
+from scripts.connectome_source import file_digest
 
 app: Final = typer.Typer(add_completion=False, pretty_exceptions_enable=False)
 DEFAULT_GRAPH: Final = Path("data/large_connectome/malecns_v1_n16384.npz")
@@ -73,10 +75,39 @@ class Command:
     sample_length: Annotated[int, typer.Option(min=0)] = 64
     prompt: Annotated[str, typer.Option()] = "Once upon a time"
     cpu_threads: Annotated[int, typer.Option(min=1, max=4)] = 1
+    port_policy: Annotated[PortPolicy, typer.Option()] = "legacy_random"
+    port_manifest: Annotated[Path | None, typer.Option(exists=True, dir_okay=False)] = (
+        None
+    )
 
     def __post_init__(self) -> None:
         """Execute the validated explicit command."""
         typer.echo(run(self).model_dump_json())
+
+
+def resolve_condition_ports(options: Command) -> ConfiguredPorts | None:
+    """Resolve and verify one optional explicit port manifest at the CLI boundary."""
+    match options.port_policy:
+        case "legacy_random":
+            if options.port_manifest is not None:
+                message = "Legacy random policy cannot use a port manifest"
+                raise ValueError(message)
+            return None
+        case "alpn_mbon" | "alpn_random" | "random_mbon" | "random_random":
+            if options.port_manifest is None:
+                message = "Explicit port policies require --port-manifest"
+                raise ValueError(message)
+            configured = load_condition_ports(
+                options.port_manifest,
+                options.port_policy,
+                options.seed,
+            )
+            if file_digest(options.graph) != configured.graph_sha256:
+                message = "Port manifest targets a different graph artifact"
+                raise ValueError(message)
+            return configured
+        case _:
+            assert_never(options.port_policy)
 
 
 def run(options: Command) -> PilotReport:
@@ -85,6 +116,7 @@ def run(options: Command) -> PilotReport:
     stories = load_story_corpus(options.corpus)
     corpus = stories.corpus
     graph = load_graph(options.graph)
+    ports = resolve_condition_ports(options)
     config = ARConfig(
         alphabet_size=len(corpus.vocabulary),
         tokenization="bpe",
@@ -99,6 +131,10 @@ def run(options: Command) -> PilotReport:
         edge_chunk=options.edge_chunk,
         trainable_codes=options.trainable_codes,
         sample_length=options.sample_length,
+        port_policy=options.port_policy,
+        port_manifest_sha256=None if ports is None else ports.manifest_sha256,
+        sensory_indices=None if ports is None else ports.sensory_indices,
+        readout_indices=None if ports is None else ports.readout_indices,
     )
     starts = stories.starts(stories.metadata.train, config.context)
     prompt_ids = corpus.encode(options.prompt)

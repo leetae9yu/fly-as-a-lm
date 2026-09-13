@@ -27,6 +27,8 @@ include = [
     "/CENTRAL_BRAIN_PILOT.md",
     "/CENTRAL_BRAIN_RESULTS.md",
     "/CENTRAL_BRAIN_REPLICATION.md",
+    "/ANATOMY_PORT_EXPERIMENT.md",
+    "/REGIONAL_PROBE_EXPERIMENT.md",
     "/BRAIN_ACTIVITY.md",
     "/assets/brain-activity-3d.gif",
     "/run_colab.sh",
@@ -42,6 +44,9 @@ exclude = [
     "/data/central_connectome/*.npz",
     "/data/central_connectome/*.npy",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["flyrl", "scripts"]
 
 [project]
 name = "flyrl"

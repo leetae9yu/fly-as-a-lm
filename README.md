@@ -16,7 +16,7 @@ Inspired by [DOOMFLY](https://github.com/nftechie/doomfly), this independent
 experiment takes the connectome-to-computation question from game control to
 text prediction.
 
-## Latest result: TinyStories central-brain replication
+## Latest results: TinyStories central-brain anatomy
 
 [The TinyStories pilot](PILOT.md) adds story-isolated next-token training with
 learnable sensory codes and token-aligned neuron activation heatmaps. It keeps
@@ -58,6 +58,27 @@ optimizer, RNG, activation and provenance recovery. This clears the frozen
 decision gate for an anatomy-aware ALPN-to-MBON port experiment; it does not
 establish superiority to a same-scale Transformer or generalization beyond the
 fixed graph and custom TinyStories corpus.
+
+The next [anatomy-aware port factorial](ANATOMY_PORT_EXPERIMENT.md) trained 36
+fresh conditions over seeds 7-12. Forcing language input through all 313 ALPNs
+and output through all 97 MBONs was worse than capacity-matched random ports in
+every seed: the median primary NLL gain was **-.6255 nat/token**. The MBON output
+effect was negative in all six seeds, with median **-.6196**. Both prespecified
+advancement gates failed. This is a useful negative result: publisher anatomy
+classes are not automatically good language-model ports.
+
+A subsequent [frozen regional-probe experiment](REGIONAL_PROBE_EXPERIMENT.md)
+trained 168 equal-width linear heads without changing the recurrent models.
+The trained-readout positive control passed, and **ALPN was the only nominated
+regional candidate**. Across the six real-wiring seeds, fixed ALPN subsets beat
+degree-matched neurons by median **.1532 nat/token** and the unigram reference
+by median **.4388**, with 6/6 positive signs. Its raw intersection probability
+was `p = .015625`, significant after Holm correction (adjusted
+`p = .046875`). Kenyon and centrality failed their matched-comparator gates,
+and MBON was worse than degree-matched neurons in all six seeds. ALPN
+performance did not consistently improve under real versus shuffled wiring,
+so this shows linear accessibility from ALPN states, not a causal advantage
+from intact ALPN connectivity.
 
 ### Watch the model select each token
 
@@ -290,11 +311,12 @@ python -m pip install pytest
 python -m scripts.verify_torch -q
 ```
 
-Recorded validation includes 192 passing tests and one CUDA-only skip locally,
-48 passing model tests on T4, and three subsequent study/CLI checks. The Torch
-wrapper explicitly enables sparse-check defaults without filtering warnings.
-The publication update uses saved evidence and runs no further experiments.
-Software correctness is not biological validity.
+The current publication tree passes **307 local tests**, with 54 CUDA-only tests
+skipped on the CPU workstation. The final regional run completed all 168 heads
+on a Tesla T4 and passed strict source, trace, feature, parameter, runtime and
+aggregate-decision recovery. The Torch wrapper explicitly enables sparse-check
+defaults without filtering warnings. Software correctness is not biological
+validity.
 
 ## Repository map
 
@@ -312,6 +334,9 @@ Software correctness is not biological validity.
 | `tests/` | Numerical, learning, data and checkpoint checks |
 | [AR_RESULTS.md](AR_RESULTS.md) | Full pilot results and limitations |
 | [AUTOREGRESSIVE.md](AUTOREGRESSIVE.md) | Model definition and reproduction protocol |
+| [CENTRAL_BRAIN_RESULTS.md](CENTRAL_BRAIN_RESULTS.md), [CENTRAL_BRAIN_REPLICATION.md](CENTRAL_BRAIN_REPLICATION.md) | Central-graph comparison and six-seed wiring replication |
+| [ANATOMY_PORT_EXPERIMENT.md](ANATOMY_PORT_EXPERIMENT.md) | Six-seed ALPN/MBON port factorial and negative result |
+| [REGIONAL_PROBE_EXPERIMENT.md](REGIONAL_PROBE_EXPERIMENT.md) | Frozen 168-head localization protocol, ALPN result and recovery limits |
 | [PROTOTYPE.md](PROTOTYPE.md), [LANGUAGE.md](LANGUAGE.md) | Earlier reward-learning experiments |
 
 ## License and sources

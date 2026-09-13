@@ -173,3 +173,18 @@ pairing. The six seeds share one graph and one custom corpus, and the shuffled
 multigraph may contain parallel edges or self-loops. The exact sign probability
 describes paired seed concordance; TinyStories tokens are not independent
 replicates.
+
+## Completed follow-ups
+
+The [anatomy-aware ALPN-to-MBON factorial](ANATOMY_PORT_EXPERIMENT.md) executed
+the advancement selected here over six new seeds. Both of its gates failed:
+the joint ALPN-input/MBON-readout condition was worse than capacity-matched
+random ports in all six seeds, with median primary gain `-.6255` nat/token.
+The negative effect was dominated by the forced MBON readout.
+
+The next [frozen regional-probe diagnostic](REGIONAL_PROBE_EXPERIMENT.md) then
+asked where next-token information was linearly accessible without retraining
+the recurrent models. ALPN was its only nominated candidate, beating fixed
+degree-matched and unigram controls in all six real seeds. Real-versus-shuffled
+ALPN differences were mixed, so this localization result does not replace the
+separate whole-graph wiring conclusion established by this replication.

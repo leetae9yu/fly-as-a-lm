@@ -23,8 +23,10 @@ def test_direction_stable_ids_and_duplicate_aggregation() -> None:
     post = np.array([2**53 + 1, 2**53 + 1, 7, 7, 2**53 + 3], dtype=np.int64)
     counts = np.array([2, 5, 3, 100, 4], dtype=np.int64)
     # When rows are indexed then canonicalized.
-    indexed = arrays.index_edges(np.sort(ids), arrays.Edges(pre, post, counts))
-    graph = arrays.aggregate_edges(np.sort(ids), indexed)
+    sorted_ids = ids.copy()
+    sorted_ids.sort()
+    indexed = arrays.index_edges(sorted_ids, arrays.Edges(pre, post, counts))
+    graph = arrays.aggregate_edges(sorted_ids, indexed)
     # Then direction and exact stable identities survive and counts sum by pair.
     np.testing.assert_array_equal(graph.ids, [7, 2**53 + 1, 2**53 + 3])
     np.testing.assert_array_equal(graph.edges.source, [0, 1, 2])
@@ -110,6 +112,27 @@ def test_source_integrity_rejects_wrong_size(tmp_path: Path) -> None:
     )
     with pytest.raises(GraphError):
         source.verify_source(path, pin)
+
+
+def test_obtain_source_verifies_only_requested_pin(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Given: one locally present pinned annotation and no edge artifact.
+    annotation = tmp_path / "annotations.feather"
+    _ = annotation.write_bytes(b"synthetic-only")
+    monkeypatch.setitem(
+        source.PINS,
+        "annotations.feather",
+        source.SourcePin(
+            url="https://example.org/synthetic",
+            bytes=14,
+            sha256=hashlib.sha256(b"synthetic-only").hexdigest(),
+        ),
+    )
+    # When: the caller requests only the annotation source.
+    source.obtain_source(tmp_path, "annotations.feather", download=False)
+    # Then: the requested file is verified without requiring the 1 GiB edge table.
+    assert not (tmp_path / "edges.feather").exists()
 
 
 def test_npz_uses_raw_counts_and_separately_labeled_model_weights(

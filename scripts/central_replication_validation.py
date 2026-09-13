@@ -4,7 +4,7 @@ import hashlib
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Protocol
 
 import numpy as np
 import torch
@@ -15,10 +15,21 @@ from flyrl.activations import ActivationMetadata
 from flyrl.bpe_data import BPECorpus
 from flyrl.connectome import Graph
 from flyrl.story_pilot import PilotReport
-from scripts.central_replication_schema import Protocol
+from scripts.activation_port_validation import activation_port_ids
+from scripts.image_artifact_validation import validate_figure
 
 if TYPE_CHECKING:
     from numpy import generic
+
+
+class ActivationProtocol(Protocol):
+    """Fields shared by sealed activation-producing experiment protocols."""
+
+    prompt: str
+    updates: int
+    sample_length: int
+    graph_nodes: int
+    activation_neurons: int
 
 
 @dataclass(frozen=True, slots=True)
@@ -28,7 +39,7 @@ class ActivationEvidence:
     output: Path
     activation: ActivationMetadata
     report: PilotReport
-    protocol: Protocol
+    protocol: ActivationProtocol
     graph: Graph
     corpus: BPECorpus
     parameter_fingerprint: str
@@ -193,14 +204,7 @@ def validate_activation_export(evidence: ActivationEvidence) -> None:
         if selected != expected_selected:
             message = "Activation selected-neuron ranking mismatch"
             raise ValueError(message)
-    rng = np.random.default_rng(report.config.seed)
-    order = np.arange(protocol.graph_nodes, dtype=np.int64)
-    rng.shuffle(order)
-    order_indices = TypeAdapter(tuple[int, ...]).validate_python(order.tolist())
-    sensory = tuple(graph.node_ids[index] for index in order_indices[:192])
-    readout = tuple(
-        graph.node_ids[index] for index in order_indices[-protocol.readout_neurons :]
-    )
+    sensory, readout = activation_port_ids(report, protocol, graph)
     if (
         activation.selected_node_ids
         != tuple(graph.node_ids[index] for index in selected)
@@ -217,10 +221,4 @@ def validate_activation_export(evidence: ActivationEvidence) -> None:
         message = "Activation token, port or causal-context mismatch"
         raise ValueError(message)
     for figure in activation.figures:
-        path = output / figure
-        signature = path.read_bytes()[:8] if path.is_file() else b""
-        if (figure.endswith(".png") and signature != b"\x89PNG\r\n\x1a\n") or (
-            figure.endswith(".svg") and not signature.lstrip().startswith(b"<?xml")
-        ):
-            message = f"Activation figure missing or invalid: {figure}"
-            raise ValueError(message)
+        validate_figure(output / figure)

@@ -1,0 +1,2509 @@
+{
+  "summary": {
+    "format": "flyrl-anatomy-factorial-results-v1",
+    "rows": [
+      {
+        "seed": 7,
+        "conditions": [
+          {
+            "seed": 7,
+            "wiring": "real",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.200878922291416,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 7,
+            "wiring": "real",
+            "port_policy": "alpn_random",
+            "test_nll": 5.614208514312909,
+            "test_accuracy": 0.11850907932462568
+          },
+          {
+            "seed": 7,
+            "wiring": "real",
+            "port_policy": "random_mbon",
+            "test_nll": 6.1924058659587855,
+            "test_accuracy": 0.07422746097483275
+          },
+          {
+            "seed": 7,
+            "wiring": "real",
+            "port_policy": "random_random",
+            "test_nll": 5.566222658427744,
+            "test_accuracy": 0.1210576616756929
+          },
+          {
+            "seed": 7,
+            "wiring": "shuffled",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.190256858259373,
+            "test_accuracy": 0.07422746097483275
+          },
+          {
+            "seed": 7,
+            "wiring": "shuffled",
+            "port_policy": "random_random",
+            "test_nll": 5.399959577576831,
+            "test_accuracy": 0.1357120101943294
+          }
+        ],
+        "primary_gain": -0.6346562638636719,
+        "shuffled_gain": -0.7902972806825419,
+        "topology_interaction": 0.15564101681887,
+        "input_gain": -0.02822945610889782,
+        "output_gain": -0.6064268077547741,
+        "input_output_interaction": 0.039512799552534617
+      },
+      {
+        "seed": 8,
+        "conditions": [
+          {
+            "seed": 8,
+            "wiring": "real",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.198893736334658,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 8,
+            "wiring": "real",
+            "port_policy": "alpn_random",
+            "test_nll": 5.592797810729805,
+            "test_accuracy": 0.12615482637782732
+          },
+          {
+            "seed": 8,
+            "wiring": "real",
+            "port_policy": "random_mbon",
+            "test_nll": 6.196434584876161,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 8,
+            "wiring": "real",
+            "port_policy": "random_random",
+            "test_nll": 5.535887257313797,
+            "test_accuracy": 0.14622491239248167
+          },
+          {
+            "seed": 8,
+            "wiring": "shuffled",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.19725965807946,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 8,
+            "wiring": "shuffled",
+            "port_policy": "random_random",
+            "test_nll": 5.603384535036941,
+            "test_accuracy": 0.1328448550493788
+          }
+        ],
+        "primary_gain": -0.6630064790208614,
+        "shuffled_gain": -0.593875123042519,
+        "topology_interaction": -0.06913135597834241,
+        "input_gain": -0.02968485243725283,
+        "output_gain": -0.6333216265836086,
+        "input_output_interaction": 0.05445140195751108
+      },
+      {
+        "seed": 9,
+        "conditions": [
+          {
+            "seed": 9,
+            "wiring": "real",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.149417596472491,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 9,
+            "wiring": "real",
+            "port_policy": "alpn_random",
+            "test_nll": 6.000998709375747,
+            "test_accuracy": 0.09302325581395349
+          },
+          {
+            "seed": 9,
+            "wiring": "real",
+            "port_policy": "random_mbon",
+            "test_nll": 6.13920728884597,
+            "test_accuracy": 0.07422746097483275
+          },
+          {
+            "seed": 9,
+            "wiring": "real",
+            "port_policy": "random_random",
+            "test_nll": 5.66889668270523,
+            "test_accuracy": 0.12551768079006054
+          },
+          {
+            "seed": 9,
+            "wiring": "shuffled",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.141791765079942,
+            "test_accuracy": 0.07422746097483275
+          },
+          {
+            "seed": 9,
+            "wiring": "shuffled",
+            "port_policy": "random_random",
+            "test_nll": 5.679415221273539,
+            "test_accuracy": 0.11309334182860784
+          }
+        ],
+        "primary_gain": -0.48052091376726036,
+        "shuffled_gain": -0.46237654380640336,
+        "topology_interaction": -0.018144369960857,
+        "input_gain": -0.17115616714851845,
+        "output_gain": -0.3093647466187419,
+        "input_output_interaction": 0.3218917190439958
+      },
+      {
+        "seed": 10,
+        "conditions": [
+          {
+            "seed": 10,
+            "wiring": "real",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.215689001359846,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 10,
+            "wiring": "real",
+            "port_policy": "alpn_random",
+            "test_nll": 5.6033298678366235,
+            "test_accuracy": 0.14080917489646383
+          },
+          {
+            "seed": 10,
+            "wiring": "real",
+            "port_policy": "random_mbon",
+            "test_nll": 6.212001765294605,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 10,
+            "wiring": "real",
+            "port_policy": "random_random",
+            "test_nll": 5.558757860974242,
+            "test_accuracy": 0.1494106403313157
+          },
+          {
+            "seed": 10,
+            "wiring": "shuffled",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.206104211725221,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 10,
+            "wiring": "shuffled",
+            "port_policy": "random_random",
+            "test_nll": 5.553443772582424,
+            "test_accuracy": 0.13889773813316342
+          }
+        ],
+        "primary_gain": -0.6569311403856037,
+        "shuffled_gain": -0.6526604391427968,
+        "topology_interaction": -0.004270701242806929,
+        "input_gain": -0.024129621463810924,
+        "output_gain": -0.6328015189217928,
+        "input_output_interaction": 0.04088477079714181
+      },
+      {
+        "seed": 11,
+        "conditions": [
+          {
+            "seed": 11,
+            "wiring": "real",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.1921974417889105,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 11,
+            "wiring": "real",
+            "port_policy": "alpn_random",
+            "test_nll": 5.625561792252739,
+            "test_accuracy": 0.1086333227142402
+          },
+          {
+            "seed": 11,
+            "wiring": "real",
+            "port_policy": "random_mbon",
+            "test_nll": 6.186303949614322,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 11,
+            "wiring": "real",
+            "port_policy": "random_random",
+            "test_nll": 5.575871958858688,
+            "test_accuracy": 0.12296909843899331
+          },
+          {
+            "seed": 11,
+            "wiring": "shuffled",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.17510441892198,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 11,
+            "wiring": "shuffled",
+            "port_policy": "random_random",
+            "test_nll": 5.44182558962022,
+            "test_accuracy": 0.14080917489646383
+          }
+        ],
+        "primary_gain": -0.6163254829302227,
+        "shuffled_gain": -0.73327882930176,
+        "topology_interaction": 0.11695334637153731,
+        "input_gain": -0.027791662784319993,
+        "output_gain": -0.5885338201459027,
+        "input_output_interaction": 0.04379634121946285
+      },
+      {
+        "seed": 12,
+        "conditions": [
+          {
+            "seed": 12,
+            "wiring": "real",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.19791500581302,
+            "test_accuracy": 0.07136030582988213
+          },
+          {
+            "seed": 12,
+            "wiring": "real",
+            "port_policy": "alpn_random",
+            "test_nll": 5.16355755998284,
+            "test_accuracy": 0.187639375597324
+          },
+          {
+            "seed": 12,
+            "wiring": "real",
+            "port_policy": "random_mbon",
+            "test_nll": 6.051092101039686,
+            "test_accuracy": 0.07677604332589996
+          },
+          {
+            "seed": 12,
+            "wiring": "real",
+            "port_policy": "random_random",
+            "test_nll": 5.679531575008804,
+            "test_accuracy": 0.11787193373685888
+          },
+          {
+            "seed": 12,
+            "wiring": "shuffled",
+            "port_policy": "alpn_mbon",
+            "test_nll": 6.1909140191590115,
+            "test_accuracy": 0.07422746097483275
+          },
+          {
+            "seed": 12,
+            "wiring": "shuffled",
+            "port_policy": "random_random",
+            "test_nll": 5.611386450129203,
+            "test_accuracy": 0.1073590315387066
+          }
+        ],
+        "primary_gain": -0.5183834308042163,
+        "shuffled_gain": -0.5795275690298087,
+        "topology_interaction": 0.06114413822559239,
+        "input_gain": 0.18457555512631485,
+        "output_gain": -0.7029589859305312,
+        "input_output_interaction": -0.6627969197992991
+      }
+    ],
+    "analysis": {
+      "verdict": "neither_gate_passed",
+      "advance": false,
+      "primary_status": "reversed",
+      "topology_status": "inconclusive",
+      "primary_unanimous_positive": false,
+      "topology_unanimous_positive": false,
+      "median_primary_gain": -0.6254908733969473,
+      "mean_primary_gain": -0.5949706184619727,
+      "primary_range": [
+        -0.6630064790208614,
+        -0.48052091376726036
+      ],
+      "median_topology_interaction": 0.028436718491392732,
+      "mean_topology_interaction": 0.04036534570566556,
+      "topology_range": [
+        -0.06913135597834241,
+        0.15564101681887
+      ],
+      "primary_two_sided_unanimous_sign_p": 0.03125,
+      "topology_two_sided_unanimous_sign_p": null
+    }
+  },
+  "entries": [
+    {
+      "seed": 7,
+      "condition": "real-alpn_mbon",
+      "wiring": "real",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317758252023774,
+          "perplexity": 4095.967581535237,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.31776985783378,
+          "perplexity": 4096.015118832631,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.232644681075459,
+          "perplexity": 509.1001120871178,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.200878922291416,
+          "perplexity": 493.18231959071943,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 7,
+        "condition": "real-alpn_mbon",
+        "wiring": "real",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 95.68730682500006,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "eacfb19ba334bf1ee7b502af799d27b473099ddee97a529a17921e47c412070d"
+    },
+    {
+      "seed": 7,
+      "condition": "real-alpn_random",
+      "wiring": "real",
+      "port_policy": "alpn_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317859806423384,
+          "perplexity": 4096.383566185978,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317767104057417,
+          "perplexity": 4096.003839338547,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.663723081423336,
+          "perplexity": 288.21971293680446,
+          "accuracy": 0.11587457128858403,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.614208514312909,
+          "perplexity": 274.2961917465494,
+          "accuracy": 0.11850907932462568,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 7,
+        "condition": "real-alpn_random",
+        "wiring": "real",
+        "port_policy": "alpn_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 92.87546145700003,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "9ed14fe6748fcec7133bd49dbe4bded5ca4e672d0f2d936fe4298c87c556b344"
+    },
+    {
+      "seed": 7,
+      "condition": "real-random_mbon",
+      "wiring": "real",
+      "port_policy": "random_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317783019987758,
+          "perplexity": 4096.069031569125,
+          "accuracy": 0.0007349338559529642,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317811577667207,
+          "perplexity": 4096.186007465804,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.225933124947817,
+          "perplexity": 505.69469870483965,
+          "accuracy": 0.07422831945124939,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.1924058659587855,
+          "perplexity": 489.0212115606718,
+          "accuracy": 0.07422746097483275,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 7,
+        "condition": "real-random_mbon",
+        "wiring": "real",
+        "port_policy": "random_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 92.399642685,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "9211f3a0ef756e4ce90fe3bf58f876cc004c3493e6145e1c736036a8bf32f436"
+    },
+    {
+      "seed": 7,
+      "condition": "real-random_random",
+      "wiring": "real",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317784845332548,
+          "perplexity": 4096.076508314219,
+          "accuracy": 0.0004899559039686428,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317755770554168,
+          "perplexity": 4095.957417528788,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.621729753170452,
+          "perplexity": 276.36701674507447,
+          "accuracy": 0.12199902008819206,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.566222658427744,
+          "perplexity": 261.44466589755183,
+          "accuracy": 0.1210576616756929,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 7,
+        "condition": "real-random_random",
+        "wiring": "real",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.03857353399997,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "c0a8c5482a43ac02673789214d3db437068fbfe2fb5fd33f7c22ac96db0c65dd"
+    },
+    {
+      "seed": 7,
+      "condition": "shuffled-alpn_mbon",
+      "wiring": "shuffled",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.31778013256471,
+          "perplexity": 4096.057204502075,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317692110438983,
+          "perplexity": 4095.69667670728,
+          "accuracy": 0.0006371455877668047,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.224941830784593,
+          "perplexity": 505.19365488357806,
+          "accuracy": 0.07422831945124939,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.190256858259373,
+          "perplexity": 487.97142961060996,
+          "accuracy": 0.07422746097483275,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 7,
+        "condition": "shuffled-alpn_mbon",
+        "wiring": "shuffled",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 95.53579626999999,
+        "peak_allocated_bytes": 266669568,
+        "resumed": false
+      },
+      "checkpoint_sha256": "9030cae4429f9ca180ee35953f27db4ae09d927c5912f20f791a3dff7b1f0b1f"
+    },
+    {
+      "seed": 7,
+      "condition": "shuffled-random_random",
+      "wiring": "shuffled",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317736276162131,
+          "perplexity": 4095.8775701074164,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317677940521776,
+          "perplexity": 4095.638641435642,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.46587103354119,
+          "perplexity": 236.48174896084188,
+          "accuracy": 0.1362077413032827,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.399959577576831,
+          "perplexity": 221.39746660122245,
+          "accuracy": 0.1357120101943294,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 7,
+        "condition": "shuffled-random_random",
+        "wiring": "shuffled",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 96.23129035800002,
+        "peak_allocated_bytes": 266669568,
+        "resumed": false
+      },
+      "checkpoint_sha256": "9d0557901815d3b4e74eee92b87852536a3bc8ed952cd1d737e0bb52e7b76c2b"
+    },
+    {
+      "seed": 8,
+      "condition": "real-alpn_mbon",
+      "wiring": "real",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.31777937116721,
+          "perplexity": 4096.054085775549,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317768963403328,
+          "perplexity": 4096.011455233617,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.23064987248267,
+          "perplexity": 508.08556705693684,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.198893736334658,
+          "perplexity": 492.20423213969997,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 8,
+        "condition": "real-alpn_mbon",
+        "wiring": "real",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.58030329100006,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "e03f64be1c97560bf2baf3f5511bd5db4c01ef246a3a42de717cf0cb3cd04749"
+    },
+    {
+      "seed": 8,
+      "condition": "real-alpn_random",
+      "wiring": "real",
+      "port_policy": "alpn_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317676298177926,
+          "perplexity": 4095.63191499423,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317701915146705,
+          "perplexity": 4095.736834012975,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.623441004069748,
+          "perplexity": 276.84035493570775,
+          "accuracy": 0.12787849093581577,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.592797810729805,
+          "perplexity": 268.48574216423964,
+          "accuracy": 0.12615482637782732,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 8,
+        "condition": "real-alpn_random",
+        "wiring": "real",
+        "port_policy": "alpn_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.18660443499994,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "b342fb43147d7d4c060cbce5c5aba91ca5662efa34506c3e1a0030427fdf5392"
+    },
+    {
+      "seed": 8,
+      "condition": "real-random_mbon",
+      "wiring": "real",
+      "port_policy": "random_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317795556062347,
+          "perplexity": 4096.120380517884,
+          "accuracy": 0.0004899559039686428,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317768759239856,
+          "perplexity": 4096.0106189777825,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.228834179789923,
+          "perplexity": 507.1638768118775,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.196434584876161,
+          "perplexity": 490.99531444944233,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 8,
+        "condition": "real-random_mbon",
+        "wiring": "real",
+        "port_policy": "random_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 96.00747753299993,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "a141ac9f2bb100344e1c739e47f3b2cf505609cb459b855e033ab84be80badd3"
+    },
+    {
+      "seed": 8,
+      "condition": "real-random_random",
+      "wiring": "real",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317811885807574,
+          "perplexity": 4096.187269666257,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.31773168412543,
+          "perplexity": 4095.8587617304756,
+          "accuracy": 0.0006371455877668047,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.5957673520565265,
+          "perplexity": 269.2842066210832,
+          "accuracy": 0.13008329250367467,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.535887257313797,
+          "perplexity": 253.6327253240907,
+          "accuracy": 0.14622491239248167,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 8,
+        "condition": "real-random_random",
+        "wiring": "real",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 92.652425086,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "f7a1578ed709ff19187ee1d7c53c9873afbf238d2b7e63ca93de8c56909c0070"
+    },
+    {
+      "seed": 8,
+      "condition": "shuffled-alpn_mbon",
+      "wiring": "shuffled",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317766726221423,
+          "perplexity": 4096.002291721159,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.318040029301542,
+          "perplexity": 4097.121894752171,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.229431282884055,
+          "perplexity": 507.4667963600533,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.19725965807946,
+          "perplexity": 491.40058869380886,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 8,
+        "condition": "shuffled-alpn_mbon",
+        "wiring": "shuffled",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 94.54515605200004,
+        "peak_allocated_bytes": 266674176,
+        "resumed": false
+      },
+      "checkpoint_sha256": "bd6662e48463fa873c6e90e465b84f4bf4742b443847990624b080c83b567955"
+    },
+    {
+      "seed": 8,
+      "condition": "shuffled-random_random",
+      "wiring": "shuffled",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317781562842557,
+          "perplexity": 4096.063063006141,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317746461672021,
+          "perplexity": 4095.9192889213773,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.660727883191274,
+          "perplexity": 287.35772931250443,
+          "accuracy": 0.12616364527192553,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.603384535036941,
+          "perplexity": 271.34322570360666,
+          "accuracy": 0.1328448550493788,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 8,
+        "condition": "shuffled-random_random",
+        "wiring": "shuffled",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 95.63269714900002,
+        "peak_allocated_bytes": 266674176,
+        "resumed": false
+      },
+      "checkpoint_sha256": "94ad0b0bf41b9ccf3349dad5cae6d7c6a35f4012f75f36fd223a92d2b2f5b727"
+    },
+    {
+      "seed": 9,
+      "condition": "real-alpn_mbon",
+      "wiring": "real",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.31776696662585,
+          "perplexity": 4096.003276418362,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317777492089347,
+          "perplexity": 4096.046388978218,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.203601857250312,
+          "perplexity": 494.52705294971645,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.149417596472491,
+          "perplexity": 468.4444836005516,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 9,
+        "condition": "real-alpn_mbon",
+        "wiring": "real",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 94.90123363400016,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "4efa82327f07a255994b0ce8c6dec7a1cd171bc029e39552bfa2955813e44350"
+    },
+    {
+      "seed": 9,
+      "condition": "real-alpn_random",
+      "wiring": "real",
+      "port_policy": "alpn_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317920460063181,
+          "perplexity": 4096.632034294447,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317888411187411,
+          "perplexity": 4096.500743947169,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.070260571358777,
+          "perplexity": 432.79344045782057,
+          "accuracy": 0.08427241548260657,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.000998709375747,
+          "perplexity": 403.8319028722951,
+          "accuracy": 0.09302325581395349,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 9,
+        "condition": "real-alpn_random",
+        "wiring": "real",
+        "port_policy": "alpn_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.35081621500012,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "e9265c8bf4488e70add114ddc3fa8e1194d96dc0c9950cd1c37baa4c22b37a14"
+    },
+    {
+      "seed": 9,
+      "condition": "real-random_mbon",
+      "wiring": "real",
+      "port_policy": "random_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.31782365254127,
+          "perplexity": 4096.235468694599,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.31781509948711,
+          "perplexity": 4096.200433520613,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.196228452140008,
+          "perplexity": 490.8941146724883,
+          "accuracy": 0.07422831945124939,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.13920728884597,
+          "perplexity": 463.68585618260727,
+          "accuracy": 0.07422746097483275,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 9,
+        "condition": "real-random_mbon",
+        "wiring": "real",
+        "port_policy": "random_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 96.40239171400003,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "ab1c0ae70e6e93ea2ac3b2dcad570c0bb04150e9bd7d96dd56feac4155844843"
+    },
+    {
+      "seed": 9,
+      "condition": "real-random_random",
+      "wiring": "real",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317746331562077,
+          "perplexity": 4095.918756001582,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317774429637256,
+          "perplexity": 4096.0338450515965,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.752864201474225,
+          "perplexity": 315.0918556244902,
+          "accuracy": 0.12101910828025478,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.66889668270523,
+          "perplexity": 289.7147107397867,
+          "accuracy": 0.12551768079006054,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 9,
+        "condition": "real-random_random",
+        "wiring": "real",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.58254489000001,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "f8c60cc3c56a21a9f575a5f2b8fb086e08d07780bbe3754bd5491904c2ce0b19"
+    },
+    {
+      "seed": 9,
+      "condition": "shuffled-alpn_mbon",
+      "wiring": "shuffled",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317809230845562,
+          "perplexity": 4096.176394459098,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317824549339273,
+          "perplexity": 4096.239142192035,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.198229961626557,
+          "perplexity": 491.877627827018,
+          "accuracy": 0.07422831945124939,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.141791765079942,
+          "perplexity": 464.88579119178144,
+          "accuracy": 0.07422746097483275,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 9,
+        "condition": "shuffled-alpn_mbon",
+        "wiring": "shuffled",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 96.37332724599992,
+        "peak_allocated_bytes": 266674688,
+        "resumed": false
+      },
+      "checkpoint_sha256": "12c1c94ef8071c3807985e58391d1193f1b4dd1eb2309114e2eb8209076ab951"
+    },
+    {
+      "seed": 9,
+      "condition": "shuffled-random_random",
+      "wiring": "shuffled",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317788283653202,
+          "perplexity": 4096.090591962889,
+          "accuracy": 0.0007349338559529642,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317840624782226,
+          "perplexity": 4096.3049915799675,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.753635626397607,
+          "perplexity": 315.3350191142031,
+          "accuracy": 0.11024007839294464,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.679415221273539,
+          "perplexity": 292.7781694076362,
+          "accuracy": 0.11309334182860784,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 9,
+        "condition": "shuffled-random_random",
+        "wiring": "shuffled",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 98.52945216700027,
+        "peak_allocated_bytes": 266674688,
+        "resumed": false
+      },
+      "checkpoint_sha256": "1a78327b93bc8cef66525281ef386f63fed4d4ea7cc6bf6807cb61fa94dbe478"
+    },
+    {
+      "seed": 10,
+      "condition": "real-alpn_mbon",
+      "wiring": "real",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317761574464356,
+          "perplexity": 4095.9811901667604,
+          "accuracy": 0.0004899559039686428,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.31776023784539,
+          "perplexity": 4095.9757154042736,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.251869191906138,
+          "perplexity": 518.9819955484899,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.215689001359846,
+          "perplexity": 500.54074366188513,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 10,
+        "condition": "real-alpn_mbon",
+        "wiring": "real",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 94.083488751,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "46e44e2dbf1cba8e28ac6d9411a0ede284f59374aaacec0010329003ac6b52db"
+    },
+    {
+      "seed": 10,
+      "condition": "real-alpn_random",
+      "wiring": "real",
+      "port_policy": "alpn_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317728308472548,
+          "perplexity": 4095.844935556376,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317732848343327,
+          "perplexity": 4095.8635302053262,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.650113720277079,
+          "perplexity": 284.3237973665267,
+          "accuracy": 0.13351298383145516,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.6033298678366235,
+          "perplexity": 271.32839253457985,
+          "accuracy": 0.14080917489646383,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 10,
+        "condition": "real-alpn_random",
+        "wiring": "real",
+        "port_policy": "alpn_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.34781639599987,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "2035b24120c7e8b1736944bdb267b19826f7b6d524041178a35b2297139a8524"
+    },
+    {
+      "seed": 10,
+      "condition": "real-random_mbon",
+      "wiring": "real",
+      "port_policy": "random_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317761512085365,
+          "perplexity": 4095.9809346635952,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317785121483878,
+          "perplexity": 4096.077639451348,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.248711323866594,
+          "perplexity": 517.3457038480566,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.212001765294605,
+          "perplexity": 498.6985302048649,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 10,
+        "condition": "real-random_mbon",
+        "wiring": "real",
+        "port_policy": "random_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 92.85603498900036,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "60ae06c8bbf8740e40f8c7efaeea7768d19549420f855e7a80d2050bbc4b26cb"
+    },
+    {
+      "seed": 10,
+      "condition": "real-random_random",
+      "wiring": "real",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317737601306845,
+          "perplexity": 4095.8829977415235,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.31769340347431,
+          "perplexity": 4095.701972591195,
+          "accuracy": 0.000955718381650207,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.629592801034012,
+          "perplexity": 278.54866980636626,
+          "accuracy": 0.1396374326310632,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.558757860974242,
+          "perplexity": 259.50030059674765,
+          "accuracy": 0.1494106403313157,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 10,
+        "condition": "real-random_random",
+        "wiring": "real",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 98.00900983700012,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "8a6d6c2b2c6f5080934013318b9b2e8f2590d454298fa0988056c6e3516290fd"
+    },
+    {
+      "seed": 10,
+      "condition": "shuffled-alpn_mbon",
+      "wiring": "shuffled",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317645896947132,
+          "perplexity": 4095.5074046357818,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.31769114795404,
+          "perplexity": 4095.6927346627936,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.24438087891154,
+          "perplexity": 515.1102105885326,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.206104211725221,
+          "perplexity": 495.76608453519987,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 10,
+        "condition": "shuffled-alpn_mbon",
+        "wiring": "shuffled",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 97.11545148599998,
+        "peak_allocated_bytes": 266674688,
+        "resumed": false
+      },
+      "checkpoint_sha256": "24e8a005add3e4389ad66736c0305ad4a32fe249adcfa9fafae1529cafc4994c"
+    },
+    {
+      "seed": 10,
+      "condition": "shuffled-random_random",
+      "wiring": "shuffled",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317789306248129,
+          "perplexity": 4096.094780606488,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317835280074174,
+          "perplexity": 4096.283098084202,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.610950542541768,
+          "perplexity": 273.4039966592866,
+          "accuracy": 0.1374326310632043,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.553443772582424,
+          "perplexity": 258.1249506638319,
+          "accuracy": 0.13889773813316342,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 10,
+        "condition": "shuffled-random_random",
+        "wiring": "shuffled",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 97.29697684899975,
+        "peak_allocated_bytes": 266674688,
+        "resumed": false
+      },
+      "checkpoint_sha256": "5d57d1d52233eac8455352500cdd817450899e4b761e9afd52a9cb2438541a9b"
+    },
+    {
+      "seed": 11,
+      "condition": "real-alpn_mbon",
+      "wiring": "real",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.31776586039168,
+          "perplexity": 4095.9987452820787,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317765271447199,
+          "perplexity": 4095.996332966935,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.226847535310453,
+          "perplexity": 506.1573226594995,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.1921974417889105,
+          "perplexity": 488.919298341559,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 11,
+        "condition": "real-alpn_mbon",
+        "wiring": "real",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.50995099900001,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "87289b8440daba0df9b2509a39f4991473fe5164aa4dad23ae32fda1a152eb06"
+    },
+    {
+      "seed": 11,
+      "condition": "real-alpn_random",
+      "wiring": "real",
+      "port_policy": "alpn_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.318071999659672,
+          "perplexity": 4097.252883300312,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317922219686274,
+          "perplexity": 4096.639242829118,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.677139498041519,
+          "perplexity": 292.1126448877173,
+          "accuracy": 0.11121999020088193,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.625561792252739,
+          "perplexity": 277.4280977077003,
+          "accuracy": 0.1086333227142402,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 11,
+        "condition": "real-alpn_random",
+        "wiring": "real",
+        "port_policy": "alpn_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.68279766000023,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "04455a0fe5df38efee73b5d4126bacfb75de7adfc25667ed7d382bfbbcce3308"
+    },
+    {
+      "seed": 11,
+      "condition": "real-random_mbon",
+      "wiring": "real",
+      "port_policy": "random_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317762563650307,
+          "perplexity": 4095.985241855813,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317762692668097,
+          "perplexity": 4095.985770310812,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.222424102144928,
+          "perplexity": 503.9233142077043,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.186303949614322,
+          "perplexity": 486.0463305051297,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 11,
+        "condition": "real-random_mbon",
+        "wiring": "real",
+        "port_policy": "random_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.09570864499983,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "ce991def22a58b15e7319298ced20ab5fe0ca657d80f2ed2b67ca396735161cf"
+    },
+    {
+      "seed": 11,
+      "condition": "real-random_random",
+      "wiring": "real",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317813850161727,
+          "perplexity": 4096.195316036635,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317804412501525,
+          "perplexity": 4096.1566577195445,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.634888346232602,
+          "perplexity": 280.0276494228105,
+          "accuracy": 0.1121999020088192,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.575871958858688,
+          "perplexity": 263.97963469360974,
+          "accuracy": 0.12296909843899331,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 11,
+        "condition": "real-random_random",
+        "wiring": "real",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 94.06706310399977,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "176dcd94e127f926712a688168c9815d538f0642a44a34011a1117076705ac89"
+    },
+    {
+      "seed": 11,
+      "condition": "shuffled-alpn_mbon",
+      "wiring": "shuffled",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317687829179778,
+          "perplexity": 4095.6791420057175,
+          "accuracy": 0.0004899559039686428,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317569021739638,
+          "perplexity": 4095.192573755757,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.209478100919654,
+          "perplexity": 497.44156923128065,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.17510441892198,
+          "perplexity": 480.63320850205304,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 11,
+        "condition": "shuffled-alpn_mbon",
+        "wiring": "shuffled",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 97.682117888,
+        "peak_allocated_bytes": 266669568,
+        "resumed": false
+      },
+      "checkpoint_sha256": "c94b1fe908322346ab8e47e045888991b618d434362267238aff2f748a486b3a"
+    },
+    {
+      "seed": 11,
+      "condition": "shuffled-random_random",
+      "wiring": "shuffled",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317689988847926,
+          "perplexity": 4095.687987323054,
+          "accuracy": 0.0004899559039686428,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317659454005431,
+          "perplexity": 4095.562928044797,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.505770834797098,
+          "perplexity": 246.10809126117073,
+          "accuracy": 0.14012738853503184,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.44182558962022,
+          "perplexity": 230.8632605588722,
+          "accuracy": 0.14080917489646383,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 11,
+        "condition": "shuffled-random_random",
+        "wiring": "shuffled",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 94.6045904130001,
+        "peak_allocated_bytes": 266669568,
+        "resumed": false
+      },
+      "checkpoint_sha256": "40591bc50d4052286d78b402bf2daafb46bebea5adec1eabfdfc64aa84e561ce"
+    },
+    {
+      "seed": 12,
+      "condition": "real-alpn_mbon",
+      "wiring": "real",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.31776279400868,
+          "perplexity": 4095.9861854004153,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317760339927126,
+          "perplexity": 4095.97613352861,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.1871945449734715,
+          "perplexity": 486.4793939249211,
+          "accuracy": 0.07226849583537481,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.19791500581302,
+          "perplexity": 491.7227325024574,
+          "accuracy": 0.07136030582988213,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 12,
+        "condition": "real-alpn_mbon",
+        "wiring": "real",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 93.97160232399983,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "d7e4e6696af7ef4fcedc0d55add6b1c8f53218b9c61b9f7a918351aa5c1151cf"
+    },
+    {
+      "seed": 12,
+      "condition": "real-alpn_random",
+      "wiring": "real",
+      "port_policy": "alpn_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317623846791411,
+          "perplexity": 4095.4170990553835,
+          "accuracy": 0.0004899559039686428,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317660027607568,
+          "perplexity": 4095.5652772691165,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.19128119688534,
+          "perplexity": 179.69863484150557,
+          "accuracy": 0.1682998530132288,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.16355755998284,
+          "perplexity": 174.78515954390383,
+          "accuracy": 0.187639375597324,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 12,
+        "condition": "real-alpn_random",
+        "wiring": "real",
+        "port_policy": "alpn_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 92.49548295900013,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "36b238abde019ef8ba101e857034663640155153b5f1fe64b6f657b3ab026366"
+    },
+    {
+      "seed": 12,
+      "condition": "real-random_mbon",
+      "wiring": "real",
+      "port_policy": "random_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317770752119468,
+          "perplexity": 4096.018781841972,
+          "accuracy": 0.0002449779519843214,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317745115165309,
+          "perplexity": 4095.9137737422743,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.042403148471696,
+          "perplexity": 420.9033136304409,
+          "accuracy": 0.07937285644292014,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.051092101039686,
+          "perplexity": 424.5764573344726,
+          "accuracy": 0.07677604332589996,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 12,
+        "condition": "real-random_mbon",
+        "wiring": "real",
+        "port_policy": "random_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 94.4110917349999,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "2f5f5ef953d70b5ee75af8ecc1bfee9d3f2813a71c1d62173c9a151af1d06a4f"
+    },
+    {
+      "seed": 12,
+      "condition": "real-random_random",
+      "wiring": "real",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317767145819433,
+          "perplexity": 4096.004010395928,
+          "accuracy": 0.0007349338559529642,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317760104166926,
+          "perplexity": 4095.9751678605685,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.684563117626541,
+          "perplexity": 294.28924717697015,
+          "accuracy": 0.10705536501714846,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.679531575008804,
+          "perplexity": 292.8122372231713,
+          "accuracy": 0.11787193373685888,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 12,
+        "condition": "real-random_random",
+        "wiring": "real",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 94.57046723600001,
+        "peak_allocated_bytes": 258435072,
+        "resumed": false
+      },
+      "checkpoint_sha256": "75dffe0935d5c6cbc520ffefd448106c1ee43a461aae4fd91a322afcbeacee0e"
+    },
+    {
+      "seed": 12,
+      "condition": "shuffled-alpn_mbon",
+      "wiring": "shuffled",
+      "port_policy": "alpn_mbon",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317760021063933,
+          "perplexity": 4095.974827472787,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.317928091816631,
+          "perplexity": 4096.663298899409,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 6.182250976153649,
+          "perplexity": 484.080384282018,
+          "accuracy": 0.07422831945124939,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 6.1909140191590115,
+          "perplexity": 488.292210745156,
+          "accuracy": 0.07422746097483275,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 12,
+        "condition": "shuffled-alpn_mbon",
+        "wiring": "shuffled",
+        "port_policy": "alpn_mbon",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 98.40467415000012,
+        "peak_allocated_bytes": 266679808,
+        "resumed": false
+      },
+      "checkpoint_sha256": "5dde397684e9e18f791c4dcf9cb615c6aaa645549b1730f9bcd7c754ddcaf27b"
+    },
+    {
+      "seed": 12,
+      "condition": "shuffled-random_random",
+      "wiring": "shuffled",
+      "port_policy": "random_random",
+      "initial": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 8.317789343161538,
+          "perplexity": 4096.0949318073135,
+          "accuracy": 0.0,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 8.31784798438931,
+          "perplexity": 4096.3351388861365,
+          "accuracy": 0.00031857279388340236,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "final": {
+        "valid": {
+          "tokens": 4082,
+          "stories": 16,
+          "nll": 5.613153129304991,
+          "perplexity": 274.00685636501913,
+          "accuracy": 0.10583047525722684,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        },
+        "test": {
+          "tokens": 3139,
+          "stories": 16,
+          "nll": 5.611386450129203,
+          "perplexity": 273.5232015151284,
+          "accuracy": 0.1073590315387066,
+          "denominator": "within_story_next_token_pairs",
+          "context_policy": "full_story_recurrent_state"
+        }
+      },
+      "runtime": {
+        "seed": 12,
+        "condition": "shuffled-random_random",
+        "wiring": "shuffled",
+        "port_policy": "random_random",
+        "gpu": "Tesla T4",
+        "python": "3.13.15",
+        "torch": "2.11.0+cu128",
+        "cuda": "12.8",
+        "seconds": 99.66977421699994,
+        "peak_allocated_bytes": 266679808,
+        "resumed": false
+      },
+      "checkpoint_sha256": "9726e431c9d08974c5608cd082734fe34b25a69e5480d9512f0dd078c5bfb080"
+    }
+  ]
+}

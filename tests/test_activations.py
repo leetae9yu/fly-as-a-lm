@@ -6,8 +6,9 @@ import numpy as np
 import pytest
 import torch
 from numpy.lib.npyio import NpzFile
-from pydantic import TypeAdapter, ValidationError
+from pydantic import JsonValue, TypeAdapter, ValidationError
 
+import flyrl.ar_config as config_module
 from flyrl.activations import ActivationMetadata, ActivationOptions, export_activations
 from flyrl.ar_config import ARConfig, GenerationContext
 from flyrl.ar_learning import ARLearner
@@ -127,6 +128,32 @@ def test_state_is_before_chosen_token_is_fed_back(
             token = TypeAdapter(int).validate_python(data["generated_ids"][0])
             expected = logits.softmax(dim=1)[0, token].item()
         assert data["probabilities"][0] == pytest.approx(expected)
+
+
+def test_parameter_identity_preserves_legacy_activation_fingerprints() -> None:
+    # Given: one historical random-port config and one explicit-port config.
+    legacy = ARConfig(alphabet_size=2)
+    explicit = ARConfig(
+        alphabet_size=2,
+        readout_neurons=1,
+        port_policy="alpn_mbon",
+        port_manifest_sha256="a" * 64,
+        sensory_indices=(0,),
+        readout_indices=(1,),
+    )
+    # When: parameter identity JSON is constructed.
+    adapter = TypeAdapter(dict[str, JsonValue])
+    legacy_identity = adapter.validate_json(
+        config_module.parameter_identity_json(legacy)
+    )
+    explicit_identity = adapter.validate_json(
+        config_module.parameter_identity_json(explicit)
+    )
+    # Then: old identities omit new defaults while explicit identities bind every port.
+    assert "port_policy" not in legacy_identity
+    assert explicit_identity["port_policy"] == "alpn_mbon"
+    assert explicit_identity["sensory_indices"] == [0]
+    assert explicit_identity["readout_indices"] == [1]
 
 
 @pytest.mark.parametrize(("length", "max_neurons"), [(0, 5), (1, 0)])

@@ -11,7 +11,7 @@ from numpy.lib.format import write_array
 from pydantic import Field, TypeAdapter
 
 from flyrl.activation_plot import render_heatmaps
-from flyrl.ar_config import ARConfig
+from flyrl.ar_config import ARConfig, parameter_identity_json
 from flyrl.ar_engine import select_token
 from flyrl.ar_learning import ARLearner
 from flyrl.bpe_data import BPECorpus
@@ -156,7 +156,7 @@ def export_activations(
 
 def _parameter_fingerprint(learner: ARLearner) -> str:
     """Identify the exact learned parameters used for a recording."""
-    digest = hashlib.sha256(learner.config.model_dump_json().encode())
+    digest = hashlib.sha256(parameter_identity_json(learner.config).encode())
     for name, parameter in learner.model.named_parameters():
         digest.update(name.encode())
         digest.update(parameter.detach().cpu().numpy().tobytes())

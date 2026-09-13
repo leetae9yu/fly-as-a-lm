@@ -6,7 +6,7 @@ from contextlib import closing
 from http import HTTPStatus
 from http.client import HTTPSConnection
 from pathlib import Path
-from typing import ClassVar, Final
+from typing import ClassVar, Final, Literal, TypeAlias
 from urllib.parse import urlsplit
 
 from pydantic import BaseModel, ConfigDict
@@ -15,6 +15,7 @@ from flyrl.connectome import GraphError
 
 COMMIT: Final = "71ecf53d78eaffaf1a57ed7b0ccf5d458abc9f33"
 BASE: Final = "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/"
+SourceName: TypeAlias = Literal["annotations.feather", "edges.feather"]
 
 
 class SourcePin(BaseModel):
@@ -56,24 +57,30 @@ def verify_source(path: Path, pin: SourcePin) -> None:
         raise GraphError(message)
 
 
-def obtain_sources(raw: Path, *, download: bool) -> None:
-    """Stream missing public files over HTTPS, then enforce built-in SHA256 pins."""
+def obtain_source(raw: Path, name: SourceName, *, download: bool) -> None:
+    """Stream one missing public file, then enforce its built-in SHA256 pin."""
     raw.mkdir(parents=True, exist_ok=True)
-    for name, pin in PINS.items():
-        path = raw / name
-        if not path.exists() and download:
-            temporary = path.with_suffix(".partial")
-            url = urlsplit(pin.url)
-            with closing(HTTPSConnection(url.netloc, timeout=60)) as connection:
-                connection.request("GET", url.path)
-                with connection.getresponse() as response:
-                    if response.status != HTTPStatus.OK:
-                        message = (
-                            f"Source download failed: HTTP {response.status} {pin.url}"
-                        )
-                        raise GraphError(message)
-                    with temporary.open("wb") as stream:
-                        shutil.copyfileobj(response, stream, length=8 * 1024 * 1024)
-            verify_source(temporary, pin)
-            _ = temporary.replace(path)
-        verify_source(path, pin)
+    pin = PINS[name]
+    path = raw / name
+    if not path.exists() and download:
+        temporary = path.with_suffix(".partial")
+        url = urlsplit(pin.url)
+        with closing(HTTPSConnection(url.netloc, timeout=60)) as connection:
+            connection.request("GET", url.path)
+            with connection.getresponse() as response:
+                if response.status != HTTPStatus.OK:
+                    message = (
+                        f"Source download failed: HTTP {response.status} {pin.url}"
+                    )
+                    raise GraphError(message)
+                with temporary.open("wb") as stream:
+                    shutil.copyfileobj(response, stream, length=8 * 1024 * 1024)
+        verify_source(temporary, pin)
+        _ = temporary.replace(path)
+    verify_source(path, pin)
+
+
+def obtain_sources(raw: Path, *, download: bool) -> None:
+    """Obtain both pinned public files for full-connectome preparation."""
+    for name in ("annotations.feather", "edges.feather"):
+        obtain_source(raw, name, download=download)
