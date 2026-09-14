@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "profile": "quality",
+  "graph": {
+    "path": "data/large_connectome/malecns_v1_n16384.npz",
+    "sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8",
+    "fingerprint": "7749587d400d0338a6f94916d0f034494ca237e0b6a19d2a000346053dfff647",
+    "nodes": 16384,
+    "edges": 1187999
+  },
+  "corpus": {
+    "path": "data/tinystories_quality/corpus.npz",
+    "sha256": "5166ba21bb1a269233932c97958951553ab1b786a876c370ca25effedef1ed42",
+    "fingerprint": "519460b05ceceaebc5c7a99098b57dee49272fdb4715bbfa62d4f3c8ecc7d776",
+    "stories": [
+      50000,
+      256,
+      512
+    ],
+    "tokens": [
+      11113812,
+      56927,
+      95495
+    ],
+    "vocabulary": 4096
+  },
+  "config": {
+    "alphabet_size": 4096,
+    "tokenization": "bpe",
+    "architecture": "connectome",
+    "trainable_codes": true,
+    "generation_context": "stateful",
+    "seed": 0,
+    "device": "cuda",
+    "control": "real",
+    "context": 128,
+    "batch_size": 8,
+    "learning_rate": 0.003,
+    "weight_decay": 0.0,
+    "gradient_clip": 1.0,
+    "leak": 0.5,
+    "initial_gain": 0.9,
+    "readout_neurons": 256,
+    "edge_chunk": 65536,
+    "eval_windows": 512,
+    "sample_length": 192,
+    "port_policy": "legacy_random",
+    "port_manifest_sha256": null,
+    "sensory_indices": null,
+    "readout_indices": null
+  },
+  "schedule": {
+    "target_updates": 30000,
+    "warmup_updates": 500,
+    "peak": 0.003,
+    "minimum": 0.0003
+  },
+  "evaluation_updates": [
+    0,
+    1000,
+    5000,
+    10000,
+    15000,
+    20000,
+    25000,
+    30000
+  ],
+  "early_update": 1000,
+  "checkpoint_interval": 1000,
+  "cpu_threads": 1,
+  "prompts": [
+    "Once upon a time",
+    "Lily found a small red box under her bed.",
+    "Ben wanted to fly his kite, but there was no wind.",
+    "A little rabbit lost the key to her house.",
+    "\"Can I play with you?\" asked Tom.",
+    "Mia promised to look after her brother's toy.",
+    "The rain stopped, and the children opened the door.",
+    "A small bird was afraid to leave its nest."
+  ],
+  "generation": {
+    "length": 192,
+    "temperature": 0.8,
+    "nucleus_p": 0.9
+  },
+  "activation_prompt_indices": [
+    0,
+    3
+  ]
+}
