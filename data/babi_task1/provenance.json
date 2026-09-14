@@ -1,0 +1,138 @@
+{
+  "provenance": {
+    "format": "flyrl-babi-task1-v1",
+    "official_url": "https://dl.fbaipublicfiles.com/parlai/babi/babi.tar.gz",
+    "parlai_manifest_commit": "ea366da91c93f2cec8fe29b6d93b37ed96ed45bd",
+    "archive_sha256": "f7f0bee187efca0d81c3daac1b162cda4eb7f9505dee5ad6846eabbed3dbf92e",
+    "archive_bytes": 19212062,
+    "members": [
+      {
+        "name": "tasks_1-20_v1-2/en-10k/qa1_single-supporting-fact_train.txt",
+        "size": 944248,
+        "sha256": "749ea9f7c99070feb2d88c975a254417a0dcc8274add4435ae5ae24c7afc7e9d"
+      },
+      {
+        "name": "tasks_1-20_v1-2/en-10k/qa1_single-supporting-fact_test.txt",
+        "size": 94477,
+        "sha256": "55acf66cef2f6d798e2aa1d056e1ec8f24e910ea9215b639450574321132959b"
+      },
+      {
+        "name": "tasks_1-20_v1-2/LICENSE.txt",
+        "size": 19561,
+        "sha256": "d12f09a636365a040fd581ebab6bf018d6fe61973c6d4862f841a6aca2f53efa"
+      }
+    ],
+    "tokenizer_sha256": "f626d6a0653d63580a9aad06dd5dd19bd314514dc861d271254867dfb476d4ff",
+    "tokenizers_version": "0.22.2",
+    "vocabulary": 4096,
+    "terminator": 199,
+    "license": "CC BY 3.0",
+    "citation": "Weston et al., Towards AI-Complete Question Answering: A Set of Prerequisite Toy Tasks, arXiv:1502.05698v10",
+    "transformation": "Source line 1 resets episodes; preceding declarative facts only; LF-joined facts + Question: <question> + Answer:; separate prompt and leading-space answer+LF encoding; unchanged TinyStories tokenizer; no truncation; PCG64(0).permutation(2000), first 1800 train episodes, last 200 validation; exclude train questions only for exact validation prompt overlap; retain source order and multiplicity; untouched official test; remove all queried-person facts only in the separate input-removal condition"
+  },
+  "train": {
+    "questions": 8983,
+    "unique_prompts": 8909,
+    "episodes": 1800,
+    "max_supervised_input": 130,
+    "answer_histogram": [
+      {
+        "answer": "bathroom",
+        "count": 1550
+      },
+      {
+        "answer": "bedroom",
+        "count": 1481
+      },
+      {
+        "answer": "garden",
+        "count": 1501
+      },
+      {
+        "answer": "hallway",
+        "count": 1481
+      },
+      {
+        "answer": "kitchen",
+        "count": 1465
+      },
+      {
+        "answer": "office",
+        "count": 1505
+      }
+    ],
+    "fingerprint": "dcb72c0d053251d10296b71e09431379c66ba87d865c909f1268c6ed381fc88b"
+  },
+  "valid": {
+    "questions": 1000,
+    "unique_prompts": 999,
+    "episodes": 200,
+    "max_supervised_input": 132,
+    "answer_histogram": [
+      {
+        "answer": "bathroom",
+        "count": 179
+      },
+      {
+        "answer": "bedroom",
+        "count": 161
+      },
+      {
+        "answer": "garden",
+        "count": 155
+      },
+      {
+        "answer": "hallway",
+        "count": 174
+      },
+      {
+        "answer": "kitchen",
+        "count": 178
+      },
+      {
+        "answer": "office",
+        "count": 153
+      }
+    ],
+    "fingerprint": "90bc000589407759d87baa5763f0084e3a813a46c11ed62513dea2410c0a72dc"
+  },
+  "test": {
+    "questions": 1000,
+    "unique_prompts": 999,
+    "episodes": 200,
+    "max_supervised_input": 127,
+    "answer_histogram": [
+      {
+        "answer": "bathroom",
+        "count": 149
+      },
+      {
+        "answer": "bedroom",
+        "count": 171
+      },
+      {
+        "answer": "garden",
+        "count": 187
+      },
+      {
+        "answer": "hallway",
+        "count": 154
+      },
+      {
+        "answer": "kitchen",
+        "count": 157
+      },
+      {
+        "answer": "office",
+        "count": 182
+      }
+    ],
+    "fingerprint": "4f6823f3049ab5612df2c4d4c5ef2ea3c83449bc1c2094fa25b86845f57c260f"
+  },
+  "excluded_for_validation": 17,
+  "test_train_seen": 16,
+  "test_train_novel": 984,
+  "train_valid_sha256": "f40054a2f33e8b6d6799b8f50ccbfc4e2a0b3fbf58930f1420bf28a476297496",
+  "test_sha256": "db65b795379113fcc0dcec1b0c78e549eb38991e630d3635c61ae62b41e1fda2",
+  "split_fingerprint": "74d3f25c677e0b2c24ea72156f2d8a8e2730d87ebbaf07aa8f91844b6436e8ba"
+}
