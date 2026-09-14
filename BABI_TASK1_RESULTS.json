@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "task": "English bAbI Task 1: single supporting fact",
+  "verdict": "Weak partial task learning; the conventional solved threshold was not reached.",
+  "evidence_use_verdict": "The fixed input-evidence sanity check passed.",
+  "protocol_sha256": "d5191413d1092b16ab8d035c3957550418ea6ceeddfbeb881e4251a76382a48b",
+  "source_commit": "3c291b1e077ffae1f7de5ea097888135c6647cd2",
+  "input_bundle": {
+    "bytes": 38011016,
+    "sha256": "4ed430f858f33875fdf4c781171d8e4329ae0ffc9a4f1e7743ae4d668d9036c9",
+    "independent_rebuild_byte_identical": true
+  },
+  "complete_result_zip": {
+    "bytes": 162682050,
+    "sha256": "15ebfd4a210ddf85cf6fa0623c5d89ebdc4944178811d45b4bb288f182d5be58",
+    "crc_verified": true
+  },
+  "source": {
+    "official_url": "https://dl.fbaipublicfiles.com/parlai/babi/babi.tar.gz",
+    "parlai_manifest_commit": "ea366da91c93f2cec8fe29b6d93b37ed96ed45bd",
+    "archive_sha256": "f7f0bee187efca0d81c3daac1b162cda4eb7f9505dee5ad6846eabbed3dbf92e",
+    "train_member_sha256": "749ea9f7c99070feb2d88c975a254417a0dcc8274add4435ae5ae24c7afc7e9d",
+    "test_member_sha256": "55acf66cef2f6d798e2aa1d056e1ec8f24e910ea9215b639450574321132959b",
+    "license": "CC BY 3.0",
+    "license_sha256": "d12f09a636365a040fd581ebab6bf018d6fe61973c6d4862f841a6aca2f53efa"
+  },
+  "splits": {
+    "train_questions": 8983,
+    "validation_questions": 1000,
+    "official_test_questions": 1000,
+    "official_test_prompt_seen_in_train": 16,
+    "official_test_prompt_novel_to_train": 984,
+    "split_fingerprint": "74d3f25c677e0b2c24ea72156f2d8a8e2730d87ebbaf07aa8f91844b6436e8ba"
+  },
+  "model": {
+    "recurrent_core": "real Drosophila connectome graph",
+    "nodes": 16384,
+    "directed_edges": 1187999,
+    "external_rnn": false,
+    "attention": false,
+    "topology_audit": false,
+    "seed": 0,
+    "tokenizer": "unchanged TinyStories BPE-4096",
+    "answer_only_loss": true
+  },
+  "training": {
+    "updates": 12000,
+    "batch_size": 8,
+    "question_presentations": 96000,
+    "context": 160,
+    "selected_update": 12000,
+    "selected_checkpoint_sha256": "3c77d5b56f0aece9ffdfb6fe369d2ea6ec9969f889e35872c339e59c456b1a41"
+  },
+  "validation": [
+    {"update": 0, "correct": 0, "questions": 1000, "nll": 8.318184405644736},
+    {"update": 500, "correct": 155, "questions": 1000, "nll": 0.9089608186228821},
+    {"update": 2000, "correct": 159, "questions": 1000, "nll": 0.8412247974692776},
+    {"update": 4000, "correct": 446, "questions": 1000, "nll": 0.7074536656847916},
+    {"update": 8000, "correct": 587, "questions": 1000, "nll": 0.5918511180468617},
+    {"update": 12000, "correct": 633, "questions": 1000, "nll": 0.5304361409367848}
+  ],
+  "official_test": {
+    "correct": 602,
+    "questions": 1000,
+    "accuracy": 0.602,
+    "answer_nll": 0.5663300347706122,
+    "answer_token_loss_sum": 1188.1604407989626,
+    "answer_tokens": 2154,
+    "raw_score_band": "weak",
+    "conventional_solved_threshold": 0.95,
+    "solved": false,
+    "train_novel_correct": 590,
+    "train_novel_questions": 984,
+    "train_novel_accuracy": 0.5995934959349594,
+    "train_seen_correct": 12,
+    "train_seen_questions": 16,
+    "train_seen_accuracy": 0.75
+  },
+  "input_evidence_ablation": {
+    "method": "Remove every preceding fact about the queried person without retraining.",
+    "correct": 157,
+    "questions": 1000,
+    "accuracy": 0.157,
+    "answer_nll": 1.1950728174775624,
+    "ordinary_minus_removed": 0.445,
+    "minimum_required_drop": 0.2,
+    "answer_prior_baseline": 0.172,
+    "maximum_allowed_removed_accuracy": 0.272,
+    "passed": true,
+    "changed_generated_answers": 541
+  },
+  "baselines": {
+    "uniform": 0.16666666666666666,
+    "training_majority_test_accuracy": 0.149,
+    "question_person_prior_test_accuracy": 0.172,
+    "last_fact_test_accuracy": 0.527,
+    "symbolic_oracle_test_accuracy": 1.0
+  },
+  "per_answer": {
+    "bathroom": {"correct": 91, "questions": 149, "accuracy": 0.610738255033557},
+    "bedroom": {"correct": 99, "questions": 171, "accuracy": 0.5789473684210527},
+    "garden": {"correct": 118, "questions": 187, "accuracy": 0.6310160427807486},
+    "hallway": {"correct": 96, "questions": 154, "accuracy": 0.6233766233766234},
+    "kitchen": {"correct": 102, "questions": 157, "accuracy": 0.6496815286624203},
+    "office": {"correct": 96, "questions": 182, "accuracy": 0.5274725274725275}
+  },
+  "generation_integrity": {
+    "terminated": 1000,
+    "unterminated": 0,
+    "malformed_terminated": 0,
+    "wrong_legal_location": 398,
+    "output_counts": {
+      "bathroom": 149,
+      "bedroom": 173,
+      "garden": 180,
+      "hallway": 137,
+      "kitchen": 190,
+      "office": 171
+    }
+  },
+  "preflight": {
+    "memorization_correct": 12,
+    "memorization_questions": 12,
+    "memorization_updates": 400,
+    "warmups": 5,
+    "timed_updates": 20,
+    "mean_update_seconds": 0.22569518010001274,
+    "evaluation_seconds": 15.417619648000027,
+    "checkpoint_seconds": 0.22339059799992356,
+    "recovery_copy_seconds": 0.22040530100002798,
+    "peak_allocated_bytes": 442086400,
+    "projected_allocation_seconds": 4550.238610450002,
+    "projection_limit_seconds": 5400,
+    "passed": true
+  },
+  "runtime": {
+    "gpu": "Tesla T4",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "python": "3.13.15",
+    "allocation_created_utc": "2026-09-14T08:16:21.359044+00:00",
+    "allocation_released_utc": "2026-09-14T09:07:07.017998+00:00",
+    "observed_allocation_seconds": 3045.658954,
+    "active_sessions_after_release": 0
+  },
+  "recovery": {
+    "remote_strict_recovery": true,
+    "local_strict_recovery": true,
+    "same_runtime_checkpoint_restore": true,
+    "local_cuda_continuation_verified": false,
+    "all_ordinary_predictions_published": true,
+    "all_removed_predictions_published": true
+  },
+  "limits": {
+    "seeds": 1,
+    "task_2_run": false,
+    "general_reasoning_demonstrated": false,
+    "general_language_understanding_demonstrated": false,
+    "topology_superiority_tested": false,
+    "biological_function_demonstrated": false,
+    "input_removal_is_distribution_shift": true
+  }
+}

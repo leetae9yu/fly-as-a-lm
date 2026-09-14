@@ -1,0 +1,45 @@
+{
+  "protocol_sha256": "d5191413d1092b16ab8d035c3957550418ea6ceeddfbeb881e4251a76382a48b",
+  "selected_update": 12000,
+  "selected_checkpoint_sha256": "3c77d5b56f0aece9ffdfb6fe369d2ea6ec9969f889e35872c339e59c456b1a41",
+  "ordinary": {
+    "correct": 602,
+    "questions": 1000,
+    "loss_sum": 1188.1604407989626,
+    "tokens": 2154,
+    "nll": 0.5663300347706122
+  },
+  "removed": {
+    "correct": 157,
+    "questions": 1000,
+    "loss_sum": 2591.655706908081,
+    "tokens": 2154,
+    "nll": 1.1950728174775624
+  },
+  "train_novel_correct": 590,
+  "train_novel_questions": 984,
+  "baseline_valid": {
+    "questions": 1000,
+    "majority": 179,
+    "person_prior": 158,
+    "final_fact": 559,
+    "oracle": 1000,
+    "uniform": 0.16666666666666666
+  },
+  "baseline_test": {
+    "questions": 1000,
+    "majority": 149,
+    "person_prior": 172,
+    "final_fact": 527,
+    "oracle": 1000,
+    "uniform": 0.16666666666666666
+  },
+  "baseline_maximum": 0.172,
+  "ordinary_accuracy": 0.602,
+  "removed_accuracy": 0.157,
+  "input_evidence_passed": true,
+  "raw_score_band": "weak",
+  "final_label": "WEAK",
+  "local_cuda_continuation_verified": false,
+  "topology_causality_demonstrated": false
+}

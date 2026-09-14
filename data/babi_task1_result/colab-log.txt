@@ -1,0 +1,207 @@
+Colab Session: babi-task1
+====================
+
+[2026-09-14 08:16:21] SESSION_CREATED: {'timestamp': '2026-09-14T08:16:21.359044+00:00', 'event_type': 'session_created', 'endpoint': 'gpu-t4-s-kkb-usw1b0-352i3js501t7b', 'variant': 'GPU', 'accelerator': 'T4'}
+[2026-09-14 08:16:21] KEEP_ALIVE_STARTED: {'timestamp': '2026-09-14T08:16:21.893966+00:00', 'event_type': 'keep_alive_started', 'endpoint': 'gpu-t4-s-kkb-usw1b0-352i3js501t7b', 'pid': 2905169}
+[2026-09-14 08:17:03] FILE_OPERATION: {'timestamp': '2026-09-14T08:17:03.650391+00:00', 'event_type': 'file_operation', 'op': 'upload', 'local': '/home/opc/projects/experiment/.omo/evidence/babi-task1-input.zip', 'remote': '/content/babi-task1-input.zip'}
+[2026-09-14 08:17:33] EXECUTION: """Install one sealed bAbI Task 1 bundle on an allocated Colab T4."""
+
+import hashlib
+import json
+import platform
+import shutil
+import subprocess
+import sys
+import tarfile
+from pathlib import Path, PurePosixPath
+from zipfile import ZipFile
+
+import torch
+
+UPLOAD = Path("/content/babi-task1-input.zip")
+ROOT = Path("/content/babi-task1")
+EXPECTED = {
+    "BABI_TASK1_PROTOCOL.md",
+    "SOURCE_LICENSE.txt",
+    "malecns_v1_n16384.npz",
+    "manifest.json",
+    "provenance.json",
+    "seal.json",
+    "source.tar.gz",
+    "test.npz",
+    "tokenizer.json",
+    "train_valid.npz",
+    "worker.py",
+}
+
+
+def identity(payload: bytes) -> dict[str, int | str]:
+    """Return the builder-compatible byte identity."""
+    return {"sha256": hashlib.sha256(payload).hexdigest(), "bytes": len(payload)}
+
+
+if ROOT.exists():
+    raise RuntimeError("Remote bAbI Task 1 directory already exists")
+ROOT.mkdir()
+with ZipFile(UPLOAD) as archive:
+    names = archive.namelist()
+    if (
+        set(names) != EXPECTED
+        or len(names) != len(set(names))
+        or archive.testzip() is not None
+        or any(
+            PurePosixPath(name).name != name
+            or name.startswith(("/", "\\"))
+            or ".." in PurePosixPath(name).parts
+            for name in names
+        )
+    ):
+        raise RuntimeError("Unsafe or unexpected input bundle")
+    manifest = json.loads(archive.read("manifest.json"))
+    for name in EXPECTED - {"manifest.json"}:
+        payload = archive.read(name)
+        if identity(payload) != manifest[name]:
+            raise RuntimeError(f"Input identity mismatch: {name}")
+        (ROOT / name).write_bytes(payload)
+
+seal = json.loads((ROOT / "seal.json").read_text())
+for name, expected in seal["payloads"].items():
+    if identity((ROOT / name).read_bytes()) != expected:
+        raise RuntimeError(f"Seal mismatch: {name}")
+with tarfile.open(ROOT / "source.tar.gz") as archive:
+    members = archive.getmembers()
+    if len({item.name for item in members}) != len(members) or any(
+        item.name.startswith(("/", "\\"))
+        or ".." in PurePosixPath(item.name).parts
+        for item in members
+    ):
+        raise RuntimeError("Unsafe source archive")
+    archive.extractall(ROOT, filter="data")
+
+project = ROOT / "flyrl-0.1.0"
+graph = project / "data/large_connectome/malecns_v1_n16384.npz"
+corpus = project / "data/babi_task1"
+graph.parent.mkdir(parents=True, exist_ok=True)
+corpus.mkdir(parents=True, exist_ok=True)
+shutil.copy2(ROOT / "malecns_v1_n16384.npz", graph)
+shutil.copy2(ROOT / "BABI_TASK1_PROTOCOL.md", project / "BABI_TASK1_PROTOCOL.md")
+for name in (
+    "SOURCE_LICENSE.txt",
+    "provenance.json",
+    "test.npz",
+    "tokenizer.json",
+    "train_valid.npz",
+):
+    shutil.copy2(ROOT / name, corpus / name)
+shutil.copy2(ROOT / "worker.py", project / "worker.py")
+(ROOT / "recovery").mkdir()
+
+before = (str(torch.__version__), str(torch.__file__))
+subprocess.run(
+    [
+        sys.executable,
+        "-m",
+        "pip",
+        "install",
+        "--quiet",
+        "numpy==2.4.6",
+        "pydantic==2.13.5",
+        "typer==0.27.2",
+        "typing-extensions==4.16.0",
+        "tokenizers==0.22.2",
+    ],
+    check=True,
+)
+subprocess.run(
+    [
+        sys.executable,
+        "-m",
+        "pip",
+        "install",
+        "--quiet",
+        "--no-deps",
+        "-e",
+        str(project),
+    ],
+    check=True,
+)
+after = (str(torch.__version__), str(torch.__file__))
+runtime = seal["runtime"]
+if (
+    before != after
+    or not torch.cuda.is_available()
+    or runtime["gpu_contains"] not in torch.cuda.get_device_name()
+    or str(torch.__version__) != runtime["torch"]
+    or str(torch.version.cuda) != runtime["cuda"]
+    or platform.python_version() != runtime["python"]
+):
+    raise RuntimeError("Pinned Colab T4 runtime identity mismatch")
+print(
+    f"BABI_T4_SETUP_READY commit={seal['git_commit']} torch={after[0]} "
+    f"gpu={torch.cuda.get_device_name()}",
+    flush=True,
+)
+[2026-09-14 08:28:06] FILE_OPERATION: {'timestamp': '2026-09-14T08:28:06.920219+00:00', 'event_type': 'file_operation', 'op': 'ls', 'path': '/content/babi-task1/result'}
+[2026-09-14 08:33:02] FILE_OPERATION: {'timestamp': '2026-09-14T08:33:02.741665+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1/result/latest.json', 'local': '/tmp/babi-latest-6021.json'}
+[2026-09-14 08:35:52] FILE_OPERATION: {'timestamp': '2026-09-14T08:35:52.481822+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1/result/latest.json', 'local': '/tmp/babi-latest-6445.json'}
+[2026-09-14 08:40:51] FILE_OPERATION: {'timestamp': '2026-09-14T08:40:51.352367+00:00', 'event_type': 'file_operation', 'op': 'ls', 'path': '/content/babi-task1/recovery'}
+[2026-09-14 08:45:45] FILE_OPERATION: {'timestamp': '2026-09-14T08:45:45.932208+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1/result/latest.json', 'local': '/tmp/babi-latest-6785.json'}
+[2026-09-14 08:50:51] FILE_OPERATION: {'timestamp': '2026-09-14T08:50:51.127602+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1/result/latest.json', 'local': '/tmp/babi-latest-7089.json'}
+[2026-09-14 08:55:49] FILE_OPERATION: {'timestamp': '2026-09-14T08:55:49.040493+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1/result/latest.json', 'local': '/tmp/babi-latest-7389.json'}
+[2026-09-14 08:56:20] FILE_OPERATION: {'timestamp': '2026-09-14T08:56:20.378953+00:00', 'event_type': 'file_operation', 'op': 'ls', 'path': '/content/babi-task1/recovery'}
+[2026-09-14 08:56:48] FILE_OPERATION: {'timestamp': '2026-09-14T08:56:48.623098+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1/result/latest.json', 'local': '/tmp/babi-latest-10000.json'}
+[2026-09-14 08:56:50] FILE_OPERATION: {'timestamp': '2026-09-14T08:56:50.521610+00:00', 'event_type': 'file_operation', 'op': 'ls', 'path': '/content/babi-task1/recovery/recovery-010000'}
+[2026-09-14 09:02:02] FILE_OPERATION: {'timestamp': '2026-09-14T09:02:02.504648+00:00', 'event_type': 'file_operation', 'op': 'ls', 'path': '/content/babi-task1/result'}
+[2026-09-14 09:04:21] EXECUTION: """Execute the sealed bAbI worker and propagate every subprocess failure."""
+
+import os
+import subprocess
+import sys
+
+with subprocess.Popen(
+    [sys.executable, "-u", "worker.py"],
+    cwd="/content/babi-task1/flyrl-0.1.0",
+    env={
+        **os.environ,
+        "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+        "PYTHONHASHSEED": "0",
+    },
+    stdout=subprocess.PIPE,
+    stderr=subprocess.STDOUT,
+    text=True,
+    bufsize=1,
+) as process:
+    if process.stdout is None:
+        raise RuntimeError("Worker stdout was not connected")
+    for line in process.stdout:
+        print(line, end="", flush=True)
+    returncode = process.wait()
+    if returncode:
+        raise subprocess.CalledProcessError(returncode, process.args)
+print("BABI_T4_EXEC_EXIT 0", flush=True)
+[2026-09-14 09:04:54] EXECUTION: """Stage completed bAbI Task 1 artifacts at Colab's file-API root."""
+
+import hashlib
+import shutil
+from pathlib import Path
+
+root = Path("/content/babi-task1")
+files = {
+    root / "babi-task1-results.zip": Path("/content/babi-task1-results.zip"),
+    root / "verification.json": Path("/content/babi-task1-verification.json"),
+    root / "protocol.json": Path("/content/babi-task1-protocol.json"),
+}
+for source, destination in files.items():
+    if not source.is_file() or destination.exists():
+        raise RuntimeError(f"Missing source or occupied destination: {source}")
+    shutil.copy2(source, destination)
+    digest = hashlib.sha256(destination.read_bytes()).hexdigest()
+    print(
+        f"BABI_DOWNLOAD_STAGED file={destination.name} "
+        f"bytes={destination.stat().st_size} sha256={digest}",
+        flush=True,
+    )
+[2026-09-14 09:05:16] FILE_OPERATION: {'timestamp': '2026-09-14T09:05:16.107558+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1-verification.json', 'local': '/home/opc/projects/experiment/.omo/evidence/babi-task1-verification.json'}
+[2026-09-14 09:05:17] FILE_OPERATION: {'timestamp': '2026-09-14T09:05:17.587388+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1-protocol.json', 'local': '/home/opc/projects/experiment/.omo/evidence/babi-task1-protocol.json'}
+[2026-09-14 09:05:27] FILE_OPERATION: {'timestamp': '2026-09-14T09:05:27.144788+00:00', 'event_type': 'file_operation', 'op': 'download', 'remote': '/content/babi-task1-results.zip', 'local': '/home/opc/projects/experiment/.omo/evidence/babi-task1-results.zip'}
+[2026-09-14 09:07:07] SESSION_TERMINATED: {'timestamp': '2026-09-14T09:07:07.017998+00:00', 'event_type': 'session_terminated', 'reason': 'user_requested'}

@@ -1,0 +1,21 @@
+{
+  "cuda": "12.8",
+  "gpu": "Tesla T4",
+  "input_evidence_passed": true,
+  "local_strict_recovery": true,
+  "ordinary_correct": 602,
+  "ordinary_questions": 1000,
+  "protocol_sha256": "d5191413d1092b16ab8d035c3957550418ea6ceeddfbeb881e4251a76382a48b",
+  "python": "3.13.15",
+  "raw_score_band": "weak",
+  "removed_correct": 157,
+  "removed_questions": 1000,
+  "result_zip_sha256": "15ebfd4a210ddf85cf6fa0623c5d89ebdc4944178811d45b4bb288f182d5be58",
+  "same_runtime_checkpoint_restore": true,
+  "schema_version": 1,
+  "selected_checkpoint_sha256": "3c77d5b56f0aece9ffdfb6fe369d2ea6ec9969f889e35872c339e59c456b1a41",
+  "selected_update": 12000,
+  "torch": "2.11.0+cu128",
+  "train_novel_correct": 590,
+  "train_novel_questions": 984
+}

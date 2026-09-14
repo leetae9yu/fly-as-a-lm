@@ -16,7 +16,25 @@ Inspired by [DOOMFLY](https://github.com/nftechie/doomfly), this independent
 experiment takes the connectome-to-computation question from game control to
 text prediction.
 
-## Latest result: quality-first TinyStories run
+## Latest result: bAbI Task 1
+
+The fixed [bAbI Task 1 benchmark](BABI_TASK1_RESULTS.md) trained the real
+16,384-neuron connectome recurrent core to answer single-supporting-fact
+location questions, without an external RNN or attention module. The selected
+one-seed checkpoint answered **602/1,000 official test questions exactly
+(60.2%)**. This is weak partial task learning, not the conventional 95% solved
+threshold.
+
+When all preceding facts about the queried person were removed without
+retraining, accuracy fell to **157/1,000 (15.7%)**. The frozen evidence-use
+sanity check passed, supporting sensitivity to the supplied location evidence.
+It is not a topology comparison or proof of general reasoning, biological
+function, or language understanding. All 2,000 ordinary and ablated predictions,
+source/license provenance, checkpoint selection, restoration evidence and
+strict local recovery records are published with the report. No bAbI Task 2
+experiment was run.
+
+## Previous result: quality-first TinyStories run
 
 The [quality-first TinyStories experiment](QUALITY_PILOT_RESULTS.md) kept the
 real 16,384-neuron MaleCNS connectome as the recurrent core and added no
