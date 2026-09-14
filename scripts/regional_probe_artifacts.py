@@ -11,7 +11,8 @@ from numpy.lib.npyio import NpzFile
 from numpy.typing import NDArray
 from pydantic import TypeAdapter
 
-from flyrl.regional_probe import PROBE_WIDTH, feature_stats
+from flyrl.regional_probe import PROBE_WIDTH
+from flyrl.regional_probe import feature_stats as _feature_stats
 from flyrl.regional_probe_types import (
     ExtractionConfig,
     FeatureCache,
@@ -134,7 +135,7 @@ def save_heldout(
 ) -> str:
     """Store each source's heldout union once, preserving ordered int64 neuron IDs."""
     for cache in (valid, test):
-        _ = feature_stats(cache)
+        _ = _feature_stats(cache)
         if cache.features.shape[1] != len(indices) or len(set(indices)) != len(indices):
             message = "Heldout union indices differ from feature width"
             raise ValueError(message)
@@ -181,7 +182,7 @@ def load_heldout(
         for split in ("valid", "test"):
             features, labels = data[f"{split}_features"], data[f"{split}_labels"]
             cache = FeatureCache(features, labels)
-            _ = feature_stats(cache)
+            _ = _feature_stats(cache)
             if features.shape[1] != len(indices):
                 message = "Heldout union width differs"
                 raise ValueError(message)

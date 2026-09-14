@@ -9,13 +9,13 @@ from zipfile import ZipFile
 import numpy as np
 
 from flyrl.language_data import IntVector
+from flyrl.regional_probe import feature_stats
 from flyrl.regional_probe_types import ProbeMetrics
 from flyrl.story_pilot import PilotReport
 from scripts.anatomy_factorial_recovery_schema import WorkerRuntime
 from scripts.connectome_source import file_digest
 from scripts.regional_probe_artifact_types import SourceArtifact
 from scripts.regional_probe_artifacts import (
-    feature_stats,
     load_head,
     load_heldout,
 )

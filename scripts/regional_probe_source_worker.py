@@ -8,13 +8,12 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from flyrl.regional_probe import extract_features, fit_probe
+from flyrl.regional_probe import extract_features, feature_stats, fit_probe
 from flyrl.regional_probe_types import FeatureCache
 from flyrl.story_data import StoryCorpus
 from scripts.connectome_source import file_digest
 from scripts.regional_probe_artifact_types import ProbeRuntime, SourceArtifact
 from scripts.regional_probe_artifacts import (
-    feature_stats,
     load_heldout,
     save_head,
     save_heldout,

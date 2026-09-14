@@ -129,7 +129,7 @@ def _matrix(tensor: torch.Tensor) -> tuple[tuple[float, ...], ...]:
 
 
 def feature_stats(cache: FeatureCache) -> FeatureStats:
-    """Return exact hashes and float64-reduced population feature statistics."""
+    """Return hashes and the published float32 population feature statistics."""
     if (
         cache.features.dtype != np.float32
         or cache.labels.dtype != np.int64
@@ -144,14 +144,14 @@ def feature_stats(cache: FeatureCache) -> FeatureStats:
         message = "Invalid finite float32 feature cache"
         raise ValueError(message)
     variance = cast(
-        "NDArray[np.float64]",
-        np.var(cache.features, axis=0, dtype=np.float64),
+        "NDArray[np.float32]",
+        np.var(cache.features, axis=0),
     )
     return FeatureStats(
         feature_sha256=sha256(cache.features.tobytes()).hexdigest(),
         label_sha256=sha256(cache.labels.tobytes()).hexdigest(),
         variance=tuple(
-            float(cast("np.float64", variance[index])) for index in range(variance.size)
+            float(cast("np.float32", variance[index])) for index in range(variance.size)
         ),
         saturation_fraction=(
             int(np.count_nonzero(np.abs(cache.features) >= SATURATION_THRESHOLD))

@@ -319,7 +319,7 @@ python -m pip install pytest
 python -m scripts.verify_torch -q
 ```
 
-The current publication tree passes **498 local tests**, with 54 CUDA-only tests
+The current publication tree passes **500 local tests**, with 54 CUDA-only tests
 skipped on the CPU workstation. The final regional run completed all 168 heads
 on a Tesla T4 and passed strict source, trace, feature, parameter, runtime and
 aggregate-decision recovery. The Torch wrapper explicitly enables sparse-check

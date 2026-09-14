@@ -18,7 +18,6 @@ from scripts.alpn_causal_fresh_types import (
     FreshCorpusError,
     FreshMetadata,
     FrozenRecord,
-    Int64Array,
 )
 
 if TYPE_CHECKING:
@@ -83,9 +82,21 @@ def load_saved_artifact(root: Path) -> FreshArtifact:
         metadata = FreshMetadata.model_validate_json(
             (directory / JSON_NAME).read_text(encoding="utf-8")
         )
-        tokens, offsets, format_value, fields = _read_arrays(directory / NPZ_NAME)
+        raw_tokens, raw_offsets, format_value, fields = _read_arrays(
+            directory / NPZ_NAME
+        )
     except (OSError, ValueError) as error:
         raise FreshCorpusError from error
+    if (
+        fields != {"format", "tokens", "offsets"}
+        or format_value.shape != ()
+        or format_value.item() != FORMAT
+        or raw_tokens.dtype != np.dtype("int64")
+        or raw_offsets.dtype != np.dtype("int64")
+    ):
+        raise FreshCorpusError
+    tokens = np.asarray(raw_tokens, dtype=np.int64)
+    offsets = np.asarray(raw_offsets, dtype=np.int64)
     artifact = FreshArtifact(
         tokens=tokens,
         offsets=offsets,
@@ -93,14 +104,7 @@ def load_saved_artifact(root: Path) -> FreshArtifact:
         base_story_identities=metadata.base_corpus.story_identities,
         maximum_exposure_jaccard=metadata.exposure.maximum_jaccard,
     )
-    if (
-        metadata != artifact.metadata(root)
-        or fields != {"format", "tokens", "offsets"}
-        or format_value.shape != ()
-        or format_value.item() != FORMAT
-        or tokens.dtype != np.dtype("int64")
-        or offsets.dtype != np.dtype("int64")
-    ):
+    if metadata != artifact.metadata(root):
         raise FreshCorpusError
     return artifact
 
@@ -121,13 +125,18 @@ def validate_saved_artifact(root: Path, expected: FreshArtifact) -> FreshArtifac
 
 def _read_arrays(
     path: Path,
-) -> tuple[Int64Array, Int64Array, NDArray[np.str_], set[str]]:
+) -> tuple[
+    NDArray[np.generic],
+    NDArray[np.generic],
+    NDArray[np.str_],
+    set[str],
+]:
     with path.open("rb") as stream:
         archive: NpzFile[generic] = NpzFile(stream, allow_pickle=False)
         with archive as data:
             return (
-                np.asarray(data["tokens"], dtype=np.int64),
-                np.asarray(data["offsets"], dtype=np.int64),
+                np.asarray(data["tokens"]),
+                np.asarray(data["offsets"]),
                 np.asarray(data["format"], dtype=np.str_),
                 set(data.files),
             )

@@ -8,14 +8,13 @@ import numpy as np
 import pytest
 import torch
 
-from flyrl.regional_probe import fit_probe
+from flyrl.regional_probe import feature_stats, fit_probe
 from flyrl.regional_probe_baseline import story_baselines, story_pairs
 from flyrl.regional_probe_types import ExtractionConfig, FeatureCache, ProbeConfig
 from flyrl.story_data import StorySplit
 from scripts.connectome_source import file_digest
 from scripts.regional_probe_artifact_types import HeadArtifact
 from scripts.regional_probe_artifacts import (
-    feature_stats,
     load_head,
     load_heldout,
     save_head,
@@ -58,6 +57,21 @@ def test_story_pairs_skip_empty_singleton_and_reject_invalid() -> None:
         _ = story_pairs(
             np.array([0], dtype=np.int64), StorySplit(offsets=(0, 1), sha256=("a",)), 3
         )
+
+
+def test_feature_stats_preserves_published_float32_variance() -> None:
+    cache = FeatureCache(
+        np.array(
+            ((0.1, 0.2), (0.3, 0.4), (0.7, 0.8)),
+            dtype=np.float32,
+        ),
+        np.array((0, 1, 0), dtype=np.int64),
+    )
+
+    assert feature_stats(cache).variance == (
+        0.06222222372889519,
+        0.062222227454185486,
+    )
 
 
 @pytest.fixture
