@@ -76,8 +76,8 @@ def save_fresh_artifact(artifact: FreshArtifact, root: Path) -> None:
             archive.writestr(member, buffer.getvalue())
 
 
-def validate_saved_artifact(root: Path, expected: FreshArtifact) -> FreshArtifact:
-    """Reject any saved value that differs from a fresh frozen reconstruction."""
+def load_saved_artifact(root: Path) -> FreshArtifact:
+    """Authenticate the tracked JSON/NPZ pair without requiring ignored raw inputs."""
     directory = root / DIRECTORY
     try:
         metadata = FreshMetadata.model_validate_json(
@@ -86,15 +86,34 @@ def validate_saved_artifact(root: Path, expected: FreshArtifact) -> FreshArtifac
         tokens, offsets, format_value, fields = _read_arrays(directory / NPZ_NAME)
     except (OSError, ValueError) as error:
         raise FreshCorpusError from error
+    artifact = FreshArtifact(
+        tokens=tokens,
+        offsets=offsets,
+        story_identities=metadata.fresh_stories.identities,
+        base_story_identities=metadata.base_corpus.story_identities,
+        maximum_exposure_jaccard=metadata.exposure.maximum_jaccard,
+    )
     if (
-        metadata != expected.metadata(root)
+        metadata != artifact.metadata(root)
         or fields != {"format", "tokens", "offsets"}
         or format_value.shape != ()
         or format_value.item() != FORMAT
         or tokens.dtype != np.dtype("int64")
         or offsets.dtype != np.dtype("int64")
-        or not np.array_equal(tokens, expected.tokens)
-        or not np.array_equal(offsets, expected.offsets)
+    ):
+        raise FreshCorpusError
+    return artifact
+
+
+def validate_saved_artifact(root: Path, expected: FreshArtifact) -> FreshArtifact:
+    """Reject any saved value that differs from a fresh frozen reconstruction."""
+    actual = load_saved_artifact(root)
+    if (
+        actual.story_identities != expected.story_identities
+        or actual.base_story_identities != expected.base_story_identities
+        or actual.maximum_exposure_jaccard != expected.maximum_exposure_jaccard
+        or not np.array_equal(actual.tokens, expected.tokens)
+        or not np.array_equal(actual.offsets, expected.offsets)
     ):
         raise FreshCorpusError
     return expected

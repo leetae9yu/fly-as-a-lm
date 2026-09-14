@@ -6,10 +6,9 @@ import pytest
 from pydantic import ValidationError
 
 from scripts.alpn_causal_fresh import (
-    build_fresh_artifact,
     parse_source_stories,
-    validate_saved_artifact,
 )
+from scripts.alpn_causal_fresh_archive import load_saved_artifact
 from scripts.alpn_causal_fresh_types import (
     ENCODED_STREAM_SHA256,
     OFFSET_ARRAY_SHA256,
@@ -21,8 +20,8 @@ from scripts.alpn_causal_fresh_types import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_builds_the_frozen_fresh_story_partition() -> None:
-    artifact = build_fresh_artifact(ROOT)
+def test_loads_the_frozen_fresh_story_partition() -> None:
+    artifact = load_saved_artifact(ROOT)
 
     assert artifact.tokens.dtype == np.dtype("int64")
     assert artifact.offsets.dtype == np.dtype("int64")
@@ -37,7 +36,7 @@ def test_builds_the_frozen_fresh_story_partition() -> None:
 
 
 def test_metadata_rejects_nonfinite_or_unrecognized_boundary_values() -> None:
-    typed_metadata = build_fresh_artifact(ROOT).metadata(ROOT)
+    typed_metadata = load_saved_artifact(ROOT).metadata(ROOT)
     assert isinstance(typed_metadata, FreshMetadata)
     metadata = typed_metadata.model_dump()
     metadata["exposure"]["maximum_jaccard"] = float("nan")
@@ -47,8 +46,8 @@ def test_metadata_rejects_nonfinite_or_unrecognized_boundary_values() -> None:
         _ = FreshMetadata.model_validate(metadata)
 
 
-def test_generated_artifact_revalidates_against_frozen_inputs() -> None:
-    artifact = validate_saved_artifact(ROOT)
+def test_saved_artifact_revalidates_from_tracked_inputs() -> None:
+    artifact = load_saved_artifact(ROOT)
 
     assert artifact.offsets.size == artifact.story_count + 1
 

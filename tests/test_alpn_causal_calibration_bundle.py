@@ -1,6 +1,5 @@
 """Filesystem and process contracts, with real sealing but no calibration execution."""
 
-import importlib
 import os
 import select
 import subprocess
@@ -10,46 +9,24 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from functools import partial
 from pathlib import Path
-from typing import Protocol, cast, runtime_checkable
+from typing import cast
 from zipfile import BadZipFile, ZipFile
 
 import pytest
 
+from scripts import alpn_causal_calibration_bundle as bundle
+from scripts import alpn_causal_calibration_execute as execute
+from scripts import alpn_causal_calibration_setup as setup
 from scripts import alpn_causal_calibration_support as support
 from scripts.alpn_causal_calibration_types import CalibrationSeal
 from scripts.connectome_source import file_digest
 from tests.test_alpn_causal_calibration_support import TOKENIZER_HASH, training_corpus
 
-EVIDENCE = Path(__file__).resolve().parents[1] / ".omo/evidence"
-
-
-@runtime_checkable
-class Bundle(Protocol):
-    build_bundle: Callable[[Path, Path, Path, Path, Path], str]
-    fresh_source: Callable[[Path, Path], None]
-
-
-@runtime_checkable
-class Setup(Protocol):
-    setup: Callable[[Path, Path, Path, str], Path]
-    unpack: Callable[[Path, str], dict[str, bytes]]
-    extract_source: Callable[[Path, Path], Path]
-
-
-@runtime_checkable
-class Execute(Protocol):
-    command: Callable[[Path, Path], list[str]]
-    execute: Callable[[Path, Path, Path], int]
-
-    def hold(
-        self, acknowledgement: Path, ready: Callable[[], None], timeout: float = 3600
-    ) -> None: ...
+SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 
 
 @dataclass(frozen=True, slots=True)
 class Inputs:
-    bundle: Bundle
-    setup: Setup
     repository: Path
     source: Path
     uploads: Path
@@ -59,11 +36,6 @@ class Inputs:
 
 @pytest.fixture
 def inputs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Inputs:
-    monkeypatch.setattr(sys, "path", [str(EVIDENCE), *sys.path])
-    bundle = importlib.import_module("alpn_causal_calibration_bundle")
-    setup = importlib.import_module("alpn_causal_calibration_setup")
-    assert isinstance(bundle, Bundle)
-    assert isinstance(setup, Setup)
     repo = tmp_path / "repo"
     repo.mkdir()
     for name in ("pyproject.toml", "uv.lock", "scripts/worker.py", "flyrl/model.py"):
@@ -102,12 +74,10 @@ def inputs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Inputs:
             archive.writestr(name, payload)
     uploads = training / "sources"
     return Inputs(
-        bundle,
-        setup,
-        repo,
-        source,
-        uploads,
-        partial(bundle.build_bundle, repo, source, base, uploads),
+        repository=repo,
+        source=source,
+        uploads=uploads,
+        build=partial(bundle.build_bundle, repo, source, base, uploads),
     )
 
 
@@ -116,7 +86,7 @@ def test_deterministic_bundle_and_remote_layout(inputs: Inputs, tmp_path: Path) 
     digest = inputs.build(first)
     assert inputs.build(second) == digest
     assert first.read_bytes() == second.read_bytes()
-    project = inputs.setup.setup(first, inputs.uploads, tmp_path / "remote", digest)
+    project = setup.setup(first, inputs.uploads, tmp_path / "remote", digest)
     seal = CalibrationSeal.model_validate_json((project / "seal.json").read_bytes())
     assert support.create_seal(project) == seal
     with ZipFile(first) as archive:
@@ -136,7 +106,7 @@ def test_sdist_freshness(inputs: Inputs, fault: str) -> None:
     else:
         _ = path.write_bytes(b"changed")
     with pytest.raises(ValueError, match="stale"):
-        inputs.bundle.fresh_source(inputs.repository, inputs.source)
+        bundle.fresh_source(inputs.repository, inputs.source)
 
 
 @pytest.mark.parametrize(
@@ -170,9 +140,9 @@ def test_input_rejection(inputs: Inputs, tmp_path: Path, fault: str) -> None:
     with pytest.raises(
         (ValueError, BadZipFile), match=r"membership|hash|size|Nested|CRC"
     ):
-        _ = inputs.setup.unpack(damaged, file_digest(damaged))
+        _ = setup.unpack(damaged, file_digest(damaged))
     with pytest.raises(ValueError, match="bundle hash"):
-        _ = inputs.setup.unpack(original, "0" * 64)
+        _ = setup.unpack(original, "0" * 64)
 
 
 @pytest.mark.parametrize("fault", ["missing", "bytes", "length"])
@@ -188,24 +158,21 @@ def test_uploaded_archive_rejection(inputs: Inputs, tmp_path: Path, fault: str) 
             payload + b"x" if fault == "length" else b"x" + payload[1:]
         )
     with pytest.raises((ValueError, FileNotFoundError)):
-        _ = inputs.setup.setup(bundle, inputs.uploads, tmp_path / "remote", digest)
+        _ = setup.setup(bundle, inputs.uploads, tmp_path / "remote", digest)
 
 
 @pytest.mark.parametrize("name", ["../escape", "/escape", "flyrl-0.1.0/../../escape"])
-def test_unsafe_source_tar(inputs: Inputs, tmp_path: Path, name: str) -> None:
+def test_unsafe_source_tar(tmp_path: Path, name: str) -> None:
     source = tmp_path / "unsafe.tar"
     with tarfile.open(source, "w") as archive:
         archive.addfile(tarfile.TarInfo(name))
     with pytest.raises(ValueError, match="Unsafe"):
-        _ = inputs.setup.extract_source(source, tmp_path / "extract")
+        _ = setup.extract_source(source, tmp_path / "extract")
 
 
 def test_execute_command_and_event_hold(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    tmp_path: Path,
 ) -> None:
-    monkeypatch.setattr(sys, "path", [str(EVIDENCE), *sys.path])
-    execute = importlib.import_module("alpn_causal_calibration_execute")
-    assert isinstance(execute, Execute)
     destination, ack = tmp_path / "result.zip", tmp_path / "download.complete"
     assert execute.command(tmp_path, destination) == [
         sys.executable,
@@ -245,7 +212,7 @@ def test_real_execute_surface_filters_and_holds(
     with subprocess.Popen[str](
         [
             sys.executable,
-            str(EVIDENCE / "alpn_causal_calibration_execute.py"),
+            str(SCRIPTS / "alpn_causal_calibration_execute.py"),
             str(tmp_path),
             str(tmp_path / "result.zip"),
             str(ack),
