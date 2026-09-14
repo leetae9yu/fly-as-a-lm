@@ -8,6 +8,12 @@ exactly (60.2%)**.
 This is **weak partial task learning**, not a solved result. The conventional
 bAbI Task 1 threshold frozen before the run was 95%.
 
+The completed scores and final recovery are valid, but the run was **not fully
+protocol-conformant**: periodic recovery copies remained on the same Colab VM
+instead of being copied outside the runtime. They would not have survived an
+allocation loss during training. This deviation did not alter the completed
+validation, ordinary-test, or ablation arithmetic.
+
 The separate input-evidence check passed: accuracy fell from **60.2% to 15.7%**
 when every preceding fact about the queried person was removed without
 retraining. The 44.5-point drop exceeded the required 20 points, and the
@@ -170,7 +176,7 @@ Recovery evidence includes:
 
 - immutable checkpoint transactions at all validation milestones and the latest
   two scheduled saves;
-- verified copies every 1,000 updates;
+- verified same-VM copies every 1,000 updates outside the run output tree;
 - complete model, Adam, sampler RNG, sample ledger, exposure count, trace,
   validation history, and next-LR restoration;
 - same-T4 state equality and reproduction of the first 32 ordinary and ablated
@@ -183,6 +189,19 @@ The 162,682,050-byte result ZIP has SHA256
 `15ebfd4a210ddf85cf6fa0623c5d89ebdc4944178811d45b4bb288f182d5be58`.
 Strict local recovery printed `BABI_TASK1_RECOVERY_VERIFIED`.
 
+### Recovery protocol deviation
+
+The frozen protocol required every 1,000-update recovery bundle to be copied
+outside the runtime. The implementation instead wrote
+`/content/babi-task1/recovery/recovery-*` on the same Colab VM. These copies
+protected against a torn run-output transaction but **not** against loss of the
+allocation itself.
+
+The final completed ZIP was downloaded, hash-checked, and strictly recovered
+locally before the T4 was released. This establishes recovery of the completed
+result, not mid-run off-runtime durability. The publication therefore does not
+claim full operational protocol conformance and the experiment was not rerun.
+
 ## Published evidence
 
 [`data/babi_task1_result/`](data/babi_task1_result/) contains:
@@ -193,7 +212,10 @@ Strict local recovery printed `BABI_TASK1_RECOVERY_VERIFIED`.
   [`removed.json`](data/babi_task1_result/removed.json);
 - the selected checkpoint record, preflight, event chain, same-runtime
   restoration evidence, remote verification, local recovery report, and a
-  SHA256 manifest.
+  SHA256 manifest;
+- the explicit
+  [`protocol-deviations.json`](data/babi_task1_result/protocol-deviations.json)
+  record.
 
 The full checkpoint ZIP is retained locally rather than committed. Its digest
 and every compact machine artifact needed to audit the published claims are

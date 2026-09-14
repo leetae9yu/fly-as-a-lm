@@ -148,6 +148,13 @@
     "local_strict_recovery": true,
     "same_runtime_checkpoint_restore": true,
     "local_cuda_continuation_verified": false,
+    "periodic_recovery_interval_updates": 1000,
+    "periodic_recovery_outside_output_tree": true,
+    "periodic_recovery_outside_colab_runtime": false,
+    "allocation_loss_resilience_during_training": false,
+    "final_result_downloaded_before_release": true,
+    "full_protocol_conformance": false,
+    "protocol_deviation": "Periodic recovery copies remained on the same Colab VM and would not have survived allocation loss.",
     "all_ordinary_predictions_published": true,
     "all_removed_predictions_published": true
   },
@@ -158,6 +165,7 @@
     "general_language_understanding_demonstrated": false,
     "topology_superiority_tested": false,
     "biological_function_demonstrated": false,
-    "input_removal_is_distribution_shift": true
+    "input_removal_is_distribution_shift": true,
+    "fully_protocol_conformant_label_claimed": false
   }
 }

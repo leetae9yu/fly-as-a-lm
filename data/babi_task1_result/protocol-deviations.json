@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "full_protocol_conformance": false,
+  "deviations": [
+    {
+      "id": "periodic_recovery_not_off_runtime",
+      "protocol_requirement": "Copy a verified recovery bundle outside the runtime every 1,000 updates.",
+      "observed": "Recovery bundles were copied every 1,000 updates outside the run output tree but remained under /content on the same Colab VM.",
+      "impact": "The periodic copies would not have survived allocation loss, so mid-run off-runtime recovery was not established.",
+      "final_recovery": "The completed result ZIP was downloaded and strictly recovered locally before the T4 allocation was released.",
+      "score_effect": "No effect on the completed ordinary, ablated, or validation score arithmetic was found."
+    }
+  ]
+}

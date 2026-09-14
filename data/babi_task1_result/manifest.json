@@ -44,6 +44,10 @@
       "bytes": 6702,
       "sha256": "d5191413d1092b16ab8d035c3957550418ea6ceeddfbeb881e4251a76382a48b"
     },
+    "protocol-deviations.json": {
+      "bytes": 784,
+      "sha256": "80ba2857875149213d46b8d8786e6de875be00e8d67cece3c69517b139d80b3b"
+    },
     "recovery-report.json": {
       "bytes": 1190,
       "sha256": "d4dc5a236fb9d6c7ed6ae2dd2e9bd29ae0f4d37f2ac283fe75d200e5c463917c"

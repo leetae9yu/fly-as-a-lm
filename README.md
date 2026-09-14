@@ -32,7 +32,9 @@ It is not a topology comparison or proof of general reasoning, biological
 function, or language understanding. All 2,000 ordinary and ablated predictions,
 source/license provenance, checkpoint selection, restoration evidence and
 strict local recovery records are published with the report. No bAbI Task 2
-experiment was run.
+experiment was run. Periodic recovery copies remained on the same Colab VM, so
+the completed result recovered successfully but the run does not claim full
+operational protocol conformance.
 
 ## Previous result: quality-first TinyStories run
 
