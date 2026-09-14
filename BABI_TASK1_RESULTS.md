@@ -59,6 +59,11 @@ The source was Meta's current ParlAI-hosted bAbI archive:
 - embedded CC BY 3.0 license SHA256:
   `d12f09a636365a040fd581ebab6bf018d6fe61973c6d4862f841a6aca2f53efa`.
 
+The exact authenticated outer archive is retained at
+[`artifacts/babi_tasks_1-20_v1-2-parlai.tar.gz`](artifacts/babi_tasks_1-20_v1-2-parlai.tar.gz).
+Preparation therefore remains reproducible without relying on the mutable CDN
+URL.
+
 | Split | Questions | Exact unique prompts |
 | --- | ---: | ---: |
 | Train | 8,983 | 8,909 |
