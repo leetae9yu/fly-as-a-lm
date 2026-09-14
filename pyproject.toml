@@ -29,6 +29,7 @@ include = [
     "/CENTRAL_BRAIN_REPLICATION.md",
     "/ANATOMY_PORT_EXPERIMENT.md",
     "/REGIONAL_PROBE_EXPERIMENT.md",
+    "/ALPN_CAUSAL_EXPERIMENT.md",
     "/BRAIN_ACTIVITY.md",
     "/assets/brain-activity-3d.gif",
     "/run_colab.sh",

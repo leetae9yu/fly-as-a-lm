@@ -1,7 +1,6 @@
 """Pickle-free, hash-bound regional-probe head and heldout feature artifacts."""
 
 from collections.abc import Mapping
-from hashlib import sha256
 from pathlib import Path
 from typing import Final
 from zipfile import ZIP_DEFLATED, ZipFile
@@ -12,11 +11,10 @@ from numpy.lib.npyio import NpzFile
 from numpy.typing import NDArray
 from pydantic import TypeAdapter
 
-from flyrl.regional_probe import PROBE_WIDTH, SATURATION_THRESHOLD
+from flyrl.regional_probe import PROBE_WIDTH, feature_stats
 from flyrl.regional_probe_types import (
     ExtractionConfig,
     FeatureCache,
-    FeatureStats,
     ProbeParameters,
     ProbeResult,
 )
@@ -36,31 +34,6 @@ def write_npz(
         for name, array in arrays.items():
             with archive.open(f"{name}.npy", "w") as member:
                 write_array(member, array, allow_pickle=False)
-
-
-def feature_stats(cache: FeatureCache) -> FeatureStats:
-    """Recompute exact C-order hashes and raw population feature statistics."""
-    if (
-        cache.features.dtype != np.float32
-        or cache.labels.dtype != np.int64
-        or cache.labels.ndim != 1
-        or cache.features.ndim != MATRIX_DIMENSIONS
-        or cache.features.shape[0] != cache.labels.size
-        or not cache.labels.size
-        or not cache.features.shape[1]
-        or bool((cache.labels < 0).any())
-        or not bool(np.isfinite(cache.features).all())
-    ):
-        message = "Invalid finite float32 feature cache"
-        raise ValueError(message)
-    return FeatureStats(
-        feature_sha256=sha256(cache.features.tobytes()).hexdigest(),
-        label_sha256=sha256(cache.labels.tobytes()).hexdigest(),
-        variance=tuple(float(value) for value in cache.features.var(axis=0).flat),
-        saturation_fraction=float(
-            (np.abs(cache.features) >= SATURATION_THRESHOLD).mean()
-        ),
-    )
 
 
 def save_head(

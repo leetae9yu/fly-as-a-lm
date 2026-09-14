@@ -1,22 +1,15 @@
-"""Continuous anatomical recurrence with optional learned sensory codes and readout.
+"""Anatomical recurrence: h' = (1-leak)h + leak*tanh(W(h+code) + bias + code).
 
-h' = (1-leak) h + leak tanh(W_anatomy (h + code) + bias + code).
-Sensory codes (fixed by default) are injected before anatomical propagation,
-so even the first next-token prediction can use its current input.
-Existing edges, biases and readout learn; sensory codes can opt in to learning. The
-sensory and readout neurons are disjoint, sampled without looking at edges.
-Graph weights are importer-provided strengths (normally log1p synapse counts).
-Random functional signs avoid an unsupported all-excitatory assumption. Original
-target L1 fan-in normalization bounds the initial real graph infinity norm by
-initial_gain <= 1. Shuffled edges retain EXACTLY these edge-order initial weights,
-not a renormalization that would change the paired initialization distribution.
-The shuffled condition permutes target stubs, preserving directed degrees but
-allowing parallel edges and self-loops: a directed configuration multigraph, not
-the slower simple-graph double-edge-swap control used by the old RL experiment.
+Codes precede propagation even on token one; they are fixed unless opted into
+learning. Edges, biases and readout learn. Sensory/readout ports are disjoint and
+sampled without edges. Imported strengths (normally log1p synapses) receive random
+functional signs and original-target L1 normalization, bounding initial real gain
+by one. Shuffling target stubs preserves directed degrees and EXACT edge-order
+initial weights without renormalizing; parallel edges and self-loops are allowed.
 """
 
 from math import sqrt
-from typing import Final, TypeAlias, assert_never
+from typing import Final, Protocol, TypeAlias, assert_never
 
 import numpy as np
 import torch
@@ -31,6 +24,20 @@ from flyrl.connectome import Graph
 
 BPE_SENSORY_NEURONS: Final = 192
 IndexArray: TypeAlias = NDArray[np.int64]
+
+
+class OutgoingIntervention(Protocol):
+    """Read-only calibrated source signals, independent of evaluation machinery."""
+
+    @property
+    def indices(self) -> tuple[int, ...]:
+        """Return the distinct outgoing source neuron indices."""
+        ...
+
+    @property
+    def training_mean(self) -> tuple[float, ...]:
+        """Return the full-node old-training mean vector."""
+        ...
 
 
 def requested_device(requested: str) -> torch.device:
@@ -170,8 +177,18 @@ class ConnectomeLM(torch.nn.Module):
         *,
         state: torch.Tensor | None = None,
         prepared: PreparedRecurrence | None = None,
+        intervention: OutgoingIntervention | None = None,
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        """Record ordered selected states while carrying full recurrent state."""
+        """Record states; only state=None starts a story, even for a zero prefix."""
+        outgoing: tuple[torch.Tensor, torch.Tensor] | None = None
+        if intervention is not None:
+            if len(intervention.training_mean) != self.nodes:
+                message = "Training mean must contain one value per model neuron"
+                raise ValueError(message)
+            if intervention.indices:
+                group = torch.tensor(intervention.indices, device=self.weight.device)
+                mean = self.weight.new_tensor(intervention.training_mean)[group, None]
+                outgoing = group, mean
         current = (
             self.weight.new_zeros((self.nodes, tokens.shape[0]))
             if state is None
@@ -183,12 +200,13 @@ class ConnectomeLM(torch.nn.Module):
             else prepared
         )
         selected: list[torch.Tensor] = []
-        for token in tokens.unbind(dim=1):
+        for position, token in enumerate(tokens.unbind(dim=1)):
             current = self._advance(
                 token,
                 current,
                 zero_recurrent=False,
                 prepared=recurrence,
+                outgoing=outgoing if state is not None or position > 0 else None,
             )
             selected.append(current[indices].T)
         return torch.stack(selected, dim=1), current
@@ -200,20 +218,25 @@ class ConnectomeLM(torch.nn.Module):
         *,
         zero_recurrent: bool,
         prepared: PreparedRecurrence | None = None,
+        outgoing: tuple[torch.Tensor, torch.Tensor] | None = None,
     ) -> torch.Tensor:
-        """Update the anatomical state independently of the output projection."""
+        """Update local state without modifying the history used by the leak term."""
         drive = torch.zeros_like(state)
         drive[self.sensory] = self.codes[tokens].T
+        signal = state + drive
+        if outgoing is not None:
+            group, mean = outgoing
+            signal[group] = mean + drive[group]
         if zero_recurrent:
             recurrent = torch.zeros_like(state)
         elif prepared is None:
             recurrent = sparse_recur(
-                self.weight, state + drive, self.topology, self.config.edge_chunk
+                self.weight, signal, self.topology, self.config.edge_chunk
             )
         else:
             recurrent = sparse_recur_prepared(
                 self.weight,
-                state + drive,
+                signal,
                 prepared,
                 self.topology,
                 self.config.edge_chunk,

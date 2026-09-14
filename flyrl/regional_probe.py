@@ -1,17 +1,18 @@
 """Story-safe frozen states and a device-explicit linear softmax probe."""
 
+from dataclasses import dataclass
 from hashlib import sha256
 from itertools import accumulate
 from math import cos, exp, log, pi
 from sys import float_info
-from typing import Final
+from typing import TYPE_CHECKING, Final, cast
 
 import numpy as np
 import torch
 from torch.nn.functional import cross_entropy
 
 from flyrl.ar_framework import optimizer_step
-from flyrl.ar_model import ConnectomeLM
+from flyrl.ar_model import ConnectomeLM, OutgoingIntervention
 from flyrl.ar_prepared import prepare_recurrence
 from flyrl.language_data import IntVector
 from flyrl.regional_probe_types import (
@@ -26,8 +27,20 @@ from flyrl.regional_probe_types import (
 )
 from flyrl.story_data import StorySplit
 
+if TYPE_CHECKING:
+    from numpy.typing import NDArray
+
 PROBE_WIDTH: Final = 97
 SATURATION_THRESHOLD: Final = 0.99
+FEATURE_DIMENSIONS: Final = 2
+
+
+@dataclass(frozen=True, slots=True)
+class InterventionExtraction:
+    """Opt-in extraction settings, leaving ordinary ExtractionConfig unchanged."""
+
+    intervention: OutgoingIntervention
+    extraction: ExtractionConfig
 
 
 @torch.no_grad()
@@ -37,7 +50,7 @@ def extract_features(
     split: StorySplit,
     indices: tuple[int, ...],
     *,
-    config: ExtractionConfig | None = None,
+    config: ExtractionConfig | InterventionExtraction | None = None,
 ) -> FeatureCache:
     """Consume each input with its full story prefix; padding never enters the cache.
 
@@ -46,6 +59,10 @@ def extract_features(
     Empty and singleton stories contribute no pairs. No model mode is changed.
     """
     options = config or ExtractionConfig()
+    intervention = None
+    if not isinstance(options, ExtractionConfig):
+        intervention = options.intervention
+        options = options.extraction
     chunk_size, story_batch_size = options.chunk_size, options.story_batch_size
     bounds = tuple(zip(split.offsets[:-1], split.offsets[1:], strict=True))
     if (
@@ -91,6 +108,7 @@ def extract_features(
                 selected,
                 state=state,
                 prepared=prepared,
+                intervention=intervention,
             )
             values = recorded.cpu().to(torch.float32).numpy()
             for lane in range(len(lanes)):
@@ -110,13 +128,34 @@ def _matrix(tensor: torch.Tensor) -> tuple[tuple[float, ...], ...]:
     return tuple(_vector(row) for row in tensor.detach().cpu().unbind())
 
 
-def _stats(cache: FeatureCache) -> FeatureStats:
+def feature_stats(cache: FeatureCache) -> FeatureStats:
+    """Return exact hashes and float64-reduced population feature statistics."""
+    if (
+        cache.features.dtype != np.float32
+        or cache.labels.dtype != np.int64
+        or cache.labels.ndim != 1
+        or cache.features.ndim != FEATURE_DIMENSIONS
+        or cache.features.shape[0] != cache.labels.size
+        or not cache.labels.size
+        or not cache.features.shape[1]
+        or bool((cache.labels < 0).any())
+        or not bool(np.isfinite(cache.features).all())
+    ):
+        message = "Invalid finite float32 feature cache"
+        raise ValueError(message)
+    variance = cast(
+        "NDArray[np.float64]",
+        np.var(cache.features, axis=0, dtype=np.float64),
+    )
     return FeatureStats(
         feature_sha256=sha256(cache.features.tobytes()).hexdigest(),
         label_sha256=sha256(cache.labels.tobytes()).hexdigest(),
-        variance=tuple(float(value) for value in cache.features.var(axis=0).flat),
-        saturation_fraction=float(
-            (np.abs(cache.features) >= SATURATION_THRESHOLD).mean()
+        variance=tuple(
+            float(cast("np.float64", variance[index])) for index in range(variance.size)
+        ),
+        saturation_fraction=(
+            int(np.count_nonzero(np.abs(cache.features) >= SATURATION_THRESHOLD))
+            / cache.features.size
         ),
     )
 
@@ -227,7 +266,7 @@ def fit_probe(
         ),
         parameter_count=weight.numel() + bias.numel(),
         trace=tuple(trace),
-        features=(_stats(train), _stats(valid), _stats(test)),
+        features=(feature_stats(train), feature_stats(valid), feature_stats(test)),
         valid=_metrics(valid, tensors, config.batch_size),
         test=_metrics(test, tensors, config.batch_size),
     )

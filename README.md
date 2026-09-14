@@ -80,6 +80,14 @@ performance did not consistently improve under real versus shuffled wiring,
 so this shows linear accessibility from ALPN states, not a causal advantage
 from intact ALPN connectivity.
 
+The prospective [ALPN causal follow-up](ALPN_CAUSAL_EXPERIMENT.md) then stopped
+at its predeclared common-support gate with
+`insufficient_common_support`. Every structure-matched and
+structure-plus-activity-matched control draw failed at least one balance bound
+in all six seeds. Per protocol, the 68 fresh stories were never uploaded, no
+new probe was fitted, and no intervention was scored. This is a documented
+matching failure, not evidence for or against ALPN-specific causality.
+
 ### Watch the model select each token
 
 [![Fixed-camera 3D soma-state changes synchronized to generated tokens](assets/brain-activity-3d.gif)](BRAIN_ACTIVITY.md)
@@ -311,7 +319,7 @@ python -m pip install pytest
 python -m scripts.verify_torch -q
 ```
 
-The current publication tree passes **307 local tests**, with 54 CUDA-only tests
+The current publication tree passes **498 local tests**, with 54 CUDA-only tests
 skipped on the CPU workstation. The final regional run completed all 168 heads
 on a Tesla T4 and passed strict source, trace, feature, parameter, runtime and
 aggregate-decision recovery. The Torch wrapper explicitly enables sparse-check
@@ -337,6 +345,7 @@ validity.
 | [CENTRAL_BRAIN_RESULTS.md](CENTRAL_BRAIN_RESULTS.md), [CENTRAL_BRAIN_REPLICATION.md](CENTRAL_BRAIN_REPLICATION.md) | Central-graph comparison and six-seed wiring replication |
 | [ANATOMY_PORT_EXPERIMENT.md](ANATOMY_PORT_EXPERIMENT.md) | Six-seed ALPN/MBON port factorial and negative result |
 | [REGIONAL_PROBE_EXPERIMENT.md](REGIONAL_PROBE_EXPERIMENT.md) | Frozen 168-head localization protocol, ALPN result and recovery limits |
+| [ALPN_CAUSAL_EXPERIMENT.md](ALPN_CAUSAL_EXPERIMENT.md) | Fresh-text causal protocol and insufficient-common-support calibration result |
 | [PROTOTYPE.md](PROTOTYPE.md), [LANGUAGE.md](LANGUAGE.md) | Earlier reward-learning experiments |
 
 ## License and sources
