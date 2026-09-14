@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "protocol_sha256": "08a49406e82dd51950bc3646940ee6f80e99a43e04f43372223e33f729084539",
+  "source_commit": "3d41f9eb26511a47f80952a4d6229d2dc8d8cb82",
+  "input_bundle_sha256": "f0d86f9243b0c30db39634557f53ea9d7e565493745934315d5faeb5f841be39",
+  "result_zip_sha256": "56c61f9963cc6a290eb78944fedde7dfaefc92d198858e5036077087fbbb0525",
+  "latest_checkpoint_sha256": "0b8c45756ad883142c4a5b270739711585cddd1ebff2fafbbf52de8100913736",
+  "graph": {
+    "nodes": 16384,
+    "edges": 1187999,
+    "sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8",
+    "fingerprint": "7749587d400d0338a6f94916d0f034494ca237e0b6a19d2a000346053dfff647"
+  },
+  "corpus": {
+    "stories": [
+      50000,
+      256,
+      512
+    ],
+    "tokens": [
+      11113812,
+      56927,
+      95495
+    ],
+    "vocabulary": 4096,
+    "sha256": "5166ba21bb1a269233932c97958951553ab1b786a876c370ca25effedef1ed42",
+    "fingerprint": "519460b05ceceaebc5c7a99098b57dee49272fdb4715bbfa62d4f3c8ecc7d776"
+  },
+  "execution": {
+    "gpu": "Tesla T4",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "python": "3.13.15",
+    "updates": 30000,
+    "total_run_seconds": 5657.10369994,
+    "peak_allocated_bytes": 478788096,
+    "same_runtime_checkpoint_restore": true,
+    "stored_generations_reproduced_on_t4": true,
+    "local_strict_recovery": true
+  },
+  "validation": [
+    {
+      "update": 0,
+      "nll": 8.317751608476987,
+      "perplexity": 4095.9403698733645,
+      "accuracy": 0.00007058283778299307,
+      "tokens": 56671
+    },
+    {
+      "update": 1000,
+      "nll": 3.771629471034234,
+      "perplexity": 43.45080901710875,
+      "accuracy": 0.3088528524289319,
+      "tokens": 56671
+    },
+    {
+      "update": 5000,
+      "nll": 2.8831496261337874,
+      "perplexity": 17.870469932897873,
+      "accuracy": 0.4050749060365972,
+      "tokens": 56671
+    },
+    {
+      "update": 10000,
+      "nll": 2.681641669080206,
+      "perplexity": 14.609056857313512,
+      "accuracy": 0.42893190520724883,
+      "tokens": 56671
+    },
+    {
+      "update": 15000,
+      "nll": 2.5821072852863676,
+      "perplexity": 13.22497761726195,
+      "accuracy": 0.44428367242504985,
+      "tokens": 56671
+    },
+    {
+      "update": 20000,
+      "nll": 2.502828724829358,
+      "perplexity": 12.217003670078187,
+      "accuracy": 0.4545358296130296,
+      "tokens": 56671
+    },
+    {
+      "update": 25000,
+      "nll": 2.4545937534111086,
+      "perplexity": 11.641703185889456,
+      "accuracy": 0.46092357643239046,
+      "tokens": 56671
+    },
+    {
+      "update": 30000,
+      "nll": 2.434646089930475,
+      "perplexity": 11.411779255017063,
+      "accuracy": 0.46427626122708265,
+      "tokens": 56671
+    }
+  ],
+  "test": [
+    {
+      "update": 1000,
+      "nll": 4.097726390926713,
+      "perplexity": 60.203253212337394,
+      "accuracy": 0.27293305117757916,
+      "tokens": 94983
+    },
+    {
+      "update": 30000,
+      "nll": 2.7956496244031035,
+      "perplexity": 16.37326176945368,
+      "accuracy": 0.41476895865575947,
+      "tokens": 94983
+    }
+  ],
+  "selection": {
+    "update": 30000,
+    "test_nll_gain_from_update_1000": 1.3020767665236095,
+    "sampled_repeated_consecutive_block_count": 0,
+    "recovery_emitted_label": "language-quality improvement demonstrated",
+    "publication_verdict": "held-out prediction and local fluency improved; reliable short-story generation was not demonstrated"
+  },
+  "generation": {
+    "update_1000": {
+      "greedy_records": 8,
+      "sampled_records": 8,
+      "greedy_mean_unique_word_ratio": 0.17034608347353936,
+      "greedy_mean_repeated_4gram_fraction": 0.6799832787305072,
+      "sampled_mean_unique_word_ratio": 0.5482204782889317,
+      "sampled_mean_repeated_4gram_fraction": 0.0033118392770978555
+    },
+    "update_30000": {
+      "greedy_records": 8,
+      "sampled_records": 24,
+      "greedy_mean_unique_word_ratio": 0.25327571212348127,
+      "greedy_mean_repeated_4gram_fraction": 0.4792218341254768,
+      "sampled_mean_unique_word_ratio": 0.4832399061275685,
+      "sampled_mean_repeated_4gram_fraction": 0.02732314167428904
+    }
+  },
+  "token_linked_activity": [
+    {
+      "update": 1000,
+      "prompt_index": 0,
+      "mean_absolute_state": 0.38538207093568316,
+      "mean_step_change": 0.11387560706690723,
+      "mean_chosen_token_probability": 0.26517055245737237
+    },
+    {
+      "update": 30000,
+      "prompt_index": 0,
+      "mean_absolute_state": 0.5630301013435627,
+      "mean_step_change": 0.3086182507643296,
+      "mean_chosen_token_probability": 0.49718486979448545
+    },
+    {
+      "update": 1000,
+      "prompt_index": 3,
+      "mean_absolute_state": 0.3873952720351416,
+      "mean_step_change": 0.11586164426009762,
+      "mean_chosen_token_probability": 0.3179228359561724
+    },
+    {
+      "update": 30000,
+      "prompt_index": 3,
+      "mean_absolute_state": 0.5588610001847711,
+      "mean_step_change": 0.31296658081069895,
+      "mean_chosen_token_probability": 0.4486702266343248
+    }
+  ],
+  "limits": {
+    "seeds": 1,
+    "topology_comparison": false,
+    "human_generation_ratings": false,
+    "benchmark_warmups_required": 5,
+    "benchmark_warmups_executed": 3,
+    "temporal_variation_heatmaps_exported": false,
+    "anatomical_playback_exported": false,
+    "fully_protocol_conformant_label_claimed": false,
+    "checkpoint_continuation_verified_locally": false,
+    "activity_is_attention": false,
+    "activity_is_causal_importance": false,
+    "activity_is_biological_function": false
+  }
+}

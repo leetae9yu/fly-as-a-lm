@@ -1,0 +1,24 @@
+{
+  "execution": "python -u worker.py",
+  "external_rnn_or_attention": false,
+  "git_commit": "3d41f9eb26511a47f80952a4d6229d2dc8d8cb82",
+  "graph": {
+    "bytes": 4374941,
+    "sha256": "b8e259a16c8cc8936c78cb906cf64bd816af81c22de5318029e3ba8d249e53c8"
+  },
+  "model_core": "real Drosophila connectome recurrent core",
+  "protocol_file": {
+    "bytes": 2196,
+    "sha256": "110ea027617127781de78352eb6cc776913f9f8ee68c41dd8bf44c40f18f889b"
+  },
+  "schema_version": 1,
+  "source": {
+    "bytes": 32602240,
+    "sha256": "9ab96d8d0e0cbe79efe275ac7f16fff12c299e636d23653bbed7aeb4fab5bcb8"
+  },
+  "topology_audit": false,
+  "worker": {
+    "bytes": 7546,
+    "sha256": "3196fa5d060c9d85f7c7b6c72d9f8316daeac3e8b77071ab8aa9d7d24d9b92a2"
+  }
+}

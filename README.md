@@ -16,7 +16,27 @@ Inspired by [DOOMFLY](https://github.com/nftechie/doomfly), this independent
 experiment takes the connectome-to-computation question from game control to
 text prediction.
 
-## Latest results: TinyStories central-brain anatomy
+## Latest result: quality-first TinyStories run
+
+The [quality-first TinyStories experiment](QUALITY_PILOT_RESULTS.md) kept the
+real 16,384-neuron MaleCNS connectome as the recurrent core and added no
+external RNN or attention module. One seed trained for the frozen 30,000-update
+budget on a Colab Free Tesla T4. Validation selected the final checkpoint:
+held-out test perplexity fell from **60.20 at update 1,000 to 16.37 at update
+30,000**, while next-token accuracy rose from **27.29% to 41.48%**.
+
+Inspection of all 48 fixed generation-panel outputs found better local fluency
+and occasional stronger prompt continuity, but also persistent greedy loops,
+sampled topic drift, unstable referents and weak narrative development.
+Reliable short-story generation was **not** demonstrated. The experiment made
+no topology comparison and does not establish a biological language mechanism.
+
+All eight validation milestones, both test evaluations, generation records and
+four full 192-by-16,384 token-aligned state recordings passed strict recovery.
+The activity plots report signed model states before token selection; they are
+not attention, firing rates, biological localization or causal importance.
+
+## Earlier TinyStories anatomy studies
 
 [The TinyStories pilot](PILOT.md) adds story-isolated next-token training with
 learnable sensory codes and token-aligned neuron activation heatmaps. It keeps
@@ -319,7 +339,7 @@ python -m pip install pytest
 python -m scripts.verify_torch -q
 ```
 
-The current publication tree passes **500 local tests**, with 54 CUDA-only tests
+The current publication tree passes **675 local tests**, with 54 CUDA-only tests
 skipped on the CPU workstation. The final regional run completed all 168 heads
 on a Tesla T4 and passed strict source, trace, feature, parameter, runtime and
 aggregate-decision recovery. The Torch wrapper explicitly enables sparse-check
@@ -346,6 +366,8 @@ validity.
 | [ANATOMY_PORT_EXPERIMENT.md](ANATOMY_PORT_EXPERIMENT.md) | Six-seed ALPN/MBON port factorial and negative result |
 | [REGIONAL_PROBE_EXPERIMENT.md](REGIONAL_PROBE_EXPERIMENT.md) | Frozen 168-head localization protocol, ALPN result and recovery limits |
 | [ALPN_CAUSAL_EXPERIMENT.md](ALPN_CAUSAL_EXPERIMENT.md) | Fresh-text causal protocol and insufficient-common-support calibration result |
+| [QUALITY_PILOT_PROTOCOL.md](QUALITY_PILOT_PROTOCOL.md), [QUALITY_PILOT_RESULTS.md](QUALITY_PILOT_RESULTS.md) | Frozen 30,000-update quality-first TinyStories protocol and verified result |
+| `flyrl/quality_*.py`, `scripts/run_quality_pilot.py`, `scripts/recover_quality_pilot.py` | Expanded corpus, full-split metrics, fixed generation panels, resumable runner and strict recovery |
 | [PROTOTYPE.md](PROTOTYPE.md), [LANGUAGE.md](LANGUAGE.md) | Earlier reward-learning experiments |
 
 ## License and sources
